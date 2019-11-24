@@ -5,10 +5,11 @@ const bodyParser = require("body-parser");
 // initialize our express app
 // const product = require("./routes/product.route"); // Imports routes for the products
 
-//Get API
+//Get API. Routing everything through those routes before making models
 // song, review,  and user
-const apiUser = require("./routes/user.route");
-const apiDMCA = require("./routes/dmca.route");
+const apiSecure = require("./routes/secure.route");
+const apiAdmin = require("./routes/admin.route");
+const apiOpen = require("./routes/open.route");
 
 const app = express();
 
@@ -23,9 +24,14 @@ const app = express();
   db.on("error", console.error.bind(console, "MongoDB connection error:"));
 }
 
+// For POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/products", product);
+
+//Setting Routes
+app.use("/api/secure", apiSecure);
+app.use("/api/admin", apiAdmin);
+app.use("/api/open", apiOpen);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -36,6 +42,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Server Running
 let port = 8081;
 
 app.listen(port, () => {
