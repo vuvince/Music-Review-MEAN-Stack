@@ -1,0 +1,28 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvu9/se3316-vvu9-lab5.git"
+  },
+  "author": "Vincent Vu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vvu9/se3316-vvu9-lab5/issues"
+  },
+  "homepage": "https://github.com/vvu9/se3316-vvu9-lab5#readme",
+  "description": ""
+}
