@@ -27,7 +27,7 @@ exports.song_create = function(req, res, next) {
       console.log("Error:");
       return next(err);
     }
-    res.send(doc);
+    res.send(doc._id);
   });
 };
 
@@ -35,6 +35,22 @@ exports.song_create = function(req, res, next) {
 exports.song_update = function(req, res) {
   Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
     if (err) return next(err);
+    res.send(doc);
+  });
+};
+
+//PUT: Add a review for the song with the given ID
+exports.review_create = function(req, res, next) {
+  let review = new Review({
+    rBody: encodeHTML(req.body.rBody),
+    userEmail: encodeHTML(req.body.userEmail),
+    songID: req.params.id
+  });
+  review.save(function(err, doc) {
+    if (err) {
+      console.log("Error:");
+      return next(err);
+    }
     res.send(doc);
   });
 };

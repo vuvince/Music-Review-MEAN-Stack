@@ -18,6 +18,20 @@ exports.find_all_songs = function(req, res, next) {
   });
 };
 
+//Return Top 10 songs
+exports.top10songs = function(req, res, next) {
+  console.log("Get All Songs works");
+  User.find({ points: { $exists: true } })
+    .sort({ points: -1 })
+    .limit(5)
+    .toArray();
+  Song.find(function(err, songs) {
+    if (err) return next(err);
+
+    res.send(songs);
+  });
+};
+
 //GET all reviews using a product ID a product by its ID
 exports.product_details = function(req, res, next) {
   Product.findById(req.params.id, function(err, product) {
@@ -31,7 +45,6 @@ exports.find_all_songs = function(req, res, next) {
   console.log("Get All Songs works");
   Review.find({ songID: req.params.id }, function(err, reviews) {
     if (err) return next(err);
-
     res.send(reviews);
   });
 };

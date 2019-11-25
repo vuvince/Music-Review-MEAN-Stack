@@ -7,11 +7,14 @@ const secure_controller = require("../controllers/secure.controller");
 // a simple test url to check that all of our files are communicating correctly.
 router.get("/test", secure_controller.test);
 
-//Create song
+//Create song (PUT)
 router.put("/song", secure_controller.song_create);
 
-//Update song by id
+//Update song by id (POST)
 router.post("/song/:id", secure_controller.song_update);
+
+//Add a review using the songs ID
+router.put("/add-review/:id", secure_controller.review_create);
 
 //Export router
 module.exports = router;
