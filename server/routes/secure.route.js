@@ -10,5 +10,8 @@ router.get("/test", secure_controller.test);
 //Create song
 router.put("/song", secure_controller.song_create);
 
+//Update song by id
+router.post("/song/:id", secure_controller.song_update);
+
 //Export router
 module.exports = router;

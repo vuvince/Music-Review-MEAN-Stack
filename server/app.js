@@ -2,8 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-// initialize our express app
-// const product = require("./routes/product.route"); // Imports routes for the products
+const product = require("./routes/product.route"); // Imports routes for the products
 
 //Get API. Routing everything through those routes before making models
 // song, review,  and user
@@ -11,6 +10,7 @@ const apiSecure = require("./routes/secure.route.js");
 const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
 
+// initialize our express app
 const app = express();
 
 //Set up mongoose connection
@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/secure", apiSecure);
 app.use("/api/admin", apiAdmin);
 app.use("/api/open", apiOpen);
+app.use("/products", product);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

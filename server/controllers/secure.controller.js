@@ -30,3 +30,11 @@ exports.song_create = function(req, res, next) {
     res.send(doc);
   });
 };
+
+//POST: Updating Song by ID
+exports.song_update = function(req, res) {
+  Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
+    if (err) return next(err);
+    res.send(doc);
+  });
+};
