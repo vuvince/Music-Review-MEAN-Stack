@@ -8,7 +8,7 @@ exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
-//Return list of all reviews for a song (GET)
+//Return list of all reviews for a song (GET) (WORKS)
 exports.song_reviews = function(req, res) {
   Review.find({ eventId: req.params.eventId }, (err, reviews) => {
     let reviewsArr = [];
@@ -21,6 +21,46 @@ exports.song_reviews = function(req, res) {
       });
     }
     res.send(reviewsArr);
+  });
+};
+
+//Search song (NOT TESTED)
+// EXAMPLE URL https://stackabuse.com/?page=2&limit=3
+exports.search_song = function(req, res) {
+  let title = req.query.title;
+  let artist = req.query.artist;
+  let album = req.query.album;
+  let year = req.query.year;
+  let genre = req.query.genre;
+
+  var query = {};
+  if (title) {
+    query.title = title;
+  }
+  if (artist) {
+    query.artist = artist;
+  }
+  if (album) {
+    query.album = album;
+  }
+  if (year) {
+    query.year = year;
+  }
+  if (genre) {
+    query.genre = genre;
+  }
+
+  Song.find(query, (err, songs) => {
+    let songsArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (songs) {
+      songs.forEach(song => {
+        songsArr.push(song);
+      });
+    }
+    res.send(songsArr);
   });
 };
 
