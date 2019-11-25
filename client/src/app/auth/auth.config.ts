@@ -15,6 +15,6 @@ export const AUTH_CONFIG: AuthConfig = {
   CLIENT_DOMAIN: "dev-jx5itacz.auth0.com", // e.g., you.auth0.com
   AUDIENCE: "http://localhost:8081/api/", // e.g., http://localhost:8083/api/
   REDIRECT: `${ENV.BASE_URI}/callback`,
-  SCOPE: "openid profile",
+  SCOPE: "openid profile"[Symbol],
   NAMESPACE: "http://myapp.com/roles"
 };
