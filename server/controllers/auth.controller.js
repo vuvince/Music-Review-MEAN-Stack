@@ -1,9 +1,11 @@
 // code from https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const config = require("config");
 const { User, validate } = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
 //Used to check if client is valid
 exports.verifyToken = function(req, res, next) {
@@ -54,3 +56,18 @@ exports.register_user = async function(req, res) {
     email: user.email
   });
 };
+
+//Authentication from https://auth0.com/blog/real-world-angular-series-part-1/#intro
+exports.auth0 = function(app, config) {
+  // Authentication middleware
+  const jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${config.AUTH0_DOMAIN}/.well-known/jwks.json`
+    }),
+    audience: config.AUTH0_API_AUDIENCE,
+    issuer: `https://${config.AUTH0_DOMAIN}/`,
+    algorithm: 'RS256'
+  });

@@ -43,6 +43,8 @@ app.use("/api/open", apiOpen);
 app.use("/api/users", apiUser);
 app.use("/products", product);
 
+app.use(methodOverride("X-HTTP-Method-Override"));
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
