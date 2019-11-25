@@ -4,8 +4,8 @@
 const config = require("config");
 const { User, validate } = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
+const jwt = require("express-jwt");
+const jwks = require("jwks-rsa");
 
 //Used to check if client is valid
 exports.verifyToken = function(req, res, next) {
@@ -69,5 +69,6 @@ exports.auth0 = function(app, config) {
     }),
     audience: config.AUTH0_API_AUDIENCE,
     issuer: `https://${config.AUTH0_DOMAIN}/`,
-    algorithm: 'RS256'
+    algorithm: "RS256"
   });
+};
