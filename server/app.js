@@ -1,6 +1,7 @@
 // app.js
 const express = require("express");
 const bodyParser = require("body-parser");
+const config = require("config");
 
 const product = require("./routes/product.route"); // Imports routes for the products
 
@@ -9,6 +10,13 @@ const product = require("./routes/product.route"); // Imports routes for the pro
 const apiSecure = require("./routes/secure.route.js");
 const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
+const apiUser = require("./routes/user.route");
+
+//SEE IF WE HAVE PRIVATE KEY
+if (!config.get("myprivatekey")) {
+  console.error("FATAL ERROR: myprivatekey is not defined.");
+  process.exit(1);
+}
 
 // initialize our express app
 const app = express();
@@ -32,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/secure", apiSecure);
 app.use("/api/admin", apiAdmin);
 app.use("/api/open", apiOpen);
+app.use("/api/users", apiUser);
 app.use("/products", product);
 
 app.use(function(req, res, next) {

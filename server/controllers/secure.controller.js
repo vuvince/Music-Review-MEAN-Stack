@@ -1,3 +1,7 @@
+//CONFIGURATION
+const jwt = require("jsonwebtoken");
+const config = require("config");
+
 // const Secure = require("../models/secure.model");
 const User = require("../models/user.model");
 const Song = require("../models/song.model");
@@ -54,3 +58,56 @@ exports.review_create = function(req, res, next) {
     res.send(doc);
   });
 };
+
+//BELOW IS AUTHENTICATION https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
+
+// //Verify User
+// exports.verify_user = function(req, res, next) {
+//   //get the token from the header if present
+//   const token = req.headers["x-access-token"] || req.headers["authorization"];
+//   //if no token found, return response (without going to the next middelware)
+//   if (!token) return res.status(401).send("Access denied. No token provided.");
+
+//   try {
+//     //if can verify the token, set req.user and pass to next middleware
+//     const decoded = jwt.verify(token, config.get("myprivatekey"));
+//     req.user = decoded;
+//     next();
+//   } catch (ex) {
+//     //if invalid token
+//     res.status(400).send("Invalid token.");
+//   }
+// };
+
+// //Get current user
+// exports.current_user = function(req, res) {
+//   const user = await User.findById(req.user._id).select("-password");
+//   res.send(user);
+// };
+
+// //Register User
+// exports.register_user = function (req, res){
+
+//   // validate the request body first
+//   const { error } = validate(req.body);
+//   if (error) return res.status(400).send(error.details[0].message);
+
+//   //find an existing user, has to be unique email
+//   let user = await User.findOne({ email: req.body.email });
+//   if (user) return res.status(400).send("User already registered.");
+
+//   user = new User({
+//     name: req.body.name,
+//     password: req.body.password,
+//     email: req.body.email
+//   });
+//   user.password = await bcrypt.hash(user.password, 10);
+//   await user.save();
+
+//   const token = user.generateAuthToken();
+//   res.header("x-auth-token", token).send({
+//     _id: user._id,
+//     name: user.name,
+//     email: user.email
+//   });
+// };
