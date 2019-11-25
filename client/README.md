@@ -1,5 +1,9 @@
 # Client
 
+ <!-- RUN BELOW COMMAND IN CLIENT TO INSTALL ALL PACKAGES -->
+
+npm install express body-parser express-jwt jwks-rsa method-override mongoose cors --save
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
 ## Development server

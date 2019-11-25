@@ -8,6 +8,22 @@ exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
+//Return list of all reviews for a song (GET)
+exports.song_reviews = function(req, res) {
+  Review.find({ eventId: req.params.eventId }, (err, reviews) => {
+    let reviewsArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (reviews) {
+      reviews.forEach(review => {
+        reviewsArr.push(review);
+      });
+    }
+    res.send(reviewsArr);
+  });
+};
+
 //Return list of all songs (GET)
 exports.find_all_songs = function(req, res, next) {
   console.log("Get All Songs works");

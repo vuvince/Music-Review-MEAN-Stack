@@ -47,7 +47,7 @@ exports.song_update = function(req, res) {
 exports.review_create = function(req, res, next) {
   let review = new Review({
     rBody: encodeHTML(req.body.rBody),
-    userEmail: encodeHTML(req.body.userEmail),
+    userID: encodeHTML(req.body.userID),
     songID: req.params.id
   });
   review.save(function(err, doc) {

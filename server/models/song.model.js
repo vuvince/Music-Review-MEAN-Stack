@@ -3,8 +3,11 @@ const Schema = mongoose.Schema;
 
 let SongSchema = new Schema(
   {
-    title: { type: String, required: true, max: 100 },
-    artist: { type: String, required: true, max: 100 },
+    title: { type: String, required: true },
+    artist: { type: String, required: true },
+    album: { type: String, required: true },
+    year: { type: Number },
+    genre: { type: String },
     cViolation: { type: Boolean, default: false }
   },
   { collection: "songs" }
