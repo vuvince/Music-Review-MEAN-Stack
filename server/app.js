@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 //Get API. Routing everything through those routes before making models
 // song, review,  and user
-const apiSecure = require("./routes/secure.route");
+const apiSecure = require("./routes/secure.route.js");
 const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
 
@@ -17,7 +17,7 @@ const app = express();
 {
   var mongoose = require("mongoose");
   const mongoDB =
-    "mongodb+srv://admin:admin@lab-5-mrelb.mongodb.net/test?retryWrites=true&w=majority";
+    "mongodb+srv://vvu9:TLLWiAQJ4RpRW7WK@lab5-mrelb.mongodb.net/test?retryWrites=true&w=majority";
   mongoose.connect(mongoDB, { useNewUrlParser: true });
   mongoose.Promise = global.Promise;
   var db = mongoose.connection;

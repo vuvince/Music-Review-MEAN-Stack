@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 let SongSchema = new Schema(
   {
     title: { type: String, required: true, max: 100 },
-    artist: { type: String, required: true, max: 100 },
-    admin: { type: Boolean, required: false }
+    artist: { type: String, required: true, max: 100 }
   },
   { collection: "songs" }
 );

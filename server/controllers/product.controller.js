@@ -13,6 +13,7 @@ function encodeHTML(s) {
     .replace(/"/g, "&quot;");
 }
 
+//GET ALL ITEMS
 exports.find_all = function(req, res, next) {
   Product.find(function(err, product) {
     if (err) return next(err);
@@ -49,10 +50,7 @@ exports.product_details = function(req, res, next) {
 
 //Updating Product(must be PUT request)
 exports.product_update = function(req, res) {
-  Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
-    err,
-    product
-  ) {
+  Product(req.params.id, { $set: req.body }, function(err, product) {
     if (err) return next(err);
     res.send("Product udpated.");
   });
