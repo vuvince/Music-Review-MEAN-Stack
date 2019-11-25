@@ -1,0 +1,40 @@
+h1 {
+  margin: 20px;
+  text-align: center;
+}
+
+span {
+  font-weight: bold;
+  background: lightgray;
+  padding: 0.3em 0.8em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.play-container {
+  padding: 3em;
+  border: 1px solid lightgray;
+  margin-bottom: 1em;
+  text-align: center;
+  form {
+    margin: 10px;
+    padding: 10px;
+  }
+}
+
+#form {
+  text-align: center;
+  color: rgb(15, 15, 139);
+  font-weight: bold;
+  font-size: 100%;
+  margin-bottom: 10px;
+
+  border-bottom: double black;
+  padding-bottom: 20px;
+}
+
+.play-container input[type="button"],
+input[type="submit"],
+button {
+  cursor: pointer;
+}
