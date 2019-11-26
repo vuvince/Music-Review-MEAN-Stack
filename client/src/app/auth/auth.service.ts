@@ -49,13 +49,16 @@ export class AuthService {
   handleAuth() {
     // When Auth0 hash parsed, get profile
     this._auth0.parseHash((err, authResult) => {
+      //window.location.href is first paramater originally
       if (authResult && authResult.accessToken) {
+        console.log("Handling Authentication");
         window.location.hash = "";
         this._getProfile(authResult);
       } else if (err) {
+        this._clearRedirect();
+        this.router.navigate(["/"]);
         console.error(`Error authenticating: ${err.error}`);
       }
-      this.router.navigate(["/"]);
     });
   }
 
@@ -64,11 +67,28 @@ export class AuthService {
     // Use access token to retrieve user's profile and set session
     this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
+        console.log("Getting Profile");
         this._setSession(authResult, profile);
+        this._redirect();
       } else if (err) {
         console.warn(`Error retrieving profile: ${err.error}`);
       }
     });
+  }
+
+  private _redirect() {
+    const redirect = decodeURI(localStorage.getItem("authRedirect"));
+    console.log(redirect);
+    // const navArr = [redirect || "/"];
+    const navArr = ["/"];
+    this.router.navigate(navArr);
+    // Redirection completed; clear redirect from storage
+    this._clearRedirect();
+  }
+
+  private _clearRedirect() {
+    // Remove redirect from localStorage
+    localStorage.removeItem("authRedirect");
   }
 
   private _setSession(authResult, profile?) {
@@ -101,6 +121,7 @@ export class AuthService {
   logout() {
     // Remove data from localStorage
     this._clearExpiration();
+    this._clearRedirect();
     // End Auth0 authentication session
     this._auth0.logout({
       clientId: AUTH_CONFIG.CLIENT_ID,

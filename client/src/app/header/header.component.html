@@ -30,11 +30,14 @@
           [routerLinkActiveOptions]="{ exact: true }"
           >Home</a
         >
+      </li>
+      <li>
         <a
-          routerLink="/home"
+          *ngIf="auth.loggedIn && auth.isAdmin"
+          routerLink="/admin"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          >Top Chart</a
+          >Admin</a
         >
       </li>
     </ul>

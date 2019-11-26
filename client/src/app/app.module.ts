@@ -15,6 +15,7 @@ import { UtilsService } from "./core/utils.service";
 import { FilterSortService } from "./core/filter-sort.service";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { AdminComponent } from './pages/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from "@angular/common/http";
     HeaderComponent,
     FooterComponent,
     CallbackComponent,
-    LoadingComponent
+    LoadingComponent,
+    AdminComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [

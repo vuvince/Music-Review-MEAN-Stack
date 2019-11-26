@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.auth.loggedIn) {
+      console.log("Auth Guard, Saving URL State");
       localStorage.setItem("authRedirect", state.url);
     }
     if (!this.auth.tokenValid && !this.auth.loggedIn) {
