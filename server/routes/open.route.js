@@ -25,5 +25,9 @@ router.get("/test", open_controller.test);
 //FIND ALL NON-COPYRIGHTED SONGS
 router.get("/song/available", open_controller.available_songs);
 
+//TO GET FULL DETAILS OF A SPECIFIC SONG
+//FIND ALL NON-COPYRIGHTED SONGS
+router.get("/song/:id", open_controller.song_details);
+
 //Export router
 module.exports = router;

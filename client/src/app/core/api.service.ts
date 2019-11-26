@@ -39,16 +39,16 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // GET an song by ID (login required) (ROUTE NOT CREATED)
+  // GET an song by ID (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
   getSongById$(id: string): Observable<SongModel> {
     return this.http
-      .get<SongModel>(`${ENV.BASE_API}song/${id}`, {
+      .get<SongModel>(`${ENV.BASE_API}open/song/${id}`, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // GET reviews by song ID (login required)
+  // GET reviews by song ID (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
   getReviewsBySongId$(songId: string): Observable<ReviewModel[]> {
     return this.http
       .get<ReviewModel[]>(`${ENV.BASE_API}open/reviews/${songId}`, {

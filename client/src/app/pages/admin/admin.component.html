@@ -54,22 +54,16 @@
             </a>
             <div class="song-icons">
               <img
-                *ngIf="!song.viewPublic"
+                *ngIf="song.cViolation"
                 class="song-icon"
                 title="Private"
                 src="/assets/images/eye.svg"
               />
-              <img
-                *ngIf="utils.songPast(song.endDatetime)"
-                class="song-icon"
-                title="Song is over"
-                src="/assets/images/calendar.svg"
-              />
             </div>
           </div>
           <p class="mb-1">
-            <strong>Date:</strong>
-            {{ utils.songDates(song.startDatetime, song.endDatetime) }}
+            <strong>Artist:</strong>
+            {{ song.artist }}
           </p>
         </div>
       </section>

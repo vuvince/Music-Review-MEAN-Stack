@@ -52,9 +52,7 @@
         >
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1" [innerHTML]="song.title"></h5>
-            <small>{{
-              utils.songDates(song.startDatetime, song.endDatetime)
-            }}</small>
+            <small>{{ utils.songArtist(song.artist) }}</small>
           </div>
         </a>
       </section>

@@ -14,6 +14,12 @@ export class UtilsService {
     return loading === false;
   }
 
+  //RETURNS THE SONG ARTIST
+  songArtist(artist): string {
+    const sArtist = artist.toString();
+    return sArtist;
+  }
+
   //CHANGE
   // accepts start and end dates, then uses the date pipe to transform the dates into user-friendly strings. If the start and end dates are the same, only one date is returned. If they're different, the dates are returned as a range
   songDates(start, end): string {

@@ -3,16 +3,24 @@ const User = require("../models/user.model");
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 
-const _songListProjection = "title artist album cViolation";
+// const _songListProjection = "title artist album cViolation";
 
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
+//Retrieving (getting) a song by its ID
+exports.song_details = function(req, res, next) {
+  Song.findById(req.params.id, function(err, song) {
+    if (err) return next(err);
+    res.send(song);
+  });
+};
+
 //Export only available songs
 exports.available_songs = function(req, res, next) {
-  Song.find({ cViolation: false }, _songListProjection, function(err, songs) {
+  Song.find({ cViolation: false }, function(err, songs) {
     let songsArr = [];
     if (err) {
       return res.status(500).send({ message: err.message });
@@ -100,14 +108,6 @@ exports.top10songs = function(req, res, next) {
 
     //Array of songs
     res.send(songs);
-  });
-};
-
-//GET all reviews using a product ID a product by its ID
-exports.product_details = function(req, res, next) {
-  Product.findById(req.params.id, function(err, product) {
-    if (err) return next(err);
-    res.send(product);
   });
 };
 
