@@ -65,4 +65,24 @@ export class UtilsService {
     const then = new Date(songEnd.toString());
     return now >= then;
   }
+
+  //FOR THE REVIEW
+  displayCount(reviews: number): string {
+    // Example usage:
+    const count = reviews === 1 ? " review" : " reviews";
+    return reviews + count;
+  }
+
+  //CAN CHANGE TO SHOW RATING
+  showPlusOnes(guests: number): string {
+    // If bringing additional guest(s), show as "+n"
+    if (guests) {
+      return `+${guests}`;
+    }
+  }
+
+  booleanToText(bool: boolean): string {
+    // Change a boolean to 'Yes' or 'No' string
+    return bool ? "Yes" : "No";
+  }
 }
