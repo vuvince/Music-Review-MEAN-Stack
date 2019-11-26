@@ -30,6 +30,13 @@ router.post(
   secure_controller.song_update
 );
 
+//POST based on tutorial
+router.post(
+  "/review/new",
+  api_controller.jwtCheck,
+  secure_controller.add_review
+);
+
 //Add a review using the songs ID
 router.put(
   "/add-review/:id",

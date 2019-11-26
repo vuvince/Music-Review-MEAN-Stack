@@ -19,6 +19,24 @@ function encodeHTML(s) {
     .replace(/"/g, "&quot;");
 }
 
+//POST REQUEST. CODE FROM https://auth0.com/blog/real-world-angular-series-part-5/#L-span-id--api-rsvps----span-API--Create-and-Update-RSVPs
+exports.add_review = function(req, res, next) {
+  const review = new Review({
+    songID: req.body.songID,
+    userID: req.body.userID,
+    name: req.body.name,
+    comments: req.body.comments,
+    reviewDate: req.body.reviewDate,
+    rating: req.body.rating
+  });
+  review.save(err => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    res.send(review);
+  });
+};
+
 // controllers/secure.js
 //PUT: Create a song and return ID
 exports.song_create = function(req, res, next) {

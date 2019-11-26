@@ -58,6 +58,24 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
+  // POST new Review (login required)
+  postReview$(review: ReviewModel): Observable<ReviewModel> {
+    return this.http
+      .post<ReviewModel>(`${ENV.BASE_API}secure/review/new`, review, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // PUT existing Review (login required) (PATH NOT IMPLEMENTED IN BACKEND)
+  editReview$(id: string, review: ReviewModel): Observable<ReviewModel> {
+    return this.http
+      .put(`${ENV.BASE_API}review/${id}`, review, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
   private _handleError(err: HttpErrorResponse | any): Observable<any> {
     const errorMsg = err.message || "Error: Unable to complete request.";
     if (err.message && err.message.indexOf("No JWT present") > -1) {

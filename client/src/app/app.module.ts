@@ -15,11 +15,12 @@ import { UtilsService } from "./core/utils.service";
 import { FilterSortService } from "./core/filter-sort.service";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { AdminComponent } from './pages/admin/admin.component';
-import { SongComponent } from './pages/song/song.component';
-import { SongDetailComponent } from './pages/song/song-detail/song-detail.component';
-import { ReviewComponent } from './pages/song/review/review.component';
-import { AboutComponent } from './pages/about/about.component';
+import { AdminComponent } from "./pages/admin/admin.component";
+import { SongComponent } from "./pages/song/song.component";
+import { SongDetailComponent } from "./pages/song/song-detail/song-detail.component";
+import { ReviewComponent } from "./pages/song/review/review.component";
+import { AboutComponent } from "./pages/about/about.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -35,7 +36,13 @@ import { AboutComponent } from './pages/about/about.component';
     ReviewComponent,
     AboutComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule
+  ],
   providers: [
     Title,
     AuthService,
