@@ -45,16 +45,17 @@ exports.song_create = function(req, res, next) {
 exports.song_update = function(req, res) {
   Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
     if (err) return next(err);
-    res.send(doc);
+    res.send("Updated Succesfully!");
   });
 };
 
 //PUT: Add a review for the song with the given ID
 exports.review_create = function(req, res, next) {
   let review = new Review({
-    rBody: encodeHTML(req.body.rBody),
+    songID: req.params.id,
     userID: encodeHTML(req.body.userID),
-    songID: req.params.id
+    rBody: encodeHTML(req.body.rBody),
+    rating: req.body.rating
   });
   review.save(function(err, doc) {
     if (err) {
