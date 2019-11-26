@@ -1,5 +1,70 @@
-<h2>About This Website</h2>
+<!-- <h2>About This Website</h2>
 <p>
   This full-stack website was created by Vince Vu with the intent of bettering
   music selection. IMDB ain't got nothing on this.
-</p>
+</p> -->
+
+<!-- USE FOR ANOTHER PAGE -->
+<!-- src/app/pages/home/home.component.html -->
+<h1 class="text-center">{{ pageTitle }}</h1>
+<app-loading *ngIf="loading"></app-loading>
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <ng-template [ngIf]="songList">
+    <ng-template [ngIf]="songList.length">
+      <!-- Search songs -->
+      <label class="sr-only" for="search">Search</label>
+      <div class="search input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Search</div>
+        </div>
+        <input
+          id="search"
+          type="text"
+          class="form-control"
+          [(ngModel)]="query"
+          (keyup)="searchSongs()"
+        />
+        <span class="input-group-append">
+          <button
+            class="btn btn-danger"
+            (click)="resetQuery()"
+            [disabled]="!query"
+          >
+            &times;
+          </button>
+        </span>
+      </div>
+      <!-- No search results -->
+      <p
+        *ngIf="fs.noSearchResults(filteredSongs, query)"
+        class="alert alert-warning"
+      >
+        No songs found for <em class="text-danger">{{ query }}</em
+        >, sorry!
+      </p>
+      <!-- Songs listing -->
+      <section class="list-group">
+        <a
+          *ngFor="let song of fs.orderByDate(filteredSongs, 'startDatetime')"
+          [routerLink]="['/song', song._id]"
+          class="list-group-item list-group-item-action flex-column align-items-start"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1" [innerHTML]="song.title"></h5>
+            <small>{{
+              utils.songDates(song.startDatetime, song.endDatetime)
+            }}</small>
+          </div>
+        </a>
+      </section>
+    </ng-template>
+    <!-- No upcoming public songs available -->
+    <p *ngIf="!songList.length" class="alert alert-info">
+      No upcoming public songs available.
+    </p>
+  </ng-template>
+  <!-- Error loading songs -->
+  <p *ngIf="error" class="alert alert-danger">
+    <strong>Oops!</strong> There was an error retrieving song data.
+  </p>
+</ng-template>
