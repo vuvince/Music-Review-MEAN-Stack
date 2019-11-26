@@ -16,6 +16,9 @@ import { FilterSortService } from "./core/filter-sort.service";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AdminComponent } from './pages/admin/admin.component';
+import { SongComponent } from './pages/song/song.component';
+import { SongDetailComponent } from './pages/song/song-detail/song-detail.component';
+import { ReviewComponent } from './pages/song/review/review.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { AdminComponent } from './pages/admin/admin.component';
     FooterComponent,
     CallbackComponent,
     LoadingComponent,
-    AdminComponent
+    AdminComponent,
+    SongComponent,
+    SongDetailComponent,
+    ReviewComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [

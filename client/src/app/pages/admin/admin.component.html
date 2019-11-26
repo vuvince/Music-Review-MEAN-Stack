@@ -1,1 +1,86 @@
 <p>admin works!</p>
+<!-- src/app/pages/admin/admin.component.html -->
+<!-- SOURCE: https://auth0.com/blog/real-world-angular-series-part-4/ -->
+<h1 class="text-center">{{ pageTitle }}</h1>
+<app-loading *ngIf="loading"></app-loading>
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <p class="lead">
+    Welcome, {{ auth.userProfile?.name }}! You can create and administer songs
+    below.
+  </p>
+  <!-- Songs -->
+  <ng-template [ngIf]="songList">
+    <ng-template [ngIf]="songList.length">
+      <!-- Search songs -->
+      <label class="sr-only" for="search">Search</label>
+      <div class="search input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Search</div>
+        </div>
+        <input
+          id="search"
+          type="text"
+          class="form-control"
+          [(ngModel)]="query"
+          (keyup)="searchSongs()"
+        />
+        <span class="input-group-append">
+          <button
+            class="btn btn-danger"
+            (click)="resetQuery()"
+            [disabled]="!query"
+          >
+            &times;
+          </button>
+        </span>
+      </div>
+      <!-- No search results -->
+      <p
+        *ngIf="fs.noSearchResults(filteredSongs, query)"
+        class="alert alert-warning"
+      >
+        No songs found for <em class="text-danger">{{ query }}</em
+        >, sorry!
+      </p>
+      <!-- Songs listing -->
+      <section class="list-group">
+        <div
+          *ngFor="let song of fs.orderByDate(filteredSongs, 'startDatetime')"
+          class="list-group-item list-group-item-action flex-column align-items-start"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <a [routerLink]="['/song', song._id]">
+              <h5 class="mb-1" [innerHTML]="song.title"></h5>
+            </a>
+            <div class="song-icons">
+              <img
+                *ngIf="!song.viewPublic"
+                class="song-icon"
+                title="Private"
+                src="/assets/images/eye.svg"
+              />
+              <img
+                *ngIf="utils.songPast(song.endDatetime)"
+                class="song-icon"
+                title="Song is over"
+                src="/assets/images/calendar.svg"
+              />
+            </div>
+          </div>
+          <p class="mb-1">
+            <strong>Date:</strong>
+            {{ utils.songDates(song.startDatetime, song.endDatetime) }}
+          </p>
+        </div>
+      </section>
+    </ng-template>
+    <!-- No songs available -->
+    <p *ngIf="!songList.length" class="alert alert-info">
+      No songs have been created yet.
+    </p>
+  </ng-template>
+  <!-- Error loading songs -->
+  <p *ngIf="error" class="alert alert-danger">
+    <strong>Oops!</strong> There was an error retrieving song data.
+  </p>
+</ng-template>

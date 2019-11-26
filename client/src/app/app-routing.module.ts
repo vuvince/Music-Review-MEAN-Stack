@@ -5,6 +5,7 @@ import { CallbackComponent } from "./pages/callback/callback.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { AdminGuard } from "./auth/admin.guard";
 import { AdminComponent } from "./pages/admin/admin.component";
+import { SongComponent } from "./pages/song/song.component";
 
 const routes: Routes = [
   {
@@ -13,13 +14,18 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED
     children: [
       {
         path: "",
         component: AdminComponent
       }
     ]
+  },
+  {
+    path: "song/:id",
+    component: SongComponent,
+    canActivate: [AuthGuard] //ACCESS REQUIRED
   },
   {
     path: "callback",
