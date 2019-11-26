@@ -29,8 +29,7 @@ const routes: Routes = [
   },
   {
     path: "song/:id",
-    component: SongComponent,
-    canActivate: [AuthGuard] //ACCESS REQUIRED
+    component: SongComponent
   },
   {
     path: "callback",

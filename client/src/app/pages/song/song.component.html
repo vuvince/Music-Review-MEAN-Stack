@@ -34,13 +34,12 @@
         </ul>
       </div>
       <!-- Song detail tab -->
-      <!-- SOME ERRORS BELOW -->
-      <!-- <app-song-detail
+      <app-song-detail
         *ngIf="utils.tabIs(tab, 'details')"
         [song]="song"
-      ></app-song-detail> -->
+      ></app-song-detail>
       <!-- Song Review tab -->
-      <!-- <app-review *ngIf="utils.tabIs(tab, 'review')"></app-review> -->
+      <app-review *ngIf="utils.tabIs(tab, 'review')"></app-review>
     </div>
   </ng-template>
   <!-- Error loading songs -->

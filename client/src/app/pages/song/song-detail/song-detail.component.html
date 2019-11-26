@@ -6,9 +6,10 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><strong>Artist:</strong>{{ song.artist }}</li>
   <li class="list-group-item">
-    <strong>Album:</strong>{{ song.album }} (<a target="_blank"
-      >get directions</a
-    >)
+    <strong>Album:</strong>{{ song.album }} (<a target="_blank">No Album</a>)
+  </li>
+  <li class="list-group-item" *ngIf="song.genre">
+    <strong>Genre:</strong>{{ song.genre }}
   </li>
 </ul>
 <div class="card-body" *ngIf="song.genre">
