@@ -5,11 +5,16 @@ import { CallbackComponent } from "./pages/callback/callback.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { AdminGuard } from "./auth/admin.guard";
 import { AdminComponent } from "./pages/admin/admin.component";
+import { AboutComponent } from "./pages/about/about.component";
 import { SongComponent } from "./pages/song/song.component";
 
 const routes: Routes = [
   {
     path: "",
+    component: AboutComponent
+  },
+  {
+    path: "home",
     component: HomeComponent
   },
   {

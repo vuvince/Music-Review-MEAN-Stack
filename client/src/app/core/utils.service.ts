@@ -16,9 +16,9 @@ export class UtilsService {
 
   //CHANGE
   // accepts start and end dates, then uses the date pipe to transform the dates into user-friendly strings. If the start and end dates are the same, only one date is returned. If they're different, the dates are returned as a range
-  eventDates(start, end): string {
-    // Display single-day events as "Jan 7, 2018"
-    // Display multi-day events as "Aug 12, 2017 - Aug 13, 2017"
+  songDates(start, end): string {
+    // Display single-day songs as "Jan 7, 2018"
+    // Display multi-day songs as "Aug 12, 2017 - Aug 13, 2017"
     const startDate = this.datePipe.transform(start, "mediumDate");
     const endDate = this.datePipe.transform(end, "mediumDate");
 
@@ -35,9 +35,9 @@ export class UtilsService {
   }
 
   //CHANGE
-  eventDatesTimes(start, end): string {
-    // Display single-day events as "1/7/2018, 5:30 PM - 7:30 PM"
-    // Display multi-day events as "8/12/2017, 8:00 PM - 8/13/2017, 10:00 AM"
+  songDatesTimes(start, end): string {
+    // Display single-day songs as "1/7/2018, 5:30 PM - 7:30 PM"
+    // Display multi-day songs as "8/12/2017, 8:00 PM - 8/13/2017, 10:00 AM"
     const _shortDate = "M/d/yyyy";
     const startDate = this.datePipe.transform(start, _shortDate);
     const startTime = this.datePipe.transform(start, "shortTime");
@@ -52,11 +52,11 @@ export class UtilsService {
   }
 
   //CHANGE
-  //Outputting a boolean that informs us if the event has already ended.
-  eventPast(eventEnd): boolean {
-    // Check if event has already ended
+  //Outputting a boolean that informs us if the song has already ended.
+  songPast(songEnd): boolean {
+    // Check if song has already ended
     const now = new Date();
-    const then = new Date(eventEnd.toString());
+    const then = new Date(songEnd.toString());
     return now >= then;
   }
 }

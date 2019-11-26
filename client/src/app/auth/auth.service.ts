@@ -76,12 +76,41 @@ export class AuthService {
     });
   }
 
+  //REDIRECT WITHOUT TAB
+  // private _redirect() {
+  //   const redirect = decodeURI(localStorage.getItem("authRedirect"));
+  //   console.log(redirect);
+  //   // const navArr = [redirect || "/"];
+  //   const navArr = ["/"];
+  //   this.router.navigate(navArr);
+  //   // Redirection completed; clear redirect from storage
+  //   this._clearRedirect();
+  // }
+
   private _redirect() {
-    const redirect = decodeURI(localStorage.getItem("authRedirect"));
-    console.log(redirect);
-    // const navArr = [redirect || "/"];
-    const navArr = ["/"];
-    this.router.navigate(navArr);
+    // Redirect with or without 'tab' query parameter
+    // Note: does not support additional params besides 'tab'
+    const fullRedirect = decodeURI(localStorage.getItem("authRedirect"));
+    const redirectArr = fullRedirect.split("?tab=");
+    const navArr = [redirectArr[0] || "/"];
+    const tabObj = redirectArr[1]
+      ? { queryParams: { tab: redirectArr[1] } }
+      : null;
+
+    if (!tabObj) {
+      // if (!this.loggedIn) {
+      //   const navArr = ["/about"];
+      //   this.router.navigate(navArr);
+      // }
+      //EDIT
+      const navArr = ["/"];
+      this.router.navigate(navArr);
+
+      //ORIGINAL
+      // this.router.navigate(navArr);
+    } else {
+      this.router.navigate(navArr, tabObj);
+    }
     // Redirection completed; clear redirect from storage
     this._clearRedirect();
   }

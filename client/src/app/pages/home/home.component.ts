@@ -72,12 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   searchSongs() {
-    this.filteredSongs = this.fs.search(
-      this.songList,
-      this.query,
-      "_id",
-      "mediumDate"
-    );
+    this.filteredSongs = this.fs.search(this.songList, this.query, "_id");
   }
 
   resetQuery() {

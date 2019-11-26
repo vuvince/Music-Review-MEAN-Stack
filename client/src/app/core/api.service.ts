@@ -23,7 +23,7 @@ export class ApiService {
     return `Bearer ${this.auth.accessToken}`;
   }
 
-  // GET list of public, future songs
+  // GET list of all songs
   getSongs$(): Observable<SongModel[]> {
     return this.http
       .get<SongModel[]>(`${ENV.BASE_API}songs`)
@@ -51,7 +51,7 @@ export class ApiService {
   // GET reviews by song ID (login required)
   getReviewsBySongId$(songId: string): Observable<ReviewModel[]> {
     return this.http
-      .get<ReviewModel[]>(`${ENV.BASE_API}song/${songId}/reviews`, {
+      .get<ReviewModel[]>(`${ENV.BASE_API}open/review/${songId}`, {
         // [CHANGE]
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })

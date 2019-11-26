@@ -1,1 +1,51 @@
 <p>song works!</p>
+<!-- src/app/pages/song/song.component.html -->
+<app-loading *ngIf="loading"></app-loading>
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <h1 class="text-center">{{ pageTitle }}</h1>
+  <!-- Song -->
+  <ng-template [ngIf]="song">
+    <!-- Song is over -->
+    <p *ngIf="songPast" class="alert alert-danger">
+      <strong>This song is over.</strong>
+    </p>
+    <div class="card">
+      <!-- Song tab navigation -->
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="[]"
+              [queryParams]="{ tab: 'details' }"
+              [ngClass]="{ active: utils.tabIs(tab, 'details') }"
+              >Details</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="[]"
+              [queryParams]="{ tab: 'review' }"
+              [ngClass]="{ active: utils.tabIs(tab, 'review') }"
+              >Review</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- Song detail tab -->
+      <!-- SOME ERRORS BELOW -->
+      <!-- <app-song-detail
+        *ngIf="utils.tabIs(tab, 'details')"
+        [song]="song"
+      ></app-song-detail> -->
+      <!-- Song Review tab -->
+      <!-- <app-review *ngIf="utils.tabIs(tab, 'review')"></app-review> -->
+    </div>
+  </ng-template>
+  <!-- Error loading songs -->
+  <p *ngIf="error" class="alert alert-danger">
+    <strong>Oops!</strong> There was an error retrieving information for this
+    song.
+  </p>
+</ng-template>

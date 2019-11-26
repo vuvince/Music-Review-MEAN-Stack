@@ -1,4 +1,3 @@
-// source: https://auth0.com/blog/real-world-angular-series-part-1/#server-setup
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { HomeComponent } from "./home.component";

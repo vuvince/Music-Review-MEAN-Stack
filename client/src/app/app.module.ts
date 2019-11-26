@@ -19,6 +19,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { SongComponent } from './pages/song/song.component';
 import { SongDetailComponent } from './pages/song/song-detail/song-detail.component';
 import { ReviewComponent } from './pages/song/review/review.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ReviewComponent } from './pages/song/review/review.component';
     AdminComponent,
     SongComponent,
     SongDetailComponent,
-    ReviewComponent
+    ReviewComponent,
+    AboutComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [

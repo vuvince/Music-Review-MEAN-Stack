@@ -1,7 +1,8 @@
 export class ReviewModel {
   constructor(
-    public rBody: string,
+    public songID: string,
     public userID: string,
-    public songID: string
+    public rBody: string,
+    public rating?: number
   ) {}
 }

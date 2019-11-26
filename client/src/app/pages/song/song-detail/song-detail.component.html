@@ -1,1 +1,19 @@
 <p>song-detail works!</p>
+<!-- src/app/pages/song/song-detail/song-detail.component.html -->
+<div class="card-body">
+  <h2 class="card-title text-center mb-0">Song Details</h2>
+</div>
+<ul class="list-group list-group-flush">
+  <li class="list-group-item"><strong>Artist:</strong>{{ song.artist }}</li>
+  <li class="list-group-item">
+    <strong>Album:</strong>{{ song.album }} (<a target="_blank"
+      >get directions</a
+    >)
+  </li>
+</ul>
+<div class="card-body" *ngIf="song.genre">
+  <p class="card-text lead" [innerHTML]="song.genre"></p>
+</div>
+<div *ngIf="auth.isAdmin" class="card-footer text-right small">
+  <a [routerLink]="['/admin/song/update', song._id]">Edit</a>
+</div>
