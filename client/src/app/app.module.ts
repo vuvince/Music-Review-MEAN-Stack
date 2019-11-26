@@ -14,6 +14,7 @@ import { DatePipe } from "@angular/common"; // DONT NEED RN, ADD TO PROVIDERS IF
 import { UtilsService } from "./core/utils.service";
 import { FilterSortService } from "./core/filter-sort.service";
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { FormsModule } from "@angular/forms";
     CallbackComponent,
     LoadingComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
     Title,
     AuthService,
