@@ -6,7 +6,7 @@ const admin_controller = require("../controllers/admin.controller");
 const api_controller = require("../controllers/api.controller");
 
 // a simple test url to check that all of our files are communicating correctly.
-router.get("/test", admin_controller.test);
+router.get("/test", api_controller.jwtCheck, api_controller.adminCheck,admin_controller.test);
 
 // FUNCTIONALITIES
 // Special user with site manager access. {4 points}💗
