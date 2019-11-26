@@ -44,7 +44,7 @@
         >, sorry!
       </p>
       <!-- Songs listing -->
-      <!-- <section class="list-group">
+      <section class="list-group">
         <a
           *ngFor="let song of fs.orderByDate(filteredSongs, 'startDatetime')"
           [routerLink]="['/song', song._id]"
@@ -57,7 +57,7 @@
             }}</small>
           </div>
         </a>
-      </section> -->
+      </section>
     </ng-template>
     <!-- No upcoming public songs available -->
     <p *ngIf="!songList.length" class="alert alert-info">
