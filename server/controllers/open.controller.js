@@ -24,7 +24,7 @@ exports.song_reviews = function(req, res) {
   });
 };
 
-//Search song (NOT TESTED)
+//Search song
 // EXAMPLE URL https://stackabuse.com/?page=2&limit=3
 exports.search_song = function(req, res) {
   let title = req.query.title;
@@ -77,13 +77,10 @@ exports.find_all_songs = function(req, res, next) {
 //Return Top 10 songs
 exports.top10songs = function(req, res, next) {
   console.log("Get All Songs works");
-  User.find({ points: { $exists: true } })
-    .sort({ points: -1 })
-    .limit(5)
-    .toArray();
   Song.find(function(err, songs) {
     if (err) return next(err);
 
+    //Array of songs
     res.send(songs);
   });
 };

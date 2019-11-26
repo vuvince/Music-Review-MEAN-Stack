@@ -5,7 +5,7 @@ let SongSchema = new Schema(
   {
     title: { type: String, required: true },
     artist: { type: String, required: true },
-    album: { type: String, required: true },
+    album: { type: String },
     year: { type: Number },
     genre: { type: String },
     cViolation: { type: Boolean, default: false }

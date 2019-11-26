@@ -24,14 +24,20 @@ function encodeHTML(s) {
 exports.song_create = function(req, res, next) {
   let song = new Song({
     title: encodeHTML(req.body.title),
-    artist: req.body.artist
+    artist: encodeHTML(req.body.artist),
+    album: req.body.album,
+    year: req.body.year,
+    genre: req.body.genre,
+    cViolation: req.body.cViolation
   });
+
   song.save(function(err, doc) {
     if (err) {
       console.log("Error:");
       return next(err);
     }
-    res.send(doc._id);
+    res.send(doc);
+    //res.send(doc._id);
   });
 };
 

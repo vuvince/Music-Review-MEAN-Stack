@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Require the controllers
 const admin_controller = require("../controllers/admin.controller");
+const api_controller = require("../controllers/api.controller");
 
 // a simple test url to check that all of our files are communicating correctly.
 router.get("/test", admin_controller.test);

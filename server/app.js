@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const cors = require("cors");
 
-const product = require("./routes/product.route"); // Imports routes for the products
+// const product = require("./routes/product.route"); // Imports routes for the products
 
 //Get API. Routing everything through those routes before making models
 const apiSecure = require("./routes/secure.route.js");
@@ -51,18 +51,18 @@ app.use("/api/secure", apiSecure);
 app.use("/api/admin", apiAdmin);
 app.use("/api/open", apiOpen);
 app.use("/api/users", apiUser);
-app.use("/products", product);
+// app.use("/products", product);
 app.use("/api", api);
 // require("./controllers/api.controller")(app, apiConfig);
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 //Server Running
 let port = 8081;
