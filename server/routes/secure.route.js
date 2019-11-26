@@ -14,21 +14,28 @@ const api_controller = require("../controllers/api.controller");
 // Enforce required attributes “title” and “artist” when adding a new song. {2 points}
 // Add a review while adding a new song if necessary. {2 points}
 
-
 // a simple test url to check that all of our files are communicating correctly.
 router.get("/test", auth_controller.verifyToken, secure_controller.test);
 
 //API TEST
-router.get('/apiTest', api_controller.test);
+router.get("/apiTest", api_controller.test);
 
 //Create song (PUT)
 router.put("/song", api_controller.jwtCheck, secure_controller.song_create);
 
 //Update song by id (POST)
-router.post("/song/:id",api_controller.jwtCheck,secure_controller.song_update);
+router.post(
+  "/song/:id",
+  api_controller.jwtCheck,
+  secure_controller.song_update
+);
 
 //Add a review using the songs ID
-router.put("/add-review/:id",api_controller.jwtCheck, secure_controller.review_create);
+router.put(
+  "/add-review/:id",
+  api_controller.jwtCheck,
+  secure_controller.review_create
+);
 
 //Export router
 module.exports = router;

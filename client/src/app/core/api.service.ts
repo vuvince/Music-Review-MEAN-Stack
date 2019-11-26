@@ -39,7 +39,7 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // GET an song by ID (login required)
+  // GET an song by ID (login required) (ROUTE NOT CREATED)
   getSongById$(id: string): Observable<SongModel> {
     return this.http
       .get<SongModel>(`${ENV.BASE_API}song/${id}`, {
@@ -51,7 +51,7 @@ export class ApiService {
   // GET reviews by song ID (login required)
   getReviewsBySongId$(songId: string): Observable<ReviewModel[]> {
     return this.http
-      .get<ReviewModel[]>(`${ENV.BASE_API}open/review/${songId}`, {
+      .get<ReviewModel[]>(`${ENV.BASE_API}open/reviews/${songId}`, {
         // [CHANGE]
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })

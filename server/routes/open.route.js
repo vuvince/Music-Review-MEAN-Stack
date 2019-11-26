@@ -22,9 +22,6 @@ router.get("/reviews/:id", open_controller.song_reviews);
 // a simple test url to check that all of our files are communicating correctly.
 router.get("/test", open_controller.test);
 
-//FIND ALL FOR SONGS (MIGHT REMOVE)
-router.get("/song/find_all", open_controller.find_all);
-
 //FIND ALL NON-COPYRIGHTED SONGS
 router.get("/song/available", open_controller.available_songs);
 

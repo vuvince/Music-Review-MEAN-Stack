@@ -26,7 +26,7 @@ export class FilterSortService {
     return check;
   }
 
-  //QUERY OT SEARCH FOR
+  //QUERY USED TO SEARCH
   search(
     array: any[],
     query: string,
@@ -79,6 +79,7 @@ export class FilterSortService {
     return !!(!arr.length && query);
   }
 
+  //ALTER THIS TO FIT RATING
   orderByDate(array: any[], prop: string, reverse?: boolean) {
     // Order an array of objects by a date property
     // Default: ascending (1992->2017 | Jan->Dec)
