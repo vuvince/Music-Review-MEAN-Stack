@@ -3,9 +3,27 @@ const User = require("../models/user.model");
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 
+const _songListProjection = "title artist album cViolation";
+
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
+};
+
+//Export only available songs
+exports.available_songs = function(req, res, next) {
+  Song.find({ cViolation: false }, _songListProjection, function(err, songs) {
+    let songsArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (songs) {
+      songs.forEach(song => {
+        songsArr.push(song);
+      });
+    }
+    res.send(songsArr);
+  });
 };
 
 //Return list of all reviews for a song (GET) (WORKS)

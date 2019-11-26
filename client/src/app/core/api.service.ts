@@ -26,14 +26,14 @@ export class ApiService {
   // GET list of all songs
   getSongs$(): Observable<SongModel[]> {
     return this.http
-      .get<SongModel[]>(`${ENV.BASE_API}songs`)
+      .get<SongModel[]>(`${ENV.BASE_API}open/song/available`)
       .pipe(catchError(error => this._handleError(error)));
   }
 
   // GET all songs - private and public (admin only)
   getAdminSongs$(): Observable<SongModel[]> {
     return this.http
-      .get<SongModel[]>(`${ENV.BASE_API}songs/admin`, {
+      .get<SongModel[]>(`${ENV.BASE_API}admin/song/all`, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));
