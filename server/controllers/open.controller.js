@@ -101,15 +101,68 @@ exports.find_all_songs = function(req, res, next) {
 };
 
 //Return Top 10 songs
-exports.top10songs = function(req, res, next) {
-  console.log("Get All Songs works");
-  Song.find(function(err, songs) {
-    if (err) return next(err);
-
-    //Array of songs
-    res.send(songs);
+exports.top10 = function(req, res, next) {
+  //LOOK FOR ALL SONGS WITHOUT COPYRIGHT VIOLATIONS
+  Song.find({ cViolation: false }, (err, songs) => {
+    let songArr = []; // Going to order top 10 songs
+    let rankingArr = []; //used to get an array of the ratings
+    let top10Arr = []; //final array to send
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!songs) {
+      return res.status(400).send({ message: "No songs found." });
+    }
+    //Loop through songs
+    if (songs) {
+      //Loop EVERY SINGLE SONG
+      songs.forEach(song => {
+        var averageRating = 0;
+        var numReview = 0; // Can use as the other parameter
+        //Finding array of reviews for each song
+        Review.find({ songId: song.id }, (err, reviews) => {
+          //Song has reviews
+          if (reviews) {
+            //Find average rating
+            reviews.forEach(review => {
+              averageRating += review.rating;
+            });
+            averageRating = averageRating / reviews.length;
+            numReview = reviews.length;
+          }
+        });
+        rankingArr.push(averageRating); //Get an array
+        songArr.push(song);
+        //END OF LOOP FOR SONGS
+      });
+      //Call function that will sort the arrays now that average rating for each song calculated
+      songArr = doubleSort(rankingArr, songArr);
+      //ONLY 10
+      for (i = 0; i < 10; i++) {
+        rankingArr.push(songArr[i]);
+      }
+    }
+    res.send(songArr);
   });
 };
+
+//Sort based on ranking array
+function doubleSort(rankingArr, objArr) {
+  for (i = rankingArr.length - 1; i >= 0; i--) {
+    for (j = 1; j <= i; j++) {
+      if (rankingArr[j - 1] > rankingArr[j]) {
+        let temp1 = rankingArr[j - 1];
+        rankingArr[j - 1] = rankingArr[j];
+        rankingArr[j] = temp1;
+        let temp2 = objArr[j - 1];
+        objArr[j - 1] = objArr[j];
+        objArr[j] = temp2;
+      }
+    }
+  }
+  objArr.reverse();
+  return objArr;
+}
 
 //Return reviews
 exports.find_all_songs = function(req, res, next) {
