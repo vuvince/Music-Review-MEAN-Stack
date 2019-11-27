@@ -30,7 +30,7 @@ router.post(
   secure_controller.song_update
 );
 
-//POST based on tutorial
+//POST based on tutorial (ADD JWT CHECK)
 router.post("/review/new", secure_controller.add_review);
 
 //Add a review using the songs ID

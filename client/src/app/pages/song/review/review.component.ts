@@ -146,9 +146,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
         return review;
       });
-      console.log(reviewArr);
-      this.reviews = reviewArr;
-      this.averageRating = this.totalRating / ratingCount;
     }
   }
 

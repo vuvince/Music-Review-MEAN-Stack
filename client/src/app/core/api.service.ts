@@ -83,4 +83,22 @@ export class ApiService {
     }
     return ObservableThrowError(errorMsg);
   }
+
+  // POST new song (admin only)
+  postSong$(song: SongModel): Observable<SongModel> {
+    return this.http
+      .post<SongModel>(`${ENV.BASE_API}admin/song/new`, song, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // DELETE existing song and all associated Reviews (admin only)
+  deleteSong$(id: string): Observable<any> {
+    return this.http
+      .delete(`${ENV.BASE_API}admin/song/delete/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
 }

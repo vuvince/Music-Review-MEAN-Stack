@@ -10,14 +10,15 @@ exports.test = function(req, res) {
 };
 
 //RETURNS ALL SONGS
-exports.find_all = function(req, res, next) {
-  Song.find(function(err, songs) {
-    if (err) return next(err);
+// exports.find_all = function(req, res, next) {
+//   Song.find(function(err, songs) {
+//     if (err) return next(err);
 
-    res.send(songs);
-  });
-};
+//     res.send(songs);
+//   });
+// };
 
+//Find all songs
 exports.find_all = function(req, res, next) {
   Song.find({}, (err, songs) => {
     let songsArr = [];
@@ -30,5 +31,66 @@ exports.find_all = function(req, res, next) {
       });
     }
     res.send(songsArr);
+  });
+};
+
+//POST new song
+exports.create_song = function(req, res, next) {
+  Song.findOne(
+    {
+      title: req.body.title
+    },
+    (err, existingSong) => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      if (existingSong) {
+        return res.status(409).send({
+          message: "A song with this title already exists"
+        });
+      }
+      const song = new Song({
+        title: req.body.title,
+        artist: req.body.artist,
+        album: req.body.album,
+        year: req.body.year,
+        genre: req.body.genre,
+        cViolation: req.body.cViolation
+      });
+      song.save(err => {
+        if (err) {
+          return res.status(500).send({ message: err.message });
+        }
+        res.send(song);
+      });
+    }
+  );
+};
+
+//DELETE SONG AND ALL ASSOCIATE REVIEWS
+//REUSE FOR FINDING TOP 10
+exports.delete_song = function(req, res, next) {
+  Song.findById(req.params.id, (err, song) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!song) {
+      return res.status(400).send({ message: "Song not found." });
+    }
+    Review.find({ songId: req.params.id }, (err, reviews) => {
+      if (reviews) {
+        reviews.forEach(review => {
+          review.remove();
+        });
+      }
+      song.remove(err => {
+        if (err) {
+          return res.status(500).send({ message: err.message });
+        }
+        res
+          .status(200)
+          .send({ message: "Song and RSVPs successfully deleted." });
+      });
+    });
   });
 };

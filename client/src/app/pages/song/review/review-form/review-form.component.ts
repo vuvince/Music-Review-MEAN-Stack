@@ -23,7 +23,6 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
   @Input() review: ReviewModel;
   @Output() submitReview = new EventEmitter();
   GUESTS_REGEX = GUESTS_REGEX;
-  isEdit: boolean;
   formReview: ReviewModel;
   submitReviewSub: Subscription;
   submitting: boolean;
@@ -32,34 +31,17 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService, private api: ApiService) {}
 
   ngOnInit() {
-    this.isEdit = !!this.review;
     this._setFormReview();
   }
 
   private _setFormReview() {
-    if (!this.isEdit) {
-      // If creating a new Review,
-      // create new ReviewModel with default data
-      this.formReview = new ReviewModel(
-        this.songId,
-        this.auth.userProfile.sub,
-        this.auth.userProfile.name,
-        null,
-        null,
-        null
-      );
-    } else {
-      // If editing an existing Review,
-      // create new ReviewModel from existing data
-      this.formReview = new ReviewModel(
-        this.review.songId,
-        this.review.userId,
-        this.review.name,
-        this.review.comments,
-        this.review.reviewDate,
-        this.review.rating
-      );
-    }
+    // If creating a new Review,
+    // create new ReviewModel with default data
+    this.formReview = new ReviewModel(
+      this.songId,
+      this.auth.userProfile.sub,
+      this.auth.userProfile.name
+    );
   }
 
   //EDIT
@@ -72,26 +54,14 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submitting = true;
-    if (!this.isEdit) {
-      this.submitReviewSub = this.api.postReview$(this.formReview).subscribe(
-        data => this._handleSubmitSuccess(data),
-        err => this._handleSubmitError(err)
-      );
-    }
-    //EDITING FORM
-    // else {
-    //   this.submitReviewSub = this.api
-    //     .editReview$(this.review._id, this.formReview)
-    //     .subscribe(
-    //       data => this._handleSubmitSuccess(data),
-    //       err => this._handleSubmitError(err)
-    //     );
-    // }
+    this.submitReviewSub = this.api.postReview$(this.formReview).subscribe(
+      data => this._handleSubmitSuccess(data),
+      err => this._handleSubmitError(err)
+    );
   }
 
   private _handleSubmitSuccess(res) {
     const songObj = {
-      isEdit: this.isEdit,
       review: res
     };
     this.submitReview.emit(songObj);
@@ -101,7 +71,6 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
 
   private _handleSubmitError(err) {
     const songObj = {
-      isEdit: this.isEdit,
       error: err
     };
     this.submitReview.emit(songObj);
