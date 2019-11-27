@@ -9,14 +9,14 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { ApiService } from "./../../../core/api.service";
-import { SongModel, FormSongModel } from "./../../../core/models/song.model";
+import { ApiService } from "../../../core/api.service";
+import { SongModel, FormSongModel } from "../../../core/models/song.model";
 import { DatePipe } from "@angular/common";
 import {
   DATE_REGEX,
   TIME_REGEX,
   stringsToDate
-} from "./../../../core/forms/formUtils.factory";
+} from "../../../core/forms/formUtils.factory";
 import { SongFormService } from "./song-form.service";
 
 @Component({
@@ -196,7 +196,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     this.error = false;
     this.submitting = false;
     // Redirect to song detail
-    this.router.navigate(["/song", res._id]);
+    this.router.navigate(["/song/details", res._id]);
   }
 
   private _handleSubmitError(err) {

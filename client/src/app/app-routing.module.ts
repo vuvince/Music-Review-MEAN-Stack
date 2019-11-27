@@ -7,7 +7,7 @@ import { AdminGuard } from "./auth/admin.guard";
 import { AdminComponent } from "./pages/admin/admin.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { SongComponent } from "./pages/song/song.component";
-import { CreateSongComponent } from "./pages/admin/create-song/create-song.component";
+import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 
 const routes: Routes = [
   {
@@ -25,17 +25,23 @@ const routes: Routes = [
       {
         path: "",
         component: AdminComponent
-      },
-      {
-        //WILL NEED TO MOVE PATH ELSEWHERE
-        path: "song/new",
-        component: CreateSongComponent
       }
     ]
   },
   {
-    path: "song/:id",
-    component: SongComponent
+    path: "song",
+    children: [
+      {
+        path: ":details/:id",
+        component: SongComponent
+      },
+      {
+        //WILL NEED TO MOVE PATH ELSEWHERE
+        path: "new",
+        component: CreateSongComponent,
+        canActivate: [AuthGuard] //ACCESS REQUIRED (FOR TESTING)
+      }
+    ]
   },
   {
     path: "callback",

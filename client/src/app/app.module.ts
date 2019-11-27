@@ -23,8 +23,8 @@ import { AboutComponent } from "./pages/about/about.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReviewFormComponent } from "./pages/song/review/review-form/review-form.component";
 import { SubmittingComponent } from "./core/forms/submitting.component";
-import { CreateSongComponent } from "./pages/admin/create-song/create-song.component";
-import { SongFormComponent } from "./pages/admin/song-form/song-form.component"; //NOT NECESSARY
+import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
+import { SongFormComponent } from "./pages/song/song-form/song-form.component"; //NOT NECESSARY
 
 @NgModule({
   declarations: [

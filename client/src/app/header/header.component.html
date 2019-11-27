@@ -41,17 +41,8 @@
       </li>
       <li>
         <a
-          *ngIf="auth.loggedIn && !auth.isAdmin"
-          routerLink="/user"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Review Songs</a
-        >
-      </li>
-      <li>
-        <a
           *ngIf="auth.loggedIn"
-          routerLink="/admin/song/new"
+          routerLink="/song/new"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           >Add Songs</a
