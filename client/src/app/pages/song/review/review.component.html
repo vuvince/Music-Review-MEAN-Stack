@@ -39,7 +39,7 @@
         class="list-group-item list-group-item-success justify-content-between"
       >
         <strong>Average Rating</strong>
-        <span class="badge badge-success badge-pill">{{ totalRating }}</span>
+        <span class="badge badge-success badge-pill">{{ averageRating }}</span>
       </li>
       <li *ngFor="let review of reviews" class="list-group-item small">
         {{ review.name }} {{ utils.showRating(review.rating) }}
