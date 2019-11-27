@@ -12,13 +12,34 @@
   </div>
   <ng-template [ngIf]="!songPast && reviews">
     <!-- User has Reviewed -->
+    <!-- Can remove -->
     <ng-template [ngIf]="userReview">
       <!-- @TODO: Toggle Review form (update existing) will go here -->
+      <div class="card-body">
+        <button
+          class="btn btn-info"
+          [ngClass]="{ 'btn-info': !showEditForm, 'btn-warning': showEditForm }"
+          (click)="toggleEditForm()"
+        >
+          {{ editBtnText }}
+        </button>
+        <app-review-form
+          *ngIf="showEditForm"
+          [songId]="songId"
+          [review]="userReview"
+          (submitReview)="onSubmitReview($event)"
+        ></app-review-form>
+      </div>
     </ng-template>
     <!-- No Review yet -->
-    <div *ngIf="!userReview" class="card-body">
+    <!-- ADD NG IF HERE FOR LOGGED IN -->
+    <div *ngIf="!userReview && auth.loggedIn" class="card-body">
       <p class="lead">Fill out the form below to respond:</p>
       <!-- @TODO: Review form (add new Review) will go here -->
+      <app-review-form
+        [songId]="songId"
+        (submitReview)="onSubmitReview($event)"
+      ></app-review-form>
     </div>
   </ng-template>
   <!-- All Reviews -->
@@ -60,6 +81,6 @@
 <!-- Footer showing # of total reviews -->
 <div class="card-footer text-right">
   <small *ngIf="totalRating >= 0" class="text-muted">{{
-    utils.displayCount(totalRating)
+    utils.displayCount(totalReview)
   }}</small>
 </div>

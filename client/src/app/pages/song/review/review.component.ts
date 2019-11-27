@@ -44,6 +44,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.toggleEditForm(false);
   }
 
+  //WHEN CICKING SUBMIT
   onSubmitReview(e) {
     if (e.review) {
       console.log("Submitting Review");
