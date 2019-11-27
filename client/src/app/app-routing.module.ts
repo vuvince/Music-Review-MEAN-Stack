@@ -7,6 +7,7 @@ import { AdminGuard } from "./auth/admin.guard";
 import { AdminComponent } from "./pages/admin/admin.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { SongComponent } from "./pages/song/song.component";
+import { CreateSongComponent } from "./pages/admin/create-song/create-song.component";
 
 const routes: Routes = [
   {
@@ -19,11 +20,16 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED
+    // canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED (FOR TESTING)
     children: [
       {
         path: "",
         component: AdminComponent
+      },
+      {
+        //WILL NEED TO MOVE PATH ELSEWHERE
+        path: "song/new",
+        component: CreateSongComponent
       }
     ]
   },

@@ -13,7 +13,7 @@ import { LoadingComponent } from "./core/loading.component";
 import { DatePipe } from "@angular/common"; // DONT NEED RN, ADD TO PROVIDERS IF NEEDED
 import { UtilsService } from "./core/utils.service";
 import { FilterSortService } from "./core/filter-sort.service";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AdminComponent } from "./pages/admin/admin.component";
 import { SongComponent } from "./pages/song/song.component";
@@ -21,8 +21,10 @@ import { SongDetailComponent } from "./pages/song/song-detail/song-detail.compon
 import { ReviewComponent } from "./pages/song/review/review.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReviewFormComponent } from './pages/song/review/review-form/review-form.component';
-import { SubmittingComponent } from './core/forms/submitting.component'; //NOT NECESSARY
+import { ReviewFormComponent } from "./pages/song/review/review-form/review-form.component";
+import { SubmittingComponent } from "./core/forms/submitting.component";
+import { CreateSongComponent } from "./pages/admin/create-song/create-song.component";
+import { SongFormComponent } from "./pages/admin/song-form/song-form.component"; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -38,14 +40,17 @@ import { SubmittingComponent } from './core/forms/submitting.component'; //NOT N
     ReviewComponent,
     AboutComponent,
     ReviewFormComponent,
-    SubmittingComponent
+    SubmittingComponent,
+    CreateSongComponent,
+    SongFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,

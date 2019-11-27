@@ -28,14 +28,6 @@ router.get(
   admin_controller.find_all
 );
 
-// POST a new song
-router.post(
-  "song/new",
-  api_controller.jwtCheck,
-  api_controller.adminCheck,
-  admin_controller.create_song
-);
-
 // DELETE a song
 router.delete(
   "song/delete/:id",

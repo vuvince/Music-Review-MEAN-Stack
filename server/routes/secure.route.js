@@ -3,7 +3,6 @@ const router = express.Router();
 
 // Require the controllers
 const secure_controller = require("../controllers/secure.controller");
-const auth_controller = require("../controllers/auth.controller"); //OUTDATED, NOT USING
 const api_controller = require("../controllers/api.controller");
 
 //FUNCTIONALITIES FOR SECURE
@@ -14,20 +13,22 @@ const api_controller = require("../controllers/api.controller");
 // Enforce required attributes “title” and “artist” when adding a new song. {2 points}
 // Add a review while adding a new song if necessary. {2 points}
 
-// a simple test url to check that all of our files are communicating correctly.
-router.get("/test", auth_controller.verifyToken, secure_controller.test);
-
 //API TEST
 router.get("/apiTest", api_controller.test);
-
-//Create song (PUT)
-router.put("/song", api_controller.jwtCheck, secure_controller.song_create);
 
 //Update song by id (POST)
 router.post(
   "/song/:id",
   api_controller.jwtCheck,
   secure_controller.song_update
+);
+
+// POST a new song
+router.post(
+  "/song/new",
+  api_controller.jwtCheck,
+  api_controller.adminCheck,
+  secure_controller.create_song
 );
 
 //POST based on tutorial (ADD JWT CHECK)

@@ -5,16 +5,10 @@ const { User, validate } = require("../models/user.model");
 const express = require("express");
 const router = express.Router();
 
-const auth_controller = require("../controllers/auth.controller");
-
 //Returns the current user
-router.get(
-  "/current",
-  auth_controller.verifyToken,
-  auth_controller.current_user
-);
+router.get("/current");
 
 //Create a User
-router.post("/", auth_controller.register_user);
+// router.post("/", auth_controller.register_user);
 
 module.exports = router;

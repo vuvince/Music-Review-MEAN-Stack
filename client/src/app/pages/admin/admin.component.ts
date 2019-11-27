@@ -38,7 +38,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   private _getSongList() {
     this.loading = true;
     // Get all (admin) songs
-    this.songsSub = this.api.getAdminSongs$().subscribe(
+    //GOING TO USE GET REG SONGS FOR TESTING PURPSOSES
+    // this.songsSub = this.api.getAdminSongs$().subscribe(
+    this.songsSub = this.api.getSongs$().subscribe(
       res => {
         this.songList = res;
         this.filteredSongs = res;

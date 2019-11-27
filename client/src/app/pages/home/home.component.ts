@@ -1,21 +1,3 @@
-// import { Component, OnInit } from "@angular/core";
-// import { Title } from "@angular/platform-browser";
-
-// @Component({
-//   selector: "app-home",
-//   templateUrl: "./home.component.html",
-//   styleUrls: ["./home.component.scss"]
-// })
-// export class HomeComponent implements OnInit {
-//   pageTitle = "Home";
-
-//   constructor(private title: Title) {}
-
-//   ngOnInit() {
-//     this.title.setTitle(this.pageTitle);
-//   }
-// }
-
 //BELOW IS WHAT THE "SONGS PAGE SHOULD SHOW"
 // src/app/pages/home/home.component.ts
 // SOURCE: https://auth0.com/blog/real-world-angular-series-part-3/
@@ -36,7 +18,9 @@ import { SongModel } from "./../../core/models/song.model";
 export class HomeComponent implements OnInit, OnDestroy {
   pageTitle = "Songs";
   songListSub: Subscription;
+  rankedSongsSub: Subscription;
   songList: SongModel[];
+  rankedSongs: SongModel[];
   filteredSongs: SongModel[];
   loading: boolean;
   error: boolean;
@@ -77,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   resetQuery() {
     this.query = "";
-    this.filteredSongs = this.songList;
+    this.filteredSongs = this.rankedSongs;
   }
 
   ngOnDestroy() {

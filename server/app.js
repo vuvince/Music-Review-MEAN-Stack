@@ -15,10 +15,6 @@ const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
 const apiUser = require("./routes/user.route");
 
-const api = require("./routes/api.route");
-// const apiConfig = require("./config/config");
-// const api = require("./routes/api.route")(app, apiConfig); //Routes for the API that deals with authentication
-
 //SEE IF WE HAVE PRIVATE KEY
 if (!config.get("myprivatekey")) {
   console.error("FATAL ERROR: myprivatekey is not defined.");
@@ -52,7 +48,6 @@ app.use("/api/admin", apiAdmin);
 app.use("/api/open", apiOpen);
 app.use("/api/users", apiUser);
 // app.use("/products", product);
-app.use("/api", api);
 // require("./controllers/api.controller")(app, apiConfig);
 
 app.use(function(req, res, next) {

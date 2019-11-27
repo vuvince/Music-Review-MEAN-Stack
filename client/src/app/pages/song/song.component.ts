@@ -49,7 +49,7 @@ export class SongComponent implements OnInit, OnDestroy {
   }
 
   private _routeSubs() {
-    // Set song ID from route params and subscribe
+    // Set song Id from route params and subscribe
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params["id"];
       this._getSong();
@@ -63,7 +63,7 @@ export class SongComponent implements OnInit, OnDestroy {
 
   private _getSong() {
     this.loading = true;
-    // GET song by ID
+    // GET song by Id
     this.songSub = this.api.getSongById$(this.id).subscribe(
       res => {
         this.song = res;

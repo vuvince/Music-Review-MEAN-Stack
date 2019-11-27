@@ -5,10 +5,24 @@
 
 import { Injectable } from "@angular/core";
 import { DatePipe } from "@angular/common";
+import { AuthService } from "../auth/auth.service";
+import { ApiService } from "./api.service";
+import { ReviewModel } from "./models/review.model";
+import { Subscription } from "rxjs";
 
 @Injectable()
 export class UtilsService {
-  constructor(private datePipe: DatePipe) {}
+  reviewsSub: Subscription;
+  reviews: ReviewModel[]; //Array of all reviews for this specific song
+  totalReview: number;
+  totalRating: number;
+  avgRating: number;
+
+  constructor(
+    public auth: AuthService,
+    private api: ApiService,
+    private datePipe: DatePipe
+  ) {}
 
   isLoaded(loading: boolean): boolean {
     return loading === false;
@@ -19,6 +33,58 @@ export class UtilsService {
     const sArtist = artist.toString();
     return sArtist;
   }
+
+  //Get reviews for songs
+  getReviews(songId: string) {
+    // this.loading = true;
+    // Get Reviews by song Id
+    console.log(songId);
+    this.reviewsSub = this.api.getReviewsBySongId$(songId).subscribe(
+      res => {
+        this.reviews = res;
+        // this.loading = false;
+      },
+      err => {
+        console.error(err);
+        // this.loading = false;
+        // this.error = true;
+      }
+    );
+    return 0;
+  }
+
+  //GET THE AVERAGE RATING FOR THE SONG (DOES SOME WEIRD LOOP)
+  // avgSongRating(songId: string): number {
+  //   this.getReviews(songId);
+  //   this.totalRating = 0;
+  //   this.avgRating = 0;
+  //   for (let i = 0; i < this.reviews.length; i++) {
+  //     this.totalRating += this.reviews[i].rating;
+  //   }
+  //   this.avgRating = this.totalRating / this.reviews.length;
+  //   this.totalReview = this.reviews.length;
+
+  //   return this.avgRating;
+  // }
+
+  // songRating(songId) {
+  //   let reviewArr = [];
+  //   let tRating = 0;
+  //   // console.log(songId);
+  //   this.api.getReviewsBySongId$(songId).subscribe(
+  //     res => {
+  //       reviewArr = res;
+  //     },
+  //     err => {
+  //       console.error(err);
+  //     }
+  //   );
+  //   for (let i = 0; i < reviewArr.length; i++) {
+  //     tRating += reviewArr[i].rating;
+  //   }
+  //   tRating = tRating / reviewArr.length;
+  //   return tRating;
+  // }
 
   //CHANGE
   // accepts start and end dates, then uses the date pipe to transform the dates into user-friendly strings. If the start and end dates are the same, only one date is returned. If they're different, the dates are returned as a range

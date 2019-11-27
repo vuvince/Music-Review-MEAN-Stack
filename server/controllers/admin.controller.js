@@ -34,41 +34,7 @@ exports.find_all = function(req, res, next) {
   });
 };
 
-//POST new song
-exports.create_song = function(req, res, next) {
-  Song.findOne(
-    {
-      title: req.body.title
-    },
-    (err, existingSong) => {
-      if (err) {
-        return res.status(500).send({ message: err.message });
-      }
-      if (existingSong) {
-        return res.status(409).send({
-          message: "A song with this title already exists"
-        });
-      }
-      const song = new Song({
-        title: req.body.title,
-        artist: req.body.artist,
-        album: req.body.album,
-        year: req.body.year,
-        genre: req.body.genre,
-        cViolation: req.body.cViolation
-      });
-      song.save(err => {
-        if (err) {
-          return res.status(500).send({ message: err.message });
-        }
-        res.send(song);
-      });
-    }
-  );
-};
-
 //DELETE SONG AND ALL ASSOCIATE REVIEWS
-//REUSE FOR FINDING TOP 10
 exports.delete_song = function(req, res, next) {
   Song.findById(req.params.id, (err, song) => {
     if (err) {

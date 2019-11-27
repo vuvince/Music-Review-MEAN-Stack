@@ -94,7 +94,7 @@ export class FilterSortService {
     return sortedArray;
   }
 
-  //Used to filter out array (so, call filter(review[], rating, null) to get array of reviews without ratings)
+  //Used to filter out array (so, call filter(review[], rating, null) will give with null rating)
   filter(array: any[], property: string, value: any) {
     // Return only items with specific key/value pair
     if (!property || value === undefined || !this._objArrayCheck(array)) {

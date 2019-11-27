@@ -30,6 +30,13 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
+  //GET TOP 10 SONGS
+  getTopSongs$(): Observable<SongModel[]> {
+    return this.http
+      .get<SongModel[]>(`${ENV.BASE_API}open/song`)
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
   // GET all songs - private and public (admin only)
   getAdminSongs$(): Observable<SongModel[]> {
     return this.http
@@ -87,7 +94,7 @@ export class ApiService {
   // POST new song (admin only)
   postSong$(song: SongModel): Observable<SongModel> {
     return this.http
-      .post<SongModel>(`${ENV.BASE_API}admin/song/new`, song, {
+      .post<SongModel>(`${ENV.BASE_API}secure/song/new`, song, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));

@@ -100,13 +100,12 @@ exports.find_all_songs = function(req, res, next) {
   });
 };
 
-//Return Top 10 songs
+//Return Top 10 songs (DOES NOT WORK)
 exports.top10 = function(req, res, next) {
   //LOOK FOR ALL SONGS WITHOUT COPYRIGHT VIOLATIONS
   Song.find({ cViolation: false }, (err, songs) => {
-    let songArr = []; // Going to order top 10 songs
-    let rankingArr = []; //used to get an array of the ratings
-    let top10Arr = []; //final array to send
+    var songsArr = [];
+    var rankingArr = [];
     if (err) {
       return res.status(500).send({ message: err.message });
     }
@@ -117,32 +116,37 @@ exports.top10 = function(req, res, next) {
     if (songs) {
       //Loop EVERY SINGLE SONG
       songs.forEach(song => {
-        var averageRating = 0;
-        var numReview = 0; // Can use as the other parameter
+        songsArr.push(song);
         //Finding array of reviews for each song
-        Review.find({ songId: song.id }, (err, reviews) => {
-          //Song has reviews
-          if (reviews) {
-            //Find average rating
-            reviews.forEach(review => {
-              averageRating += review.rating;
-            });
-            averageRating = averageRating / reviews.length;
-            numReview = reviews.length;
+        Review.find({ songId: song._id }, (err, reviews) => {
+          let reviewsArr = [];
+          let rankedSongs = [];
+          //Handle error event
+          if (err) {
+            return res.status(500).send({ message: err.message });
           }
+          if (reviews) {
+            reviews.forEach(review => {
+              //Get array of ratings
+              reviewsArr.push(review.rating);
+            });
+          }
+          //Reviews array complete here for each individual song
+          let sum = reviewsArr.reduce(
+            (previous, current) => (current += previous)
+          );
+          let avg = sum / reviewsArr.length;
+          reviewsArr.push(avg);
+          rankingArr.push(avg);
+          rankedSongs.push(song);
+          // res.send(rankedSongs);
         });
-        rankingArr.push(averageRating); //Get an array
-        songArr.push(song);
-        //END OF LOOP FOR SONGS
+        res.send(rankedSongs);
       });
-      //Call function that will sort the arrays now that average rating for each song calculated
-      songArr = doubleSort(rankingArr, songArr);
-      //ONLY 10
-      for (i = 0; i < 10; i++) {
-        rankingArr.push(songArr[i]);
-      }
+      //Song Array
     }
-    res.send(songArr);
+    //Send response song array here
+    // res.send(songsArr);
   });
 };
 
