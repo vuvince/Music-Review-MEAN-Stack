@@ -10,7 +10,7 @@ exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
-//Retrieving (getting) a song by its ID
+//Retrieving (getting) a song by its Id
 exports.song_details = function(req, res, next) {
   Song.findById(req.params.id, function(err, song) {
     if (err) return next(err);
@@ -114,7 +114,7 @@ exports.top10songs = function(req, res, next) {
 //Return reviews
 exports.find_all_songs = function(req, res, next) {
   console.log("Get All Songs works");
-  Review.find({ songID: req.params.id }, function(err, reviews) {
+  Review.find({ songId: req.params.id }, function(err, reviews) {
     if (err) return next(err);
     res.send(reviews);
   });

@@ -11,9 +11,9 @@
     <strong>Genre:</strong>{{ song.genre }}
   </li>
 </ul>
-<div class="card-body" *ngIf="song.genre">
+<!-- <div class="card-body" *ngIf="song.genre">
   <p class="card-text lead" [innerHTML]="song.genre"></p>
-</div>
+</div> -->
 <div *ngIf="auth.isAdmin" class="card-footer text-right small">
   <a [routerLink]="['/admin/song/update', song._id]">Edit</a>
 </div>

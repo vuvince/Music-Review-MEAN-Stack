@@ -14,40 +14,68 @@
   <ng-template [ngIf]="!songPast && reviews">
     <!-- User has Reviewed -->
     <ng-template [ngIf]="userReview">
-      <div class="card-body">
-        <p class="lead card-text">
-          You responded to this song with the following information:
-        </p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <strong>Name:</strong>{{ userReview.name }}
-        </li>
-        <li class="list-group-item">
-          <strong>Attending:</strong
-          >{{ utils.booleanToText(userReview.attending) }}
-        </li>
-        <li
-          *ngIf="userReview.attending && userReview.guests"
-          class="list-group-item"
-        >
-          <strong>Additional Guests:</strong>{{ userReview.guests }}
-        </li>
-        <li *ngIf="userReview.comments" class="list-group-item">
-          <strong>Comments:</strong
-          ><span [innerHTML]="userReview.comments"></span>
-        </li>
+      <ul *ngIf="!showEditForm" class="list-group list-group-flush">
+        <div class="card-body">
+          <p class="lead card-text">
+            You responded to this song with the following information:
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Name:</strong>{{ userReview.name }}
+          </li>
+          <li class="list-group-item">
+            <strong>Attending:</strong
+            >{{ utils.booleanToText(userReview.attending) }}
+          </li>
+          <li
+            *ngIf="userReview.attending && userReview.guests"
+            class="list-group-item"
+          >
+            <strong>Additional Guests:</strong>{{ userReview.guests }}
+          </li>
+          <li *ngIf="userReview.comments" class="list-group-item">
+            <strong>Comments:</strong
+            ><span [innerHTML]="userReview.comments"></span>
+          </li>
+        </ul>
+        <!-- @TODO: Toggle Review form (update existing) will go here -->
       </ul>
-      <!-- @TODO: Toggle Review form (update existing) will go here -->
+      <div class="card-body">
+        <button
+          class="btn btn-info"
+          [ngClass]="{ 'btn-info': !showEditForm, 'btn-warning': showEditForm }"
+          (click)="toggleEditForm()"
+        >
+          {{ editBtnText }}
+        </button>
+        <!-- <app-review-form
+          *ngIf="showEditForm"
+          [songId]="songId"
+          [review]="userReview"
+          (submitReview)="onSubmitReview($song)"
+        ></app-review-form> -->
+      </div>
     </ng-template>
     <!-- No Review yet -->
     <div *ngIf="!userReview" class="card-body">
-      <p class="lead">Fill out the form below to respond:</p>
-      <!-- @TODO: Review form (add new Review) will go here -->
+      <div *ngIf="!userReview" class="card-body">
+        <p class="lead">Fill out the form below to respond:</p>
+        <!-- @TODO: Review form (add new Review) will go here -->
+      </div>
+      <!-- <app-review-form
+        [songId]="songId"
+        (submitReview)="onSubmitReview($song)"
+      ></app-review-form> -->
     </div>
   </ng-template>
   <!-- All Reviews -->
   <div class="card-body text-right">
+    <section
+      class="allReviews"
+      *ngIf="showAllReviews"
+      [@expandCollapse]
+    ></section>
     <button (click)="toggleShowReviews()" class="btn btn-link btn-sm">
       {{ showReviewsText }}
     </button>

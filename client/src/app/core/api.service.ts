@@ -39,7 +39,7 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // GET an song by ID (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  // GET an song by Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
   getSongById$(id: string): Observable<SongModel> {
     return this.http
       .get<SongModel>(`${ENV.BASE_API}open/song/${id}`, {
@@ -48,7 +48,7 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // GET reviews by song ID (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  // GET reviews by song Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
   getReviewsBySongId$(songId: string): Observable<ReviewModel[]> {
     return this.http
       .get<ReviewModel[]>(`${ENV.BASE_API}open/reviews/${songId}`, {

@@ -22,8 +22,8 @@ function encodeHTML(s) {
 //POST REQUEST. CODE FROM https://auth0.com/blog/real-world-angular-series-part-5/#L-span-id--api-rsvps----span-API--Create-and-Update-RSVPs
 exports.add_review = function(req, res, next) {
   const review = new Review({
-    songID: req.body.songID,
-    userID: req.body.userID,
+    songId: req.body.songId,
+    userId: req.body.userId,
     name: req.body.name,
     comments: req.body.comments,
     reviewDate: req.body.reviewDate,
@@ -38,7 +38,7 @@ exports.add_review = function(req, res, next) {
 };
 
 // controllers/secure.js
-//PUT: Create a song and return ID
+//PUT: Create a song and return Id
 exports.song_create = function(req, res, next) {
   let song = new Song({
     title: encodeHTML(req.body.title),
@@ -59,7 +59,7 @@ exports.song_create = function(req, res, next) {
   });
 };
 
-//POST: Updating Song by ID
+//POST: Updating Song by Id
 exports.song_update = function(req, res) {
   Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
     if (err) return next(err);
@@ -67,11 +67,11 @@ exports.song_update = function(req, res) {
   });
 };
 
-//PUT: Add a review for the song with the given ID
+//PUT: Add a review for the song with the given Id
 exports.review_create = function(req, res, next) {
   let review = new Review({
-    songID: req.params.id,
-    userID: encodeHTML(req.body.userID),
+    songId: req.params.id,
+    userId: encodeHTML(req.body.userId),
     rBody: encodeHTML(req.body.rBody),
     rating: req.body.rating
   });

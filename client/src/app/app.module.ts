@@ -20,7 +20,8 @@ import { SongComponent } from "./pages/song/song.component";
 import { SongDetailComponent } from "./pages/song/song-detail/song-detail.component";
 import { ReviewComponent } from "./pages/song/review/review.component";
 import { AboutComponent } from "./pages/about/about.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; //NOT NECESSARY
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReviewFormComponent } from './pages/song/review/review-form/review-form.component'; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; 
     SongComponent,
     SongDetailComponent,
     ReviewComponent,
-    AboutComponent
+    AboutComponent,
+    ReviewFormComponent
   ],
   imports: [
     BrowserModule,
