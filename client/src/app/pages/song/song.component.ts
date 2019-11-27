@@ -36,12 +36,15 @@ export class SongComponent implements OnInit, OnDestroy {
     private title: Title
   ) {}
 
+  //IS USER LOGGED IN?
   ngOnInit() {
     this.loggedInSub = this.auth.loggedIn$.subscribe(loggedIn => {
       this.loading = true;
-      if (loggedIn) {
-        this._routeSubs();
-      }
+      this._routeSubs();
+      //BELOW IS JUST TO AUTHENTICATE LOGIN
+      // if (loggedIn) {
+      //   this._routeSubs();
+      // }
     });
   }
 
