@@ -21,7 +21,8 @@ import { SongDetailComponent } from "./pages/song/song-detail/song-detail.compon
 import { ReviewComponent } from "./pages/song/review/review.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReviewFormComponent } from './pages/song/review/review-form/review-form.component'; //NOT NECESSARY
+import { ReviewFormComponent } from './pages/song/review/review-form/review-form.component';
+import { SubmittingComponent } from './core/forms/submitting.component'; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ReviewFormComponent } from './pages/song/review/review-form/review-form
     SongDetailComponent,
     ReviewComponent,
     AboutComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    SubmittingComponent
   ],
   imports: [
     BrowserModule,

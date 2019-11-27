@@ -38,13 +38,12 @@
         [song]="song"
       ></app-song-detail>
       <!-- Song Review tab -->
-      <app-review *ngIf="utils.tabIs(tab, 'review')"></app-review>
       <!-- Event RSVP content -->
       <!-- BUILDING FUNCTIONALITY -->
-      <!-- <app-review
+      <app-review
         *ngIf="utils.tabIs(tab, 'review')"
-        [songID]="song._id"
-      ></app-review> -->
+        [songId]="song._id"
+      ></app-review>
     </div>
   </ng-template>
   <!-- Error loading songs -->

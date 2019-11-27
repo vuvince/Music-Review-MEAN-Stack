@@ -36,7 +36,7 @@ exports.available_songs = function(req, res, next) {
 
 //Return list of all reviews for a song (GET) (WORKS)
 exports.song_reviews = function(req, res) {
-  Review.find({ eventId: req.params.eventId }, (err, reviews) => {
+  Review.find({ songId: req.params.id }, (err, reviews) => {
     let reviewsArr = [];
     if (err) {
       return res.status(500).send({ message: err.message });

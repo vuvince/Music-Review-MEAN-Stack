@@ -17,14 +17,15 @@ import { expandCollapse } from "./../../../core/expand-collapse.animation";
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   @Input() songId: string;
-  @Input() songPast: boolean;
   reviewsSub: Subscription;
-  reviews: ReviewModel[];
+  reviews: ReviewModel[]; //Array of all reviews for this specific song
   loading: boolean;
   error: boolean;
   userReview: ReviewModel;
-  totalAttending: number;
-  showAllReviews = false;
+  totalReviews: number;
+  totalRating: number;
+  averageRating: number;
+  showAllReviews = true;
   showReviewsText = "View All Reviews";
   showEditForm = false; //FOR EDITING REVIEW
   editBtnText = "Edit My Review";
@@ -38,15 +39,44 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._getReviews();
+    this.toggleEditForm(false);
+  }
+
+  onSubmitReview(e) {
+    if (e.review) {
+      console.log("Submitting Review");
+      this.userReview = e.review;
+      // this._updateReviewState(true);
+      this.toggleEditForm(false);
+    }
+  }
+
+  private _updateReviewState(changed?: boolean) {
+    // If Review matching user ID is already
+    // in Review array, set as initial Review
+    const _initialUserReview = this.reviews.filter(review => {
+      return review.userId === this.auth.userProfile.sub;
+    })[0];
+
+    // If user has not Reviewed before and has made
+    // a change, push new Review to local Reviews store
+    if (!_initialUserReview && this.userReview && changed) {
+      this.reviews.push(this.userReview);
+    }
+
+    //Set the
+    this._setUserReviewGetAttending(changed);
   }
 
   private _getReviews() {
     this.loading = true;
     // Get Reviews by song Id
+    console.log("_getReview: songID is");
+    console.log(this.songId);
     this.reviewsSub = this.api.getReviewsBySongId$(this.songId).subscribe(
       res => {
         this.reviews = res;
-        this._updateReviewState();
+        // this._updateReviewState();
         this.loading = false;
       },
       err => {
@@ -64,48 +94,40 @@ export class ReviewComponent implements OnInit, OnDestroy {
       : "Show All Reviews";
   }
 
-  private _updateReviewState() {
-    // @TODO: We will add more functionality here later
-    this._setUserReviewGetAttending();
-  }
-
   toggleEditForm(setVal?: boolean) {
     this.showEditForm = setVal !== undefined ? setVal : !this.showEditForm;
     this.editBtnText = this.showEditForm ? "Cancel Edit" : "Edit My Review";
   }
 
-  onSubmitReview(e) {
-    if (e.review) {
-      this.userReview = e.review;
-      // @TODO: update _updateReviewState() method
-      // to support 'changed' parameter:
-      // this._updateReviewState(true);
-      this.toggleEditForm(false);
-    }
-  }
+  private _setUserReviewGetAttending(changed?: boolean) {
+    // Iterate over RSVPs to get/set user's RSVP
+    // and get total number of attending rating
+    let rating = 0;
+    const reviewArr = this.reviews.map(review => {
+      // If user has an existing RSVP
+      if (review.userId === this.auth.userProfile.sub) {
+        if (changed) {
+          // If user edited their RSVP, set with updated data
+          review = this.userReview;
+        } else {
+          // If no changes were made, set userReview property
+          // (This applies on ngOnInit)
+          this.userReview = review;
+        }
+      }
+      // Count total number of attendees
+      // + additional rating
 
-  //ALTER THIS TO GET THE AVERAGE SONG RATING
-  private _setUserReviewGetAttending() {
-    // // Iterate over Reviews to get/set user's Review
-    // // and get total number of attending guests
-    // let guests = 0;
-    // const reviewArr = this.reviews.map(review => {
-    //   // If user has an existing Review
-    //   if (review.userId === this.auth.userProfile.sub) {
-    //     this.userReview = review;
-    //   }
-    //   // Count total number of attendees
-    //   // + additional guests
-    //   if (review.attending) {
-    //     guests++;
-    //     if (review.guests) {
-    //       guests += review.guests;
-    //     }
-    //   }
-    //   return review;
-    // });
-    // this.reviews = reviewArr;
-    // this.totalAttending = guests;
+      rating++;
+      if (review.rating) {
+        rating += review.rating;
+      }
+
+      return review;
+    });
+    console.log(reviewArr);
+    this.reviews = reviewArr;
+    this.totalRating = rating;
   }
 
   ngOnDestroy() {

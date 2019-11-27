@@ -14,7 +14,7 @@ router.get("/search", open_controller.search_song);
 // Keywords are soft-matched (e.g ignore differences in case, white-space, minor spelling variations). {2 points}
 // Ability to view all information on a song by clicking or expanding (shows all attributes, most recent review, the number of reviews and the average rating. {4 points}💗
 
-// Ability to view all reviews for a song: {2 points} (WORKS)
+// Ability to view all reviews for a song: {2 points}
 router.get("/reviews/:id", open_controller.song_reviews);
 
 // Each review shows the rating, the review and reviewer’s username: {2 points}

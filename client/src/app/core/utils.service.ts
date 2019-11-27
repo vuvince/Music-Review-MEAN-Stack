@@ -66,7 +66,7 @@ export class UtilsService {
     return now >= then;
   }
 
-  //FOR THE REVIEW
+  //Number of Reviews
   displayCount(reviews: number): string {
     // Example usage:
     const count = reviews === 1 ? " review" : " reviews";
@@ -74,10 +74,10 @@ export class UtilsService {
   }
 
   //CAN CHANGE TO SHOW RATING
-  showPlusOnes(guests: number): string {
+  showRating(ratings: number): string {
     // If bringing additional guest(s), show as "+n"
-    if (guests) {
-      return `+${guests}`;
+    if (ratings) {
+      return `Rating: ${ratings}`;
     }
   }
 
