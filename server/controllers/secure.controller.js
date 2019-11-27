@@ -56,13 +56,11 @@ exports.create_song = function(req, res, next) {
         title: req.body.title,
         artist: req.body.artist,
         album: req.body.album,
-        year: req.body.year,
-        genre: req.body.genre,
-        cViolation: req.body.cViolation
+        genre: req.body.genre
       });
       song.save(err => {
         if (err) {
-          return res.status(500).send({ message: err.message });
+          return res.status(501).send({ message: err.message });
         }
         res.send(song);
       });
@@ -93,7 +91,7 @@ exports.create_song = function(req, res, next) {
 // };
 
 //POST: Updating Song by Id
-exports.song_update = function(req, res) {
+exports.song_update = function(req, res, next) {
   Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
     if (err) return next(err);
     res.send("Updated Succesfully!");

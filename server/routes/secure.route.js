@@ -17,17 +17,16 @@ const api_controller = require("../controllers/api.controller");
 router.get("/apiTest", api_controller.test);
 
 //Update song by id (POST)
-router.post(
-  "/song/:id",
-  api_controller.jwtCheck,
-  secure_controller.song_update
-);
+// router.post(
+//   "/song/:id",
+//   api_controller.jwtCheck,
+//   secure_controller.song_update
+// );
 
 // POST a new song
 router.post(
   "/song/new",
   api_controller.jwtCheck,
-  api_controller.adminCheck,
   secure_controller.create_song
 );
 

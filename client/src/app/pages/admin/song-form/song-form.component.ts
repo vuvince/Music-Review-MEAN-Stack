@@ -47,12 +47,12 @@ export class SongFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private api: ApiService,
     private datePipe: DatePipe,
-    public ef: SongFormService,
+    public sf: SongFormService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.formErrors = this.ef.formErrors;
+    this.formErrors = this.sf.formErrors;
     this.isEdit = !!this.song;
     this.submitBtnText = this.isEdit ? "Update Song" : "Create Song";
     // Set initial form data
@@ -64,7 +64,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
   private _setFormSong() {
     if (!this.isEdit) {
       // If creating a new song, create new
-      // FormSongModel with default null data
+      // FormSongModel with dsfault null data
       return new FormSongModel(null, null, null, null, null, null, null);
     }
   }
@@ -75,31 +75,28 @@ export class SongFormComponent implements OnInit, OnDestroy {
         this.formSong.title,
         [
           Validators.required,
-          Validators.minLength(this.ef.textMin),
-          Validators.maxLength(this.ef.titleMax)
+          Validators.minLength(this.sf.textMin),
+          Validators.maxLength(this.sf.titleMax)
         ]
       ],
       artist: [
         this.formSong.artist,
-        [Validators.required, Validators.minLength(this.ef.textMin)]
+        [Validators.required, Validators.minLength(this.sf.textMin)]
       ],
       album: [
         this.formSong.album,
-        [Validators.required, Validators.minLength(this.ef.textMin)]
+        [Validators.required, Validators.minLength(this.sf.textMin)]
       ],
       year: [
         this.formSong.year,
-        [Validators.required, Validators.minLength(this.ef.textMin)]
+        [Validators.required, Validators.minLength(this.sf.textMin)]
       ],
       genre: [
         this.formSong.genre,
-        [Validators.required, Validators.minLength(this.ef.textMin)]
+        [Validators.required, Validators.minLength(this.sf.textMin)]
       ],
       cViolation: [this.formSong.cViolation, Validators.required]
     });
-
-    // Set local property to songForm datesGroup control
-    this.datesGroup = this.songForm.get("datesGroup");
 
     // Subscribe to form value changes
     this.formChangeSub = this.songForm.valueChanges.subscribe(data =>
@@ -109,18 +106,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
     // If edit: mark fields dirty to trigger immediate
     // validation in case editing an song that is no
     // longer valid (for example, an song in the past)
-    if (this.isEdit) {
-      const _markDirty = group => {
-        for (const i in group.controls) {
-          if (group.controls.hasOwnProperty(i)) {
-            group.controls[i].markAsDirty();
-          }
-        }
-      };
-      _markDirty(this.songForm);
-      _markDirty(this.datesGroup);
-    }
-
     this._onValueChanged();
   }
 
@@ -134,7 +119,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
       field: string
     ) => {
       if (control && control.dirty && control.invalid) {
-        const messages = this.ef.validationMessages[field];
+        const messages = this.sf.validationMessages[field];
         for (const key in control.errors) {
           if (control.errors.hasOwnProperty(key)) {
             errorsObj[field] += messages[key] + "<br>";
@@ -151,38 +136,37 @@ export class SongFormComponent implements OnInit, OnDestroy {
           // Clear previous error message (if any)
           this.formErrors[field] = "";
           _setErrMsgs(this.songForm.get(field), this.formErrors, field);
-        } else {
-          // Set errors for fields inside datesGroup
-          const datesGroupErrors = this.formErrors["datesGroup"];
-          for (const dateField in datesGroupErrors) {
-            if (datesGroupErrors.hasOwnProperty(dateField)) {
-              // Clear previous error message (if any)
-              datesGroupErrors[dateField] = "";
-              _setErrMsgs(
-                this.datesGroup.get(dateField),
-                datesGroupErrors,
-                dateField
-              );
-            }
-          }
         }
+        //COULD REMOVE?
+        // else {
+        //   // Set errors for fields inside datesGroup
+        //   const datesGroupErrors = this.formErrors["datesGroup"];
+        //   for (const dateField in datesGroupErrors) {
+        //     if (datesGroupErrors.hasOwnProperty(dateField)) {
+        //       // Clear previous error message (if any)
+        //       datesGroupErrors[dateField] = "";
+        //       _setErrMsgs(
+        //         this.datesGroup.get(dateField),
+        //         datesGroupErrors,
+        //         dateField
+        //       );
+        //     }
+        //   }
+        // }
       }
     }
   }
 
   private _getSubmitObj() {
-    const startDate = this.datesGroup.get("startDate").value;
-    const startTime = this.datesGroup.get("startTime").value;
-    const endDate = this.datesGroup.get("endDate").value;
-    const endTime = this.datesGroup.get("endTime").value;
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new SongModel for submission
     return new SongModel(
       this.songForm.get("title").value,
       this.songForm.get("artist").value,
-      this.songForm.get("viewPublic").value,
-      this.songForm.get("description").value,
-      this.song ? this.song._id : null
+      this.songForm.get("album").value,
+      this.songForm.get("year").value,
+      this.songForm.get("genre").value,
+      this.songForm.get("cViolation").value
     );
   }
 
@@ -207,6 +191,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     // }
   }
 
+  //Does the route need to change?
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;

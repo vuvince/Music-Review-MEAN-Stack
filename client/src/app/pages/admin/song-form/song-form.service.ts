@@ -8,19 +8,15 @@ export class SongFormService {
   // Set up errors object
   formErrors = {
     title: "",
-    location: "",
-    viewPublic: "",
-    description: "",
-    datesGroup: {
-      startDate: "",
-      startTime: "",
-      endDate: "",
-      endTime: ""
-    }
+    artist: "",
+    album: "",
+    genre: "",
+    cViolation: ""
   };
   // Min/maxlength validation
-  textMin = 3;
+  textMin = 2;
   titleMax = 36;
+  genreMax = 10;
   locMax = 200;
   dateMax = 10;
   timeMax = 8;
@@ -36,16 +32,15 @@ export class SongFormService {
         minlength: `Title must be ${this.textMin} characters or more.`,
         maxlength: `Title must be ${this.titleMax} characters or less.`
       },
-      location: {
-        required: `Location is <strong>required</strong>.`,
-        minlength: `Location must be ${this.textMin} characters or more.`,
-        maxlength: `Location must be ${this.locMax} characters or less.`
+      Artist: {
+        required: `Artist is <strong>required</strong>.`,
+        minlength: `Artist must be ${this.textMin} characters or more.`,
+        maxlength: `Artist must be ${this.locMax} characters or less.`
       },
-      startDate: {
-        required: `Start date is <strong>required</strong>.`,
-        maxlength: `Start date cannot be longer than ${this.dateMax} characters.`,
-        pattern: `Start date must be in the format <strong>${this.dateFormat}</strong>.`,
-        date: `Start date must be a <strong>valid date</strong> at least one day <strong>in the future</strong>.`
+      Genre: {
+        required: `Genre is <strong>required</strong>.`,
+        minlength: `Genre must be ${this.textMin} characters or more.`,
+        maxlength: `Genre must be ${this.locMax} characters or less.`
       },
       startTime: {
         required: `Start time is <strong>required</strong>.`,

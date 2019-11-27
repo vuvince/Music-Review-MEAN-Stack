@@ -50,6 +50,15 @@
       </li>
       <li>
         <a
+          *ngIf="auth.loggedIn"
+          routerLink="/admin/song/new"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Add Songs</a
+        >
+      </li>
+      <li>
+        <a
           *ngIf="auth.loggedIn && auth.isAdmin"
           routerLink="/admin"
           routerLinkActive="active"

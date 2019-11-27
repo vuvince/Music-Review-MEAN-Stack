@@ -8,7 +8,7 @@
       type="text"
       class="form-control"
       formControlName="title"
-      [maxlength]="ef.titleMax"
+      [maxlength]="sf.titleMax"
     />
     <div
       *ngIf="formErrors.title"
@@ -16,108 +16,25 @@
       [innerHTML]="formErrors.title"
     ></div>
   </div>
-  <!-- Location -->
+  <!-- Artist -->
   <div class="form-group">
-    <label for="location">Location</label>
+    <label for="title">Artist</label>
     <input
-      id="location"
+      id="artist"
       type="text"
       class="form-control"
-      formControlName="location"
-      [maxlength]="ef.locMax"
+      formControlName="artist"
+      [maxlength]="sf.titleMax"
     />
     <div
-      *ngIf="formErrors.location"
+      *ngIf="formErrors.title"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.location"
+      [innerHTML]="formErrors.title"
     ></div>
   </div>
-  <div
-    formGroupName="datesGroup"
-    [ngClass]="{ 'has-danger': songForm.get('datesGroup').errors }"
-  >
-    <div class="row">
-      <!-- Start date -->
-      <div class="form-group col-sm-12 col-md-6">
-        <label for="startDate">Start Date</label>
-        <input
-          id="startDate"
-          type="text"
-          class="form-control"
-          formControlName="startDate"
-          [placeholder]="ef.dateFormat"
-          [maxlength]="ef.dateMax"
-        />
-        <div
-          *ngIf="formErrors.datesGroup.startDate"
-          class="small text-danger formErrors"
-          [innerHTML]="formErrors.datesGroup.startDate"
-        ></div>
-      </div>
-      <!-- Start time -->
-      <div class="form-group col-sm-12 col-md-6">
-        <label for="startTime">Start Time</label>
-        <input
-          id="startTime"
-          type="text"
-          class="form-control"
-          formControlName="startTime"
-          [placeholder]="ef.timeFormat"
-          [maxlength]="ef.timeMax"
-        />
-        <div
-          *ngIf="formErrors.datesGroup.startTime"
-          class="small text-danger formErrors"
-          [innerHTML]="formErrors.datesGroup.startTime"
-        ></div>
-      </div>
-    </div>
-    <div class="row">
-      <!-- End date -->
-      <div class="form-group col-sm-12 col-md-6">
-        <label for="endDate">End Date</label>
-        <input
-          id="endDate"
-          type="text"
-          class="form-control"
-          formControlName="endDate"
-          [placeholder]="ef.dateFormat"
-          [maxlength]="ef.dateMax"
-        />
-        <div
-          *ngIf="formErrors.datesGroup.endDate"
-          class="small text-danger formErrors"
-          [innerHTML]="formErrors.datesGroup.endDate"
-        ></div>
-      </div>
-      <!-- End time -->
-      <div class="form-group col-sm-12 col-md-6">
-        <label for="endTime">End Time</label>
-        <input
-          id="endTime"
-          type="text"
-          class="form-control"
-          formControlName="endTime"
-          [placeholder]="ef.timeFormat"
-          [maxlength]="ef.timeMax"
-        />
-        <div
-          *ngIf="formErrors.datesGroup.endTime"
-          class="small text-danger formErrors"
-          [innerHTML]="formErrors.datesGroup.endTime"
-        ></div>
-      </div>
-    </div>
-    <p
-      *ngIf="songForm.get('datesGroup').errors"
-      class="alert alert-danger small"
-    >
-      <strong>Dates/times out of range:</strong> Songs cannot end before they
-      begin. Please double-check the start and end dates and times.
-    </p>
-  </div>
   <!-- View Public -->
-  <div class="form-group">
+  <!-- FOR DMCA NOTICE -->
+  <!-- <div class="form-group">
     <label class="label-inline-group">List song publicly?</label>
     <div class="form-check form-check-inline">
       <label class="form-check-label">
@@ -148,21 +65,38 @@
       class="small text-danger formErrors"
       [innerHTML]="formErrors.viewPublic"
     ></div>
-  </div>
-  <!-- Description -->
+  </div> -->
+  <!-- Album -->
   <div class="form-group">
-    <label for="description">Description:</label>
-    <textarea
-      id="description"
+    <label for="title">Album</label>
+    <input
+      id="album"
+      type="text"
       class="form-control"
-      rows="3"
-      formControlName="description"
-      [maxlength]="ef.descMax"
-    ></textarea>
+      formControlName="album"
+      [maxlength]="sf.titleMax"
+    />
     <div
-      *ngIf="formErrors.description"
+      *ngIf="formErrors.title"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.description"
+      [innerHTML]="formErrors.title"
+    ></div>
+  </div>
+  <!-- Genre -->
+  <!-- MAKE THIS A DROPDOWN WITH SELECTION -->
+  <div class="form-group">
+    <label for="genre">Genre</label>
+    <input
+      id="genre"
+      type="text"
+      class="form-control"
+      formControlName="genre"
+      [maxlength]="sf.genreMax"
+    />
+    <div
+      *ngIf="formErrors.genre"
+      class="small text-danger formErrors"
+      [innerHTML]="formErrors.genre"
     ></div>
   </div>
   <!-- Submit -->
@@ -170,7 +104,6 @@
     <button
       type="submit"
       class="btn btn-primary"
-      [attr.disabled]="songForm.invalid || submitting ? true : null"
       [innerText]="submitBtnText"
     ></button>
     <!-- https://github.com/angular/angular/issues/11271#issuecomment-289806196 -->
