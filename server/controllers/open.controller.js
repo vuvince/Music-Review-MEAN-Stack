@@ -100,55 +100,88 @@ exports.find_all_songs = function(req, res, next) {
   });
 };
 
-//Return Top 10 songs (DOES NOT WORK)
-exports.top10 = function(req, res, next) {
-  //LOOK FOR ALL SONGS WITHOUT COPYRIGHT VIOLATIONS
-  Song.find({ cViolation: false }, (err, songs) => {
-    var songsArr = [];
-    var rankingArr = [];
-    if (err) {
-      return res.status(500).send({ message: err.message });
+//RETURN TOP 10 SONGS
+exports.top10 = async function(req, res, next) {
+  const songsArr = await Song.find({ cViolation: false });
+  if (!songsArr) {
+    return res.status(400).send({ message: "No songs found." });
+  }
+  var i = 0;
+  for (song of songsArr) {
+    const reviews = await Review.find({ songId: song._id });
+    var sum = 0;
+    var count = 0;
+    for (review of reviews) {
+      sum += review.rating;
+      count++;
     }
-    if (!songs) {
-      return res.status(400).send({ message: "No songs found." });
+    var avg = sum / count;
+    if (!(avg >= 1) || !(avg <= 5)) {
+      avg = 0;
     }
-    //Loop through songs
-    if (songs) {
-      //Loop EVERY SINGLE SONG
-      songs.forEach(song => {
-        songsArr.push(song);
-        //Finding array of reviews for each song
-        Review.find({ songId: song._id }, (err, reviews) => {
-          let reviewsArr = [];
-          let rankedSongs = [];
-          //Handle error event
-          if (err) {
-            return res.status(500).send({ message: err.message });
-          }
-          if (reviews) {
-            reviews.forEach(review => {
-              //Get array of ratings
-              reviewsArr.push(review.rating);
-            });
-          }
-          //Reviews array complete here for each individual song
-          let sum = reviewsArr.reduce(
-            (previous, current) => (current += previous)
-          );
-          let avg = sum / reviewsArr.length;
-          reviewsArr.push(avg);
-          rankingArr.push(avg);
-          rankedSongs.push(song);
-          // res.send(rankedSongs);
-        });
-        res.send(rankedSongs);
-      });
-      //Song Array
-    }
-    //Send response song array here
-    // res.send(songsArr);
+    console.log(avg);
+
+    songsArr[i]["avg"] = avg;
+    i++;
+  }
+  var sorted = songsArr.sort(function review(a, b) {
+    return b.avg < a.avg ? -1 : b.avg > a.avg ? 1 : 0;
   });
+
+  var final = sorted.slice(0, 10);
+
+  res.send(final);
 };
+
+//Return Top 10 songs (DOES NOT WORK)
+// exports.top10 = function(req, res, next) {
+//   //LOOK FOR ALL SONGS WITHOUT COPYRIGHT VIOLATIONS
+//   Song.find({ cViolation: false }, (err, songs) => {
+//     var songsArr = [];
+//     var rankingArr = [];
+//     if (err) {
+//       return res.status(500).send({ message: err.message });
+//     }
+//     if (!songs) {
+//       return res.status(400).send({ message: "No songs found." });
+//     }
+//     //Loop through songs
+//     if (songs) {
+//       //Loop EVERY SINGLE SONG
+//       songs.forEach(song => {
+//         songsArr.push(song);
+//         //Finding array of reviews for each song
+//         Review.find({ songId: song._id }, (err, reviews) => {
+//           let reviewsArr = [];
+//           let rankedSongs = [];
+//           //Handle error event
+//           if (err) {
+//             return res.status(500).send({ message: err.message });
+//           }
+//           if (reviews) {
+//             reviews.forEach(review => {
+//               //Get array of ratings
+//               reviewsArr.push(review.rating);
+//             });
+//           }
+//           //Reviews array complete here for each individual song
+//           let sum = reviewsArr.reduce(
+//             (previous, current) => (current += previous)
+//           );
+//           let avg = sum / reviewsArr.length;
+//           reviewsArr.push(avg);
+//           rankingArr.push(avg);
+//           rankedSongs.push(song);
+//           // res.send(rankedSongs);
+//         });
+//         res.send(rankedSongs);
+//       });
+//       //Song Array
+//     }
+//     //Send response song array here
+//     // res.send(songsArr);
+//   });
+// };
 
 //Sort based on ranking array
 function doubleSort(rankingArr, objArr) {
