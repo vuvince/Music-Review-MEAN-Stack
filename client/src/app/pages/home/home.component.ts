@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   pageTitle = "Songs";
   songListSub: Subscription;
   rankedSongsSub: Subscription;
-  songList: SongModel[];
-  rankedSongs: SongModel[];
-  filteredSongs: SongModel[];
+  songList: SongModel[]; //FULL SONG LIST
+  rankedSongs: SongModel[]; //TOP 10 SONGS
+  filteredSongs: SongModel[]; //WHAT IS DISPLAYED TO USER
   loading: boolean;
   error: boolean;
   query: "";
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
     this._getSongList();
+    this._getTopSongList();
   }
 
   private _getSongList() {
@@ -43,7 +44,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Get future, public songs
     this.songListSub = this.api.getSongs$().subscribe(
       res => {
-        this.songList = res;
+        this.songList = res; //The full song list, used for searching
+        this.loading = false;
+      },
+      err => {
+        console.error(err);
+        this.loading = false;
+        this.error = true;
+      }
+    );
+  }
+
+  private _getTopSongList() {
+    this.loading = true;
+    // Get future, TOP public songs
+    this.rankedSongsSub = this.api.getTopSongs$().subscribe(
+      res => {
+        this.rankedSongs = res;
         this.filteredSongs = res;
         this.loading = false;
       },

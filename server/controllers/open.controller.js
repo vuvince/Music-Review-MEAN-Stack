@@ -119,7 +119,6 @@ exports.top10 = async function(req, res, next) {
     if (!(avg >= 1) || !(avg <= 5)) {
       avg = 0;
     }
-    console.log(avg);
 
     songsArr[i]["avg"] = avg;
     i++;
