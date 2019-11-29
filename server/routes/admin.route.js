@@ -8,8 +8,8 @@ const api_controller = require("../controllers/api.controller");
 // a simple test url to check that all of our files are communicating correctly.
 router.get(
   "/test",
-  api_controller.jwtCheck,
-  api_controller.adminCheck,
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
   admin_controller.test
 );
 
@@ -30,10 +30,17 @@ router.get(
 
 // DELETE a song
 router.delete(
-  "song/delete/:id",
+  "/song/delete/:id",
   api_controller.jwtCheck,
   api_controller.adminCheck,
   admin_controller.delete_song
+);
+
+router.put(
+  "/song/update/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.update_song
 );
 
 //Export router

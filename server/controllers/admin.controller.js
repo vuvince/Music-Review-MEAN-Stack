@@ -60,3 +60,27 @@ exports.delete_song = function(req, res, next) {
     });
   });
 };
+
+//UPDATING SONG (PUT)
+exports.update_song = function(req, res, next) {
+  Song.findById(req.params.id, (err, song) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!song) {
+      return res.status(400).send({ message: "Song not found." });
+    }
+    song.title = req.body.title;
+    song.artist = req.body.artist;
+    song.album = req.body.album;
+    song.genre = req.body.genre;
+    song.cViolation = req.body.cViolation;
+
+    song.save(err => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      res.send(song);
+    });
+  });
+};

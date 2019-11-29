@@ -35,5 +35,8 @@ router.get("/song/:id", open_controller.song_details);
 //Get the rating for a song by id
 router.get("/song/rating/:id", open_controller.song_rating);
 
+//DELETE BELOW
+router.post("/song/new", open_controller.test_new_song);
+
 //Export router
 module.exports = router;

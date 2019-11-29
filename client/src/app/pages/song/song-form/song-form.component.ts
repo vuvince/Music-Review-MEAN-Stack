@@ -18,6 +18,7 @@ import {
   stringsToDate
 } from "../../../core/forms/formUtils.factory";
 import { SongFormService } from "./song-form.service";
+import { AuthService } from "./../../../auth/auth.service";
 
 @Component({
   selector: "app-song-form",
@@ -48,6 +49,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private datePipe: DatePipe,
     public sf: SongFormService,
+    public auth: AuthService,
     private router: Router
   ) {}
 
@@ -66,6 +68,22 @@ export class SongFormComponent implements OnInit, OnDestroy {
       // If creating a new song, create new
       // FormSongModel with dsfault null data
       return new FormSongModel(null, null, null, null, null, null, null);
+    } else {
+      // If editing existing song, create new
+      // FormEventModel from existing data
+      // Transform datetimes:
+      // https://angular.io/api/common/DatePipe
+      // _shortDate: 1/7/2017
+      // 'shortTime': 12:05 PM
+      const _shortDate = "M/d/yyyy";
+      return new FormSongModel(
+        this.song.title,
+        this.song.artist,
+        this.song.album,
+        this.song.year,
+        this.song.genre,
+        this.song.cViolation
+      );
     }
   }
 
@@ -180,15 +198,15 @@ export class SongFormComponent implements OnInit, OnDestroy {
         err => this._handleSubmitError(err)
       );
     }
-    //FOR EDIDITING SONGS
-    // else {
-    //   this.submitSongSub = this.api
-    //     .editSong$(this.song._id, this.submitSongObj)
-    //     .subscribe(
-    //       data => this._handleSubmitSuccess(data),
-    //       err => this._handleSubmitError(err)
-    //     );
-    // }
+    // FOR EDIDITING SONGS
+    else {
+      this.submitSongSub = this.api
+        .editSong$(this.song._id, this.submitSongObj)
+        .subscribe(
+          data => this._handleSubmitSuccess(data),
+          err => this._handleSubmitError(err)
+        );
+    }
   }
 
   //Does the route need to change?

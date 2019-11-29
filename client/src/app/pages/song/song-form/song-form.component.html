@@ -32,40 +32,41 @@
       [innerHTML]="formErrors.title"
     ></div>
   </div>
-  <!-- View Public -->
   <!-- FOR DMCA NOTICE -->
-  <!-- <div class="form-group">
-    <label class="label-inline-group">List song publicly?</label>
-    <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        <input
-          id="viewPublic-yes"
-          type="radio"
-          class="form-check-input"
-          [value]="true"
-          formControlName="viewPublic"
-        />
-        Yes
-      </label>
+  <section *ngIf="auth.loggedIn && auth.isAdmin">
+    <div class="form-group">
+      <label class="label-inline-group">Song has copyright infringement?</label>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <input
+            id="cViolation-yes"
+            type="radio"
+            class="form-check-input"
+            [value]="true"
+            formControlName="cViolation"
+          />
+          Yes
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <input
+            id="cViolation-no"
+            type="radio"
+            class="form-check-input"
+            [value]="false"
+            formControlName="cViolation"
+          />
+          No
+        </label>
+      </div>
+      <div
+        *ngIf="formErrors.cViolation"
+        class="small text-danger formErrors"
+        [innerHTML]="formErrors.cViolation"
+      ></div>
     </div>
-    <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        <input
-          id="viewPublic-no"
-          type="radio"
-          class="form-check-input"
-          [value]="false"
-          formControlName="viewPublic"
-        />
-        No
-      </label>
-    </div>
-    <div
-      *ngIf="formErrors.viewPublic"
-      class="small text-danger formErrors"
-      [innerHTML]="formErrors.viewPublic"
-    ></div>
-  </div> -->
+  </section>
   <!-- Album -->
   <div class="form-group">
     <label for="title">Album</label>

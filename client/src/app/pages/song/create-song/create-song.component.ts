@@ -8,10 +8,18 @@ import { Title } from "@angular/platform-browser";
 })
 export class CreateSongComponent implements OnInit {
   pageTitle = "Create Song";
+  showAllReviews = true;
+  showReviewsText = "Add Review";
 
   constructor(private title: Title) {}
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
+  }
+
+  //Toggle review form
+  toggleShowReviews() {
+    this.showAllReviews = !this.showAllReviews;
+    this.showReviewsText = this.showAllReviews ? "Hide Review" : "Add Review";
   }
 }

@@ -10,6 +10,38 @@ exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
 
+//TEST, DELETE AFTER
+exports.test_new_song = function(req, res, next) {
+  Song.findOne(
+    {
+      title: req.body.title
+    },
+    (err, existingSong) => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      if (existingSong) {
+        return res.status(409).send({
+          message: "A song with this title already exists"
+        });
+      }
+      const song = new Song({
+        title: req.body.title,
+        artist: req.body.artist,
+        album: req.body.album,
+        genre: req.body.genre,
+        cViolation: req.body.cViolation
+      });
+      song.save(err => {
+        if (err) {
+          return res.status(501).send({ message: err.message });
+        }
+        res.send(song);
+      });
+    }
+  );
+};
+
 //Retrieving (getting) a song by its Id
 exports.song_details = function(req, res, next) {
   Song.findById(req.params.id, function(err, song) {
@@ -19,19 +51,34 @@ exports.song_details = function(req, res, next) {
 };
 
 //Export only available songs
-exports.available_songs = function(req, res, next) {
-  Song.find({ cViolation: false }, function(err, songs) {
-    let songsArr = [];
-    if (err) {
-      return res.status(500).send({ message: err.message });
+//RETURN TOP 10 SONGS
+exports.available_songs = async function(req, res, next) {
+  const songsArr = await Song.find({ cViolation: false });
+  if (!songsArr) {
+    return res.status(400).send({ message: "No songs found." });
+  }
+  var i = 0;
+  for (song of songsArr) {
+    const reviews = await Review.find({ songId: song._id });
+    var sum = 0;
+    var count = 0;
+    for (review of reviews) {
+      sum += review.rating;
+      count++;
     }
-    if (songs) {
-      songs.forEach(song => {
-        songsArr.push(song);
-      });
+    var avg = sum / count;
+    if (!(avg >= 1) || !(avg <= 5)) {
+      avg = 0;
     }
-    res.send(songsArr);
+
+    songsArr[i]["avg"] = avg;
+    i++;
+  }
+  var sorted = songsArr.sort(function review(a, b) {
+    return b.avg < a.avg ? -1 : b.avg > a.avg ? 1 : 0;
   });
+
+  res.send(sorted);
 };
 
 //Return list of all reviews for a song (GET) (WORKS)
@@ -121,7 +168,6 @@ exports.top10 = async function(req, res, next) {
     }
 
     songsArr[i]["avg"] = avg;
-    songsArr[i].set("avgRating", avg);
     i++;
   }
   var sorted = songsArr.sort(function review(a, b) {
