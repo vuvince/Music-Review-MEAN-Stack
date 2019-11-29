@@ -9,7 +9,8 @@ let SongSchema = new Schema(
     year: { type: Number },
     genre: { type: String },
     avg: { type: Number },
-    cViolation: { type: Boolean, default: false }
+    cViolation: { type: Boolean, default: false },
+    isHidden: { type: Boolean, default: false }
   },
   { collection: "songs" }
 );

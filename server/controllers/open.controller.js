@@ -1,45 +1,11 @@
-// const Open = require("../models/open.model");
-const User = require("../models/user.model");
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
-
+const Policy = require("../models/policy.model");
 // const _songListProjection = "title artist album cViolation";
 
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
-};
-
-//TEST, DELETE AFTER
-exports.test_new_song = function(req, res, next) {
-  Song.findOne(
-    {
-      title: req.body.title
-    },
-    (err, existingSong) => {
-      if (err) {
-        return res.status(500).send({ message: err.message });
-      }
-      if (existingSong) {
-        return res.status(409).send({
-          message: "A song with this title already exists"
-        });
-      }
-      const song = new Song({
-        title: req.body.title,
-        artist: req.body.artist,
-        album: req.body.album,
-        genre: req.body.genre,
-        cViolation: req.body.cViolation
-      });
-      song.save(err => {
-        if (err) {
-          return res.status(501).send({ message: err.message });
-        }
-        res.send(song);
-      });
-    }
-  );
 };
 
 //Retrieving (getting) a song by its Id
@@ -79,6 +45,39 @@ exports.available_songs = async function(req, res, next) {
   });
 
   res.send(sorted);
+};
+
+//RETURN TOP 10 SONGS
+exports.top10 = async function(req, res, next) {
+  const songsArr = await Song.find({ cViolation: false });
+  if (!songsArr) {
+    return res.status(400).send({ message: "No songs found." });
+  }
+  var i = 0;
+  for (song of songsArr) {
+    const reviews = await Review.find({ songId: song._id });
+    var sum = 0;
+    var count = 0;
+    for (review of reviews) {
+      sum += review.rating;
+      count++;
+    }
+    var avg = sum / count;
+    if (!(avg >= 1) || !(avg <= 5)) {
+      avg = 0;
+    }
+
+    songsArr[i]["avg"] = avg;
+    i++;
+  }
+  var sorted = songsArr.sort(function review(a, b) {
+    return b.avg < a.avg ? -1 : b.avg > a.avg ? 1 : 0;
+  });
+
+  var final = sorted.slice(0, 10);
+  console.log(final[0]["avg"]);
+
+  res.send(final);
 };
 
 //Return list of all reviews for a song (GET) (WORKS)
@@ -137,76 +136,27 @@ exports.search_song = function(req, res) {
   });
 };
 
-//Return list of all songs (GET)
-exports.find_all_songs = function(req, res, next) {
-  console.log("Get All Songs works");
-  Song.find(function(err, songs) {
+//POLICY STUFF BELOW
+//GET: Retrieve a single policy by ID
+exports.policy_details = function(req, res, next) {
+  Policy.findById(req.params.id, function(err, policy) {
     if (err) return next(err);
-
-    res.send(songs);
+    res.send(policy);
   });
 };
 
-//RETURN TOP 10 SONGS
-exports.top10 = async function(req, res, next) {
-  const songsArr = await Song.find({ cViolation: false });
-  if (!songsArr) {
-    return res.status(400).send({ message: "No songs found." });
-  }
-  var i = 0;
-  for (song of songsArr) {
-    const reviews = await Review.find({ songId: song._id });
-    var sum = 0;
-    var count = 0;
-    for (review of reviews) {
-      sum += review.rating;
-      count++;
-    }
-    var avg = sum / count;
-    if (!(avg >= 1) || !(avg <= 5)) {
-      avg = 0;
-    }
-
-    songsArr[i]["avg"] = avg;
-    i++;
-  }
-  var sorted = songsArr.sort(function review(a, b) {
-    return b.avg < a.avg ? -1 : b.avg > a.avg ? 1 : 0;
-  });
-
-  var final = sorted.slice(0, 10);
-  console.log(final[0]["avg"]);
-
-  res.send(final);
-};
-
-//Returns Rating for a specific song by ID
-//WORK IN PROGRESS
-exports.song_rating = function(req, res) {
-  Review.find({ songId: req.params.id }, (err, reviews) => {
-    let reviewsArr = [];
-    let ratingArr = [];
+//Find all policys
+exports.find_all = function(req, res, next) {
+  Policy.find({}, (err, policys) => {
+    let policysArr = [];
     if (err) {
       return res.status(500).send({ message: err.message });
     }
-
-    if (reviews) {
-      reviews.forEach(review => {
-        reviewsArr.push(review.rating);
+    if (policys) {
+      policys.forEach(policy => {
+        policysArr.push(policy);
       });
     }
-    let sum = reviewsArr.reduce((previous, current) => (current += previous));
-    let avg = sum / reviewsArr.length;
-    ratingArr.push(avg);
-    res.send(ratingArr);
-  });
-};
-
-//Return reviews
-exports.find_all_songs = function(req, res, next) {
-  console.log("Get All Songs works");
-  Review.find({ songId: req.params.id }, function(err, reviews) {
-    if (err) return next(err);
-    res.send(reviews);
+    res.send(policysArr);
   });
 };

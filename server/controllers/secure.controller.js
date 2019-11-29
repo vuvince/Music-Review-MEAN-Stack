@@ -22,12 +22,12 @@ function encodeHTML(s) {
 //POST REQUEST. CODE FROM https://auth0.com/blog/real-world-angular-series-part-5/#L-span-id--api-rsvps----span-API--Create-and-Update-RSVPs
 exports.add_review = function(req, res, next) {
   const review = new Review({
-    songId: req.body.songId,
-    userId: req.body.userId,
-    name: req.body.name,
-    comments: req.body.comments,
-    reviewDate: req.body.reviewDate,
-    rating: req.body.rating
+    songId: encodeHTML(req.body.songId),
+    userId: encodeHTML(req.body.userId),
+    name: encodeHTML(req.body.name),
+    comments: encodeHTML(req.body.comments),
+    reviewDate: encodeHTML(req.body.reviewDate),
+    rating: encodeHTML(req.body.rating)
   });
   review.save(err => {
     if (err) {
@@ -53,10 +53,10 @@ exports.create_song = function(req, res, next) {
         });
       }
       const song = new Song({
-        title: req.body.title,
-        artist: req.body.artist,
-        album: req.body.album,
-        genre: req.body.genre
+        title: encodeHTML(req.body.title),
+        artist: encodeHTML(req.body.artist),
+        album: encodeHTML(req.body.album),
+        genre: encodeHTML(req.body.genre)
       });
       song.save(err => {
         if (err) {
@@ -66,51 +66,4 @@ exports.create_song = function(req, res, next) {
       });
     }
   );
-};
-
-// controllers/secure.js
-//PUT: Create a song and return Id (MY VERSION)
-// exports.song_create = function(req, res, next) {
-//   let song = new Song({
-//     title: encodeHTML(req.body.title),
-//     artist: encodeHTML(req.body.artist),
-//     album: req.body.album,
-//     year: req.body.year,
-//     genre: req.body.genre,
-//     cViolation: req.body.cViolation
-//   });
-
-//   song.save(function(err, doc) {
-//     if (err) {
-//       console.log("Error:");
-//       return next(err);
-//     }
-//     res.send(doc);
-//     //res.send(doc._id);
-//   });
-// };
-
-//POST: Updating Song by Id
-exports.song_update = function(req, res, next) {
-  Song.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, doc) {
-    if (err) return next(err);
-    res.send("Updated Succesfully!");
-  });
-};
-
-//PUT: Add a review for the song with the given Id
-exports.review_create = function(req, res, next) {
-  let review = new Review({
-    songId: req.params.id,
-    userId: encodeHTML(req.body.userId),
-    rBody: encodeHTML(req.body.rBody),
-    rating: req.body.rating
-  });
-  review.save(function(err, doc) {
-    if (err) {
-      console.log("Error:");
-      return next(err);
-    }
-    res.send(doc);
-  });
 };

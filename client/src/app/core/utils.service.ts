@@ -53,20 +53,6 @@ export class UtilsService {
     return 0;
   }
 
-  //GET THE AVERAGE RATING FOR THE SONG (DOES SOME WEIRD LOOP)
-  // avgSongRating(songId: string): number {
-  //   this.getReviews(songId);
-  //   this.totalRating = 0;
-  //   this.avgRating = 0;
-  //   for (let i = 0; i < this.reviews.length; i++) {
-  //     this.totalRating += this.reviews[i].rating;
-  //   }
-  //   this.avgRating = this.totalRating / this.reviews.length;
-  //   this.totalReview = this.reviews.length;
-
-  //   return this.avgRating;
-  // }
-
   songRating(songId) {
     console.log(songId);
     // this.api.getRatingBySongId$(songId).subscribe(

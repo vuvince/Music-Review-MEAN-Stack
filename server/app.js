@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const cors = require("cors");
 
-// const product = require("./routes/product.route"); // Imports routes for the products
-
 //Get API. Routing everything through those routes before making models
 const apiSecure = require("./routes/secure.route.js");
 const apiAdmin = require("./routes/admin.route");

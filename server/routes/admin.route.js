@@ -19,8 +19,7 @@ router.get(
 // Ability to mark a song as hidden and clear the “hidden” flag if set:  {2 points}
 // Ability to mark a user as “deactivated” and mark as “active” if deactivated: {2 points}
 
-//Returns all songs
-// a simple test url to check that all of our files are communicating correctly.
+//Returns all songs (even hidden)
 router.get(
   "/song/all",
   api_controller.jwtCheck,
@@ -36,11 +35,34 @@ router.delete(
   admin_controller.delete_song
 );
 
+//PUT Update a song
 router.put(
   "/song/update/:id",
   api_controller.jwtCheck,
   api_controller.adminCheck,
   admin_controller.update_song
+);
+
+//Update Policy
+router.put(
+  "/policy/update/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.update_policy
+);
+
+router.post(
+  "/policy/new",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.add_policy
+);
+
+router.delete(
+  "/policy/delete/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.delete_policy
 );
 
 //Export router

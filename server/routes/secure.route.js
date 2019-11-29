@@ -5,23 +5,8 @@ const router = express.Router();
 const secure_controller = require("../controllers/secure.controller");
 const api_controller = require("../controllers/api.controller");
 
-//FUNCTIONALITIES FOR SECURE
-// Add a review to a song. {4 points} 💗
-// Add a rating (1-5, star etc) to reviews created by the user.  {2 points} 💗
-// Add a new song to the site. {4 points}💗
-// Support storing all ID3v1 attributes for each new song. {4 points}💗
-// Enforce required attributes “title” and “artist” when adding a new song. {2 points}
-// Add a review while adding a new song if necessary. {2 points}
-
 //API TEST
 router.get("/apiTest", api_controller.test);
-
-//Update song by id (POST)
-// router.post(
-//   "/song/:id",
-//   api_controller.jwtCheck,
-//   secure_controller.song_update
-// );
 
 // POST a new song
 router.post(
@@ -31,13 +16,10 @@ router.post(
 );
 
 //POST based on tutorial (ADD JWT CHECK)
-router.post("/review/new", secure_controller.add_review);
-
-//Add a review using the songs ID
-router.put(
-  "/add-review/:id",
+router.post(
+  "/review/new",
   api_controller.jwtCheck,
-  secure_controller.review_create
+  secure_controller.add_review
 );
 
 //Export router

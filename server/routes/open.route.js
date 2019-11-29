@@ -29,14 +29,14 @@ router.get("/song/available", open_controller.available_songs);
 router.get("/song", open_controller.top10);
 
 //TO GET FULL DETAILS OF A SPECIFIC SONG
-//FIND ALL NON-COPYRIGHTED SONGS
 router.get("/song/:id", open_controller.song_details);
 
-//Get the rating for a song by id
-router.get("/song/rating/:id", open_controller.song_rating);
+//POLICY STUFF BELOW
+//Find all policy
+router.get("/policy", open_controller.find_all);
 
-//DELETE BELOW
-router.post("/song/new", open_controller.test_new_song);
+//Details of one policy
+router.get("/policy/:id", open_controller.policy_details);
 
 //Export router
 module.exports = router;

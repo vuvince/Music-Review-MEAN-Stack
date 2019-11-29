@@ -6,51 +6,19 @@
 <ng-template [ngIf]="utils.isLoaded(loading)">
   <ng-template [ngIf]="filteredSongs">
     <ng-template [ngIf]="filteredSongs.length">
-      <!-- Search songs -->
-      <label class="sr-only" for="search">Search</label>
-      <div class="search input-group mb-3">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Search</div>
-        </div>
-        <input
-          id="search"
-          type="text"
-          class="form-control"
-          [(ngModel)]="query"
-          (keyup)="searchSongs()"
-        />
-        <span class="input-group-append">
-          <button
-            class="btn btn-danger"
-            (click)="resetQuery()"
-            [disabled]="!query"
-          >
-            &times;
-          </button>
-        </span>
-      </div>
-      <!-- No search results -->
-      <p
-        *ngIf="fs.noSearchResults(filteredSongs, query)"
-        class="alert alert-warning"
-      >
-        No songs found for <em class="text-danger">{{ query }}</em
-        >, sorry!
-      </p>
       <!-- Songs listing -->
       <section class="list-group">
         <a
-          *ngFor="let song of filteredSongs"
+          *ngFor="let song of filteredSongs; let i = index"
           [routerLink]="['/song/details', song._id]"
           class="list-group-item list-group-item-action flex-column align-items-start"
         >
+          <h4>{{ i + 1 }}</h4>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1" [innerHTML]="song.title"></h5>
-            <!-- NEED A WAY TO GET THE SONG RATING -->
             <small
               ><strong>Rating: </strong> {{ song.avg | number: "1.1-1" }}</small
             >
-            <!-- <small>{{ song._id }}</small> -->
           </div>
           <p class="mb-1">
             <strong>Artist:</strong>

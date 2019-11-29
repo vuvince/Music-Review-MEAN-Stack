@@ -1,22 +1,18 @@
-// const Admin = require("../models/admin.model");
-const User = require("../models/user.model");
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
-// const _songListProjection = "title artist album cViolation";
+const Policy = require("../models/policy.model");
+
+function encodeHTML(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/"/g, "&quot;");
+}
 
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
 };
-
-//RETURNS ALL SONGS
-// exports.find_all = function(req, res, next) {
-//   Song.find(function(err, songs) {
-//     if (err) return next(err);
-
-//     res.send(songs);
-//   });
-// };
 
 //Find all songs
 exports.find_all = function(req, res, next) {
@@ -81,6 +77,61 @@ exports.update_song = function(req, res, next) {
         return res.status(500).send({ message: err.message });
       }
       res.send(song);
+    });
+  });
+};
+
+//POLICY STUFF BELOW
+
+//PUT: Update a policy by ID
+exports.update_policy = function(req, res, next) {
+  Policy.findById(req.params.id, (err, policy) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!policy) {
+      return res.status(400).send({ message: "Policy not found." });
+    }
+    policy.name = req.body.name;
+    policy.desc = req.body.desc;
+
+    policy.save(err => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      res.send(policy);
+    });
+  });
+};
+
+//POST: Add policy by id
+exports.add_policy = function(req, res, next) {
+  const policy = new Policy({
+    name: req.body.name,
+    desc: req.body.desc
+  });
+  policy.save(err => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    res.send(policy);
+  });
+};
+
+//DELETE POLICY
+exports.delete_policy = function(req, res, next) {
+  Policy.findById(req.params.id, (err, policy) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!policy) {
+      return res.status(400).send({ message: "Policy not found." });
+    }
+    policy.remove(err => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      res.status(200).send({ message: "Policy successfully deleted." });
     });
   });
 };

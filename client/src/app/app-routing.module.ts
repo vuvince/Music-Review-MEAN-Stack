@@ -6,6 +6,7 @@ import { AuthGuard } from "./auth/auth.guard";
 import { AdminGuard } from "./auth/admin.guard";
 import { AdminComponent } from "./pages/admin/admin.component";
 import { AboutComponent } from "./pages/about/about.component";
+import { TopChartComponent } from "./pages/top-chart/top-chart.component";
 import { SongComponent } from "./pages/song/song.component";
 import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
@@ -16,12 +17,16 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: "home",
+    path: "all_songs",
     component: HomeComponent
   },
   {
+    path: "top_charts",
+    component: TopChartComponent
+  },
+  {
     path: "admin",
-    // canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED (FOR TESTING)
+    canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED (FOR TESTING)
     children: [
       {
         path: "",

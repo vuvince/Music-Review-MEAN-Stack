@@ -25,8 +25,9 @@ import { ReviewFormComponent } from "./pages/song/review/review-form/review-form
 import { SubmittingComponent } from "./core/forms/submitting.component";
 import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 import { SongFormComponent } from "./pages/song/song-form/song-form.component";
-import { UpdateSongComponent } from './pages/admin/update-song/update-song.component';
-import { DeleteSongComponent } from './pages/admin/update-song/delete-song/delete-song.component'; //NOT NECESSARY
+import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
+import { DeleteSongComponent } from "./pages/admin/update-song/delete-song/delete-song.component";
+import { TopChartComponent } from "./pages/top-chart/top-chart.component"; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DeleteSongComponent } from './pages/admin/update-song/delete-song/delet
     CreateSongComponent,
     SongFormComponent,
     UpdateSongComponent,
-    DeleteSongComponent
+    DeleteSongComponent,
+    TopChartComponent
   ],
   imports: [
     BrowserModule,

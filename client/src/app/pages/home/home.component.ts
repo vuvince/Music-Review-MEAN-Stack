@@ -1,7 +1,4 @@
-//BELOW IS WHAT THE "SONGS PAGE SHOULD SHOW"
 // src/app/pages/home/home.component.ts
-// SOURCE: https://auth0.com/blog/real-world-angular-series-part-3/
-// [NEED TO CHANGE]
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ApiService } from "./../../core/api.service";
@@ -16,12 +13,11 @@ import { SongModel } from "./../../core/models/song.model";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  pageTitle = "Songs";
+  pageTitle = "All Songs";
   songListSub: Subscription;
-  rankedSongsSub: Subscription;
-  songList: SongModel[]; //FULL SONG LIST
-  rankedSongs: SongModel[]; //TOP 10 SONGS
-  filteredSongs: SongModel[]; //WHAT IS DISPLAYED TO USER
+  songList: SongModel[];
+  // filteredSongs: SongModel[];
+  filteredSongs: any;
   loading: boolean;
   error: boolean;
   query: "";
@@ -36,7 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
     this._getSongList();
-    this._getTopSongList();
   }
 
   private _getSongList() {
@@ -44,7 +39,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Get future, public songs
     this.songListSub = this.api.getSongs$().subscribe(
       res => {
-        this.songList = res; //The full song list, used for searching
+        this.songList = res;
+        this.filteredSongs = res;
         this.loading = false;
       },
       err => {
@@ -54,35 +50,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  private _getTopSongList() {
-    this.loading = true;
-    // Get future, TOP public songs
-    this.rankedSongsSub = this.api.getTopSongs$().subscribe(
-      res => {
-        this.rankedSongs = res;
-        this.filteredSongs = res; //Should return with avg attribute
-        this.loading = false;
-      },
-      err => {
-        console.error(err);
-        this.loading = false;
-        this.error = true;
-      }
-    );
-  }
-
-  // songRating() {
-  //   return this.api.getRatingBySongId$("_id");
-  // }
 
   searchSongs() {
-    // this.filteredSongs = this.fs.search(this.songList, this.query, "_id");
+    // this.filteredSongs = this.fs.search(this.songList, this.query);
+    var search = this.fs.search(this.songList, this.query);
+    console.log(search);
+    if (search.length > 1) {
+      this.filteredSongs = search;
+    }
   }
 
   resetQuery() {
     this.query = "";
-    this.filteredSongs = this.rankedSongs;
+    this.filteredSongs = this.songList;
   }
 
   ngOnDestroy() {
