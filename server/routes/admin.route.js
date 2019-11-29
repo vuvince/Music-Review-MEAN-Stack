@@ -38,8 +38,8 @@ router.delete(
 
 router.put(
   "/song/update/:id",
-  // api_controller.jwtCheck,
-  // api_controller.adminCheck,
+  api_controller.jwtCheck,
+  api_controller.adminCheck,
   admin_controller.update_song
 );
 

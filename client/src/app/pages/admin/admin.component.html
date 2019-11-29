@@ -64,6 +64,19 @@
             <strong>Artist:</strong>
             {{ song.artist }}
           </p>
+          <p class="mb-1">
+            <a
+              class="btn btn-info btn-sm mr-1"
+              [routerLink]="['/admin/song/update', song._id]"
+              >Edit</a
+            >
+            <a
+              class="btn btn-danger btn-sm"
+              [routerLink]="['/admin/song/update', song._id]"
+              [queryParams]="{ tab: 'delete' }"
+              >Delete</a
+            >
+          </p>
         </div>
       </section>
     </ng-template>

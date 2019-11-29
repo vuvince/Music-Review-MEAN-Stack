@@ -2,13 +2,41 @@
 <h1 class="text-center">{{ pageTitle }}</h1>
 <app-loading *ngIf="loading"></app-loading>
 <ng-template [ngIf]="utils.isLoaded(loading)">
-  <ng-template [ngIf]="song">
-    <!-- Song form -->
-    <app-song-form [song]="song"></app-song-form>
-  </ng-template>
+  <div *ngIf="song" class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="[]"
+            [queryParams]="{ tab: 'edit' }"
+            [ngClass]="{ active: utils.tabIs(tab, 'edit') }"
+            >Edit</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="[]"
+            [queryParams]="{ tab: 'delete' }"
+            [ngClass]="{ active: utils.tabIs(tab, 'delete') }"
+            >Delete</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <!-- Edit song form -->
+      <app-song-form
+        *ngIf="utils.tabIs(tab, 'edit')"
+        [song]="song"
+      ></app-song-form>
+      <!-- Delete song -->
+      <app-delete-song
+        *ngIf="utils.tabIs(tab, 'delete')"
+        [song]="song"
+      ></app-delete-song>
+    </div>
+  </div>
   <!-- Error loading song -->
-  <p *ngIf="error" class="alert alert-danger">
-    <strong>Error:</strong> Song data could not be retrieved. View
-    <a routerLink="/admin" class="alert-link">Admin Songs</a>.
-  </p>
 </ng-template>

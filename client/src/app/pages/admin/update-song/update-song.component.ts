@@ -21,6 +21,8 @@ export class UpdateSongComponent implements OnInit, OnDestroy {
   loading: boolean;
   error: boolean;
   private _id: string;
+  tabSub: Subscription;
+  tab: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,11 +34,14 @@ export class UpdateSongComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
-
     // Set song ID from route params and subscribe
     this.routeSub = this.route.params.subscribe(params => {
       this._id = params["id"];
       this._getSong();
+    });
+    // Subscribe to query params to watch for tab changes
+    this.tabSub = this.route.queryParams.subscribe(queryParams => {
+      this.tab = queryParams["tab"] || "edit";
     });
   }
 
@@ -59,5 +64,6 @@ export class UpdateSongComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.songSub.unsubscribe();
+    this.tabSub.unsubscribe();
   }
 }

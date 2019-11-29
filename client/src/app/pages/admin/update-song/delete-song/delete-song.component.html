@@ -1,0 +1,33 @@
+<!-- src/app/pages/admin/update-song/delete-song.component/delete-song.component.html -->
+<p class="lead">
+  You are deleting the "<strong [innerHTML]="song.title"></strong>" song.
+</p>
+<p class="text-danger">
+  Deleting this song will also remove all associated Reviews. Please proceed
+  with caution!
+</p>
+<div class="form-group">
+  <label for="deleteSong">Confirm song title:</label>
+  <input
+    type="text"
+    id="deleteSong"
+    class="form-control"
+    [(ngModel)]="confirmDelete"
+  />
+</div>
+<!-- Delete button -->
+<p>
+  <button
+    class="btn btn-danger"
+    (click)="removeSong()"
+    [disabled]="confirmDelete !== song.title || submitting"
+  >
+    Delete Song
+  </button>
+  <app-submitting *ngIf="submitting"></app-submitting>
+</p>
+<!-- Error deleting song -->
+<p *ngIf="error" class="alert alert-danger">
+  <strong>Oops!</strong> There was an error deleting this song. Please try
+  again.
+</p>
