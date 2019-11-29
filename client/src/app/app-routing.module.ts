@@ -8,6 +8,7 @@ import { AdminComponent } from "./pages/admin/admin.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { TopChartComponent } from "./pages/top-chart/top-chart.component";
 import { SongComponent } from "./pages/song/song.component";
+import { PolicyComponent } from "./pages/policy/policy.component";
 import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
 
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: "",
     component: AboutComponent
+  },
+  {
+    path: "policy",
+    component: PolicyComponent
   },
   {
     path: "all_songs",

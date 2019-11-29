@@ -41,10 +41,6 @@ export class SongComponent implements OnInit, OnDestroy {
     this.loggedInSub = this.auth.loggedIn$.subscribe(loggedIn => {
       this.loading = true;
       this._routeSubs();
-      //BELOW IS JUST TO AUTHENTICATE LOGIN
-      // if (loggedIn) {
-      //   this._routeSubs();
-      // }
     });
   }
 

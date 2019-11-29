@@ -1,0 +1,23 @@
+<h1 style="text-align:center">Privacy Policy</h1>
+
+<div *ngFor="let policy of policyList">
+  <div *ngIf="policy.name">
+    <div align="center">{{ policy.desc }}</div>
+    <div class="form-group">
+      <a *ngIf="auth.loggedIn && auth.isAdmin">
+        <input
+          type="text"
+          placeholder="Change Policy"
+          [(ngModel)]="policyDesc"
+          class="form-control"
+        />
+        <button
+          id="{{ policy._id }}"
+          (click)="policyChange($event, policyDesc, policy.name)"
+        >
+          Change
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

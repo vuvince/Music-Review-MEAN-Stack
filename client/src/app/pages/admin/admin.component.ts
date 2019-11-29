@@ -55,12 +55,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   searchSongs() {
-    this.filteredSongs = this.fs.search(
-      this.songList,
-      this.query,
-      "_id",
-      "mediumDate"
-    );
+    var search = this.fs.search(this.songList, this.query);
+    if (search.length >= 1) {
+      this.filteredSongs = search;
+    } else {
+    }
   }
 
   resetQuery() {

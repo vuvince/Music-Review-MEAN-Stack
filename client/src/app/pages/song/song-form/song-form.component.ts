@@ -69,13 +69,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
       // FormSongModel with dsfault null data
       return new FormSongModel(null, null, null, null, null, null, null);
     } else {
-      // If editing existing song, create new
-      // FormEventModel from existing data
-      // Transform datetimes:
-      // https://angular.io/api/common/DatePipe
-      // _shortDate: 1/7/2017
-      // 'shortTime': 12:05 PM
-      const _shortDate = "M/d/yyyy";
       return new FormSongModel(
         this.song.title,
         this.song.artist,
@@ -121,9 +114,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
       this._onValueChanged()
     );
 
-    // If edit: mark fields dirty to trigger immediate
-    // validation in case editing an song that is no
-    // longer valid (for example, an song in the past)
     this._onValueChanged();
   }
 
@@ -155,22 +145,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
           this.formErrors[field] = "";
           _setErrMsgs(this.songForm.get(field), this.formErrors, field);
         }
-        //COULD REMOVE?
-        // else {
-        //   // Set errors for fields inside datesGroup
-        //   const datesGroupErrors = this.formErrors["datesGroup"];
-        //   for (const dateField in datesGroupErrors) {
-        //     if (datesGroupErrors.hasOwnProperty(dateField)) {
-        //       // Clear previous error message (if any)
-        //       datesGroupErrors[dateField] = "";
-        //       _setErrMsgs(
-        //         this.datesGroup.get(dateField),
-        //         datesGroupErrors,
-        //         dateField
-        //       );
-        //     }
-        //   }
-        // }
       }
     }
   }

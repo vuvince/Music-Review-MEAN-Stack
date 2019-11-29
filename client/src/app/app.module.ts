@@ -27,7 +27,11 @@ import { CreateSongComponent } from "./pages/song/create-song/create-song.compon
 import { SongFormComponent } from "./pages/song/song-form/song-form.component";
 import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
 import { DeleteSongComponent } from "./pages/admin/update-song/delete-song/delete-song.component";
-import { TopChartComponent } from "./pages/top-chart/top-chart.component"; //NOT NECESSARY
+import { TopChartComponent } from "./pages/top-chart/top-chart.component";
+import { PolicyComponent } from './pages/policy/policy.component';
+import { DmcaNoticeComponent } from './pages/dmca-notice/dmca-notice.component';
+import { DmcaTakedownComponent } from './pages/dmca-takedown/dmca-takedown.component';
+import { DmcaLogComponent } from './pages/dmca-log/dmca-log.component'; //NOT NECESSARY
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { TopChartComponent } from "./pages/top-chart/top-chart.component"; //NOT
     SongFormComponent,
     UpdateSongComponent,
     DeleteSongComponent,
-    TopChartComponent
+    TopChartComponent,
+    PolicyComponent,
+    DmcaNoticeComponent,
+    DmcaTakedownComponent,
+    DmcaLogComponent
   ],
   imports: [
     BrowserModule,

@@ -54,9 +54,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchSongs() {
     // this.filteredSongs = this.fs.search(this.songList, this.query);
     var search = this.fs.search(this.songList, this.query);
-    console.log(search);
-    if (search.length > 1) {
+    if (search.length >= 1) {
       this.filteredSongs = search;
+    } else {
     }
   }
 

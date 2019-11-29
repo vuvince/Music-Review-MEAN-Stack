@@ -14,6 +14,8 @@ import { catchError } from "rxjs/operators";
 import { ENV } from "./env.config";
 import { SongModel } from "./models/song.model";
 import { ReviewModel } from "./models/review.model";
+import { PolicyModel } from "./models/policy.model";
+import { DMCAModel } from "./models/dmca.model";
 
 @Injectable()
 export class ApiService {
@@ -123,6 +125,40 @@ export class ApiService {
   deleteSong$(id: string): Observable<any> {
     return this.http
       .delete(`${ENV.BASE_API}admin/song/delete/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  //POLICY STUFF BELOW
+  // GET list of all songs
+  getPolicys$(): Observable<PolicyModel[]> {
+    return this.http
+      .get<PolicyModel[]>(`${ENV.BASE_API}open/policy`)
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // POST new policy (admin only)
+  editPolicy$(id: string, policy: PolicyModel): Observable<PolicyModel> {
+    return this.http
+      .put<PolicyModel>(`${ENV.BASE_API}admin/policy/update/${id}`, policy, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+  // GET an song by Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  getPolicyById$(id: string): Observable<PolicyModel> {
+    return this.http
+      .get<PolicyModel>(`${ENV.BASE_API}open/policy/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // DELETE existing song and all associated Reviews (admin only)
+  deletePolicy$(id: string): Observable<any> {
+    return this.http
+      .delete(`${ENV.BASE_API}admin/policy/delete/${id}`, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));
