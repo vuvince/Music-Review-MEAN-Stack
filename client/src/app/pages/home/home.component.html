@@ -10,8 +10,8 @@
 <h1 class="text-center">{{ pageTitle }}</h1>
 <app-loading *ngIf="loading"></app-loading>
 <ng-template [ngIf]="utils.isLoaded(loading)">
-  <ng-template [ngIf]="songList">
-    <ng-template [ngIf]="songList.length">
+  <ng-template [ngIf]="filteredSongs">
+    <ng-template [ngIf]="filteredSongs.length">
       <!-- Search songs -->
       <label class="sr-only" for="search">Search</label>
       <div class="search input-group mb-3">
@@ -46,22 +46,32 @@
       <!-- Songs listing -->
       <section class="list-group">
         <a
-          *ngFor="let song of fs.orderByDate(filteredSongs, 'startDatetime')"
+          *ngFor="let song of filteredSongs"
           [routerLink]="['/song/details', song._id]"
           class="list-group-item list-group-item-action flex-column align-items-start"
         >
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1" [innerHTML]="song.title"></h5>
             <!-- NEED A WAY TO GET THE SONG RATING -->
-            <!-- <small>{{ utils.avgSongRating(song._id) }}</small> -->
-            <!-- <small>{{ utils.songRating(song._id) }}</small> -->
+            <small
+              ><strong>Rating: </strong> {{ song.avg | number: "1.1-1" }}</small
+            >
+            <!-- <small>{{ song._id }}</small> -->
           </div>
+          <p class="mb-1">
+            <strong>Artist:</strong>
+            {{ song.artist }}
+            <strong>Album:</strong>
+            {{ song.album }}
+          </p>
+          <strong>Genre:</strong>
+          {{ song.genre }}
         </a>
       </section>
     </ng-template>
     <!-- No upcoming public songs available -->
     <p *ngIf="!songList.length" class="alert alert-info">
-      No upcoming public songs available.
+      No songs available.
     </p>
   </ng-template>
   <!-- Error loading songs -->

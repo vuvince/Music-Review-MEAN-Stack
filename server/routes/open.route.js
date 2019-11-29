@@ -32,5 +32,8 @@ router.get("/song", open_controller.top10);
 //FIND ALL NON-COPYRIGHTED SONGS
 router.get("/song/:id", open_controller.song_details);
 
+//Get the rating for a song by id
+router.get("/song/rating/:id", open_controller.song_rating);
+
 //Export router
 module.exports = router;

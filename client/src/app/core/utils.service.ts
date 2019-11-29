@@ -67,24 +67,17 @@ export class UtilsService {
   //   return this.avgRating;
   // }
 
-  // songRating(songId) {
-  //   let reviewArr = [];
-  //   let tRating = 0;
-  //   // console.log(songId);
-  //   this.api.getReviewsBySongId$(songId).subscribe(
-  //     res => {
-  //       reviewArr = res;
-  //     },
-  //     err => {
-  //       console.error(err);
-  //     }
-  //   );
-  //   for (let i = 0; i < reviewArr.length; i++) {
-  //     tRating += reviewArr[i].rating;
-  //   }
-  //   tRating = tRating / reviewArr.length;
-  //   return tRating;
-  // }
+  songRating(songId) {
+    console.log(songId);
+    // this.api.getRatingBySongId$(songId).subscribe(
+    //   res => {
+    //     console.log(res);
+    //   },
+    //   err => {
+    //     console.error(err);
+    //   }
+    // );
+  }
 
   //CHANGE
   // accepts start and end dates, then uses the date pipe to transform the dates into user-friendly strings. If the start and end dates are the same, only one date is returned. If they're different, the dates are returned as a range

@@ -32,7 +32,7 @@ const routes: Routes = [
     path: "song",
     children: [
       {
-        path: ":details/:id",
+        path: "details/:id",
         component: SongComponent
       },
       {

@@ -6,7 +6,7 @@ class SongModel {
     public year?: Date,
     public genre?: string,
     public cViolation?: boolean, //viewPublic
-    public avgRating?: number,
+    public avg?: number,
     public _id?: string
   ) {}
 }
@@ -19,7 +19,7 @@ class FormSongModel {
     public year?: Date,
     public genre?: string,
     public cViolation?: boolean, //viewPublic
-    public avgRating?: number,
+    public avg?: number,
     public _id?: string
   ) {}
 }

@@ -8,6 +8,7 @@ let SongSchema = new Schema(
     album: { type: String },
     year: { type: Number },
     genre: { type: String },
+    avg: { type: Number },
     cViolation: { type: Boolean, default: false }
   },
   { collection: "songs" }

@@ -121,6 +121,7 @@ exports.top10 = async function(req, res, next) {
     }
 
     songsArr[i]["avg"] = avg;
+    songsArr[i].set("avgRating", avg);
     i++;
   }
   var sorted = songsArr.sort(function review(a, b) {
@@ -128,77 +129,32 @@ exports.top10 = async function(req, res, next) {
   });
 
   var final = sorted.slice(0, 10);
+  console.log(final[0]["avg"]);
 
   res.send(final);
 };
 
-//Return Top 10 songs (DOES NOT WORK)
-// exports.top10 = function(req, res, next) {
-//   //LOOK FOR ALL SONGS WITHOUT COPYRIGHT VIOLATIONS
-//   Song.find({ cViolation: false }, (err, songs) => {
-//     var songsArr = [];
-//     var rankingArr = [];
-//     if (err) {
-//       return res.status(500).send({ message: err.message });
-//     }
-//     if (!songs) {
-//       return res.status(400).send({ message: "No songs found." });
-//     }
-//     //Loop through songs
-//     if (songs) {
-//       //Loop EVERY SINGLE SONG
-//       songs.forEach(song => {
-//         songsArr.push(song);
-//         //Finding array of reviews for each song
-//         Review.find({ songId: song._id }, (err, reviews) => {
-//           let reviewsArr = [];
-//           let rankedSongs = [];
-//           //Handle error event
-//           if (err) {
-//             return res.status(500).send({ message: err.message });
-//           }
-//           if (reviews) {
-//             reviews.forEach(review => {
-//               //Get array of ratings
-//               reviewsArr.push(review.rating);
-//             });
-//           }
-//           //Reviews array complete here for each individual song
-//           let sum = reviewsArr.reduce(
-//             (previous, current) => (current += previous)
-//           );
-//           let avg = sum / reviewsArr.length;
-//           reviewsArr.push(avg);
-//           rankingArr.push(avg);
-//           rankedSongs.push(song);
-//           // res.send(rankedSongs);
-//         });
-//         res.send(rankedSongs);
-//       });
-//       //Song Array
-//     }
-//     //Send response song array here
-//     // res.send(songsArr);
-//   });
-// };
-
-//Sort based on ranking array
-function doubleSort(rankingArr, objArr) {
-  for (i = rankingArr.length - 1; i >= 0; i--) {
-    for (j = 1; j <= i; j++) {
-      if (rankingArr[j - 1] > rankingArr[j]) {
-        let temp1 = rankingArr[j - 1];
-        rankingArr[j - 1] = rankingArr[j];
-        rankingArr[j] = temp1;
-        let temp2 = objArr[j - 1];
-        objArr[j - 1] = objArr[j];
-        objArr[j] = temp2;
-      }
+//Returns Rating for a specific song by ID
+//WORK IN PROGRESS
+exports.song_rating = function(req, res) {
+  Review.find({ songId: req.params.id }, (err, reviews) => {
+    let reviewsArr = [];
+    let ratingArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
     }
-  }
-  objArr.reverse();
-  return objArr;
-}
+
+    if (reviews) {
+      reviews.forEach(review => {
+        reviewsArr.push(review.rating);
+      });
+    }
+    let sum = reviewsArr.reduce((previous, current) => (current += previous));
+    let avg = sum / reviewsArr.length;
+    ratingArr.push(avg);
+    res.send(ratingArr);
+  });
+};
 
 //Return reviews
 exports.find_all_songs = function(req, res, next) {

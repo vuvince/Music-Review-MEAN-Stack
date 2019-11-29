@@ -30,7 +30,7 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  //GET TOP 10 SONGS
+  //GET TOP 10 SONGS (BRING ['avg'] as well)
   getTopSongs$(): Observable<SongModel[]> {
     return this.http
       .get<SongModel[]>(`${ENV.BASE_API}open/song`)
@@ -50,6 +50,16 @@ export class ApiService {
   getSongById$(id: string): Observable<SongModel> {
     return this.http
       .get<SongModel>(`${ENV.BASE_API}open/song/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // GET reviews by song Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  getRatingBySongId$(songId: string): Observable<any> {
+    return this.http
+      .get<any>(`${ENV.BASE_API}open/song/rating/${songId}`, {
+        // [CHANGE]
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));

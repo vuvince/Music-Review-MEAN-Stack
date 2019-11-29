@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.rankedSongsSub = this.api.getTopSongs$().subscribe(
       res => {
         this.rankedSongs = res;
-        this.filteredSongs = res;
+        this.filteredSongs = res; //Should return with avg attribute
         this.loading = false;
       },
       err => {
@@ -72,8 +72,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  // songRating() {
+  //   return this.api.getRatingBySongId$("_id");
+  // }
+
   searchSongs() {
-    this.filteredSongs = this.fs.search(this.songList, this.query, "_id");
+    // this.filteredSongs = this.fs.search(this.songList, this.query, "_id");
   }
 
   resetQuery() {
