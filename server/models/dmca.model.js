@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 let DmcaSchema = new Schema(
   {
     email: { type: String, required: true },
-    who: { type: String, required: false },
-    what: { type: String, required: false },
-    where: { type: String, required: false }
+    dReqRec: { type: Date }, //Date request received
+    dNoticeSent: { type: Date }, //Date notice sent
+    dDispRec: { type: Date } //Date dispute received
   },
   { collection: "dmca" }
 );

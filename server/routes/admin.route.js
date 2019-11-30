@@ -51,6 +51,7 @@ router.put(
   admin_controller.update_policy
 );
 
+//POST Add new policy
 router.post(
   "/policy/new",
   // api_controller.jwtCheck,
@@ -58,11 +59,52 @@ router.post(
   admin_controller.add_policy
 );
 
+//Delete polity
 router.delete(
   "/policy/delete/:id",
   // api_controller.jwtCheck,
   // api_controller.adminCheck,
   admin_controller.delete_policy
+);
+
+//Update dmca
+router.put(
+  "/dmca/update/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.update_dmca
+);
+
+//POST Add new dmca
+router.post(
+  "/dmca/new",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.add_dmca
+);
+
+//Delete dmca
+router.delete(
+  "/dmca/delete/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  admin_controller.delete_dmca
+);
+
+//Find all dmca
+router.get(
+  "/dmca",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  open_controller.find_all
+);
+
+//Details of one dmca
+router.get(
+  "/dmca/:id",
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
+  open_controller.dmca_details
 );
 
 //Export router

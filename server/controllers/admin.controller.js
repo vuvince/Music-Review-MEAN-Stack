@@ -1,6 +1,7 @@
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 const Policy = require("../models/policy.model");
+const Dmca = require("../models/dmca.model");
 
 function encodeHTML(s) {
   if (s.length == 0) {
@@ -135,6 +136,85 @@ exports.delete_policy = function(req, res, next) {
         return res.status(500).send({ message: err.message });
       }
       res.status(200).send({ message: "Policy successfully deleted." });
+    });
+  });
+};
+
+// DMCA STUFF BELOW
+
+//GET: Retrieve a single dmca by ID
+exports.dmca_details = function(req, res, next) {
+  Dmca.findById(req.params.id, function(err, dmca) {
+    if (err) return next(err);
+    res.send(dmca);
+  });
+};
+
+//Find all dmcas
+exports.find_all = function(req, res, next) {
+  Dmca.find({}, (err, dmcas) => {
+    let dmcasArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (dmcas) {
+      dmcas.forEach(dmca => {
+        dmcasArr.push(dmca);
+      });
+    }
+    res.send(dmcasArr);
+  });
+};
+
+//PUT: Update a dmca by ID
+exports.update_dmca = function(req, res, next) {
+  Dmca.findById(req.params.id, (err, dmca) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!dmca) {
+      return res.status(400).send({ message: "Dmca not found." });
+    }
+    dmca.name = req.body.name;
+    dmca.desc = req.body.desc;
+
+    dmca.save(err => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      res.send(dmca);
+    });
+  });
+};
+
+//POST: Add dmca by id
+exports.add_dmca = function(req, res, next) {
+  const dmca = new Dmca({
+    name: req.body.name,
+    desc: req.body.desc
+  });
+  dmca.save(err => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    res.send(dmca);
+  });
+};
+
+//DELETE POLICY
+exports.delete_dmca = function(req, res, next) {
+  Dmca.findById(req.params.id, (err, dmca) => {
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (!dmca) {
+      return res.status(400).send({ message: "Dmca not found." });
+    }
+    dmca.remove(err => {
+      if (err) {
+        return res.status(500).send({ message: err.message });
+      }
+      res.status(200).send({ message: "Dmca successfully deleted." });
     });
   });
 };

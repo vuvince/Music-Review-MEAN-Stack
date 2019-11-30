@@ -1,11 +1,15 @@
 <p class="text-center">
   Vince 2019
   <a> | </a>
+
   <a routerLink="/policy"> Privacy Policy </a>
   <a> | </a>
-  <a routerLink="/dmca-takedown"> DMCA Takedown Policy </a>
-  <a> | </a>
   <a routerLink="/dmca-notice"> DMCA Notice </a>
+  <a *ngIf="auth.loggedIn && auth.isAdmin"> | </a>
+  <a routerLink="/dmca-takedown">
+    <!-- <a routerLink="/dmca-takedown" *ngIf="auth.loggedIn && auth.isAdmin"> -->
+    DMCA Takedown Policy
+  </a>
   <a> | </a>
   <a routerLink="/dmca-log"> DMCA Log </a>
 </p>
