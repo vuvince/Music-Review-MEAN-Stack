@@ -29,6 +29,8 @@ export class PolicyComponent implements OnInit, OnDestroy {
   submitPolicyObj: PolicyModel;
   submitPolicySub: Subscription;
   submitting: boolean;
+  policyName: string;
+  policyDesc: string;
 
   constructor(
     public auth: AuthService,
@@ -39,6 +41,7 @@ export class PolicyComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._getPolicyList();
+    this.policyName = "privacy-policy";
   }
 
   //Get the full policy list
