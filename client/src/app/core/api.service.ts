@@ -172,24 +172,25 @@ export class ApiService {
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // POST new dmca (admin only)
-  editDmca$(id: string, dmca: DmcaModel): Observable<DmcaModel> {
+  // POST new Dmca (login required)
+  postDmca$(dmca: DmcaModel): Observable<DmcaModel> {
     return this.http
-      .put<DmcaModel>(`${ENV.BASE_API}admin/dmca/update/${id}`, dmca, {
-        headers: new HttpHeaders().set("Authorization", this._authHeader)
-      })
-      .pipe(catchError(error => this._handleError(error)));
-  }
-  // GET an song by Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
-  getDmcaById$(id: string): Observable<DmcaModel> {
-    return this.http
-      .get<DmcaModel>(`${ENV.BASE_API}admin/dmca/${id}`, {
+      .post<DmcaModel>(`${ENV.BASE_API}admin/dmca/new`, dmca, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));
   }
 
-  // DELETE existing song and all associated Reviews (admin only)
+  // GET dmcas by song Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  getDmcasBySongId$(songId: string): Observable<DmcaModel[]> {
+    return this.http
+      .get<DmcaModel[]>(`${ENV.BASE_API}admin/dmca/${songId}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // DELETE existing song and all associated Dmcas (admin only)
   deleteDmca$(id: string): Observable<any> {
     return this.http
       .delete(`${ENV.BASE_API}admin/dmca/delete/${id}`, {

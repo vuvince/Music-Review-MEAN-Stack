@@ -1,4 +1,4 @@
-export class DmcaModel {
+class DmcaModel {
   constructor(
     public email: string,
     public songId: string,
@@ -9,3 +9,17 @@ export class DmcaModel {
     public _id?: string
   ) {}
 }
+
+class FormDmcaModel {
+  constructor(
+    public email: string,
+    public songId: string,
+    public songName: string,
+    public dReqRec: Date,
+    public dNoticeSent: Date,
+    public dDispRec: Date,
+    public _id?: string
+  ) {}
+}
+
+export { DmcaModel, FormDmcaModel };
