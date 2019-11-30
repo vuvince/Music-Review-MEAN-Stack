@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 let DmcaSchema = new Schema(
   {
     email: { type: String, required: true },
+    songId: { type: String, required: true },
+    songName: { type: String, required: true },
     dReqRec: { type: Date }, //Date request received
     dNoticeSent: { type: Date }, //Date notice sent
     dDispRec: { type: Date } //Date dispute received

@@ -30,6 +30,15 @@
               >Review</a
             >
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="[]"
+              [queryParams]="{ tab: 'dmca' }"
+              [ngClass]="{ active: utils.tabIs(tab, 'review') }"
+              >Review</a
+            >
+          </li>
         </ul>
       </div>
       <!-- Song detail tab -->

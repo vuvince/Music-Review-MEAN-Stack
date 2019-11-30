@@ -15,7 +15,7 @@ import { ENV } from "./env.config";
 import { SongModel } from "./models/song.model";
 import { ReviewModel } from "./models/review.model";
 import { PolicyModel } from "./models/policy.model";
-import { DMCAModel } from "./models/dmca.model";
+import { DmcaModel } from "./models/dmca.model";
 
 @Injectable()
 export class ApiService {
@@ -159,6 +159,40 @@ export class ApiService {
   deletePolicy$(id: string): Observable<any> {
     return this.http
       .delete(`${ENV.BASE_API}admin/policy/delete/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  //DMCA STUFF BELOW
+  // GET list of all songs
+  getDmcas$(): Observable<DmcaModel[]> {
+    return this.http
+      .get<DmcaModel[]>(`${ENV.BASE_API}admin/dmca`)
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // POST new dmca (admin only)
+  editDmca$(id: string, dmca: DmcaModel): Observable<DmcaModel> {
+    return this.http
+      .put<DmcaModel>(`${ENV.BASE_API}admin/dmca/update/${id}`, dmca, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+  // GET an song by Id (LOGIN REQUIRED IN THIS EXAMPLE, BUT NOT IN FUTURE)
+  getDmcaById$(id: string): Observable<DmcaModel> {
+    return this.http
+      .get<DmcaModel>(`${ENV.BASE_API}admin/dmca/${id}`, {
+        headers: new HttpHeaders().set("Authorization", this._authHeader)
+      })
+      .pipe(catchError(error => this._handleError(error)));
+  }
+
+  // DELETE existing song and all associated Reviews (admin only)
+  deleteDmca$(id: string): Observable<any> {
+    return this.http
+      .delete(`${ENV.BASE_API}admin/dmca/delete/${id}`, {
         headers: new HttpHeaders().set("Authorization", this._authHeader)
       })
       .pipe(catchError(error => this._handleError(error)));
