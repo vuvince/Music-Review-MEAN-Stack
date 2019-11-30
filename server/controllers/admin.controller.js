@@ -143,10 +143,19 @@ exports.delete_policy = function(req, res, next) {
 // DMCA STUFF BELOW
 
 //GET: Retrieve a single dmca by ID
-exports.dmca_details = function(req, res, next) {
-  Dmca.findById(req.params.id, function(err, dmca) {
-    if (err) return next(err);
-    res.send(dmca);
+//Return list of all reviews for a song (GET) (WORKS)
+exports.song_dmcas = function(req, res) {
+  Review.find({ songId: req.params.id }, (err, reviews) => {
+    let reviewsArr = [];
+    if (err) {
+      return res.status(500).send({ message: err.message });
+    }
+    if (reviews) {
+      reviews.forEach(review => {
+        reviewsArr.push(review);
+      });
+    }
+    res.send(reviewsArr);
   });
 };
 

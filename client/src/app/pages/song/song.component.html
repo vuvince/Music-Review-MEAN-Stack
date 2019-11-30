@@ -35,8 +35,8 @@
               class="nav-link"
               [routerLink]="[]"
               [queryParams]="{ tab: 'dmca' }"
-              [ngClass]="{ active: utils.tabIs(tab, 'review') }"
-              >Review</a
+              [ngClass]="{ active: utils.tabIs(tab, 'dmca') }"
+              >DMCA Form</a
             >
           </li>
         </ul>
@@ -47,12 +47,16 @@
         [song]="song"
       ></app-song-detail>
       <!-- Song Review tab -->
-      <!-- Event RSVP content -->
-      <!-- BUILDING FUNCTIONALITY -->
       <app-review
         *ngIf="utils.tabIs(tab, 'review')"
         [songId]="song._id"
       ></app-review>
+      <!-- DMCA -->
+      <app-dmca
+        *ngIf="utils.tabIs(tab, 'dmca')"
+        [songId]="song._id"
+        [songTitle]="song.title"
+      ></app-dmca>
     </div>
   </ng-template>
   <!-- Error loading songs -->

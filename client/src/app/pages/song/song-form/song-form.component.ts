@@ -47,7 +47,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private datePipe: DatePipe,
     public sf: SongFormService,
     public auth: AuthService,
     private router: Router

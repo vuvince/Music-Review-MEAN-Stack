@@ -15,12 +15,12 @@
       required
     />
     <div *ngIf="name.errors && name.dirty" class="small text-danger formErrors">
-      <div [hidden]="!name.errors.required">
+      <!-- <div [hidden]="!name.errors.required">
         Name is <strong>required</strong>.
       </div>
       <div [hidden]="!name.errors.minlength">
         Name must be 3 characters or more.
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- Rating -->
@@ -43,9 +43,9 @@
       *ngIf="rating.errors && rating.dirty"
       class="col-12 small text-danger formErrors"
     >
-      <div [hidden]="!rating.errors.pattern">
-        Additional Guests must be an integer from <strong>1-5</strong>.
-      </div>
+      <!-- <div [hidden]="!rating.errors.pattern">
+        Ratings must be an integer from <strong>1-5</strong>.
+      </div> -->
     </div>
   </div>
   <!-- Comments -->

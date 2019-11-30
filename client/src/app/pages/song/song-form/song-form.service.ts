@@ -42,22 +42,6 @@ export class SongFormService {
         minlength: `Genre must be ${this.textMin} characters or more.`,
         maxlength: `Genre must be ${this.locMax} characters or less.`
       },
-      startTime: {
-        required: `Start time is <strong>required</strong>.`,
-        pattern: `Start time must be a <strong>valid time</strong> in the format <strong>${this.timeFormat}</strong>.`,
-        maxlength: `Start time must be ${this.timeMax} characters or less.`
-      },
-      endDate: {
-        required: `End date is <strong>required</strong>.`,
-        maxlength: `End date cannot be longer than ${this.dateMax} characters.`,
-        pattern: `End date must be in the format <strong>${this.dateFormat}</strong>.`,
-        date: `End date must be a <strong>valid date</strong> at least one day <strong>in the future</strong>.`
-      },
-      endTime: {
-        required: `End time is <strong>required</strong>.`,
-        pattern: `End time must be a <strong>valid time</strong> in the format <strong>${this.timeFormat}</strong>.`,
-        maxlength: `End time must be ${this.timeMax} characters or less.`
-      },
       viewPublic: {
         required: `You must specify whether this song should be publicly listed.`
       },

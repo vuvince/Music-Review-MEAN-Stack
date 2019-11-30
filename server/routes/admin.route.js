@@ -96,15 +96,15 @@ router.get(
   "/dmca",
   // api_controller.jwtCheck,
   // api_controller.adminCheck,
-  open_controller.find_all
+  admin_controller.find_all
 );
 
-//Details of one dmca
+//Details of one dmca by song Id
 router.get(
   "/dmca/:id",
   // api_controller.jwtCheck,
   // api_controller.adminCheck,
-  open_controller.dmca_details
+  admin_controller.song_dmcas
 );
 
 //Export router
