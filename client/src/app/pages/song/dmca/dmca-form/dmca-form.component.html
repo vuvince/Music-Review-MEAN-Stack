@@ -11,43 +11,47 @@
         type="text"
         class="form-control"
         readonly="readonly"
-        minlength="3"
-        maxlength="24"
         #name="ngModel"
-        [(ngModel)]="formDmca.songName"
+        [(ngModel)]="this.songTitle"
         required
       />
     </div>
     <!-- Start date -->
     <div class="form-group col-sm-12 col-md-6">
-      <label for="startDate">Date Request Received</label>
+      <label for="dReqRec">Date Request Received</label>
       <input
-        id="startDate"
+        id="dReqRec"
         type="date"
         class="form-control"
-        formControlName="startDate"
+        #name="ngModel"
+        [(ngModel)]="formDmca.dNoticeSent"
+        required
       />
     </div>
   </div>
   <div class="row">
     <!-- End date -->
     <div class="form-group col-sm-12 col-md-6">
-      <label for="startDate">Date Notice Sent</label>
+      <label for="dNoticeSent">Date Notice Sent</label>
       <input
-        id="startDate"
+        id="dNoticeSent"
         type="date"
         class="form-control"
-        formControlName="startDate"
+        #name="ngModel"
+        [(ngModel)]="formDmca.dReqRec"
+        required
       />
     </div>
     <!-- End time -->
     <div class="form-group col-sm-12 col-md-6">
-      <label for="startDate">Date Dispute Received</label>
+      <label for="dDispRec">Date Dispute Received</label>
       <input
-        id="startDate"
+        id="dDispRec"
         type="date"
         class="form-control"
-        formControlName="startDate"
+        #name="ngModel"
+        [(ngModel)]="formDmca.dDispRec"
+        required
       />
     </div>
   </div>

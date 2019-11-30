@@ -30,7 +30,8 @@ const routes: Routes = [
   },
   {
     path: "dmca-log",
-    component: DmcaLogComponent
+    component: DmcaLogComponent,
+    canActivate: [AuthGuard, AdminGuard] //ACCESS REQUIRED
   },
   {
     path: "dmca-takedown",
@@ -50,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED (FOR TESTING)
+    canActivate: [AuthGuard, AdminGuard], //ACCESS REQUIRED
     children: [
       {
         path: "",

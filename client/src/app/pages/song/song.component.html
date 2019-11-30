@@ -35,6 +35,7 @@
               class="nav-link"
               [routerLink]="[]"
               [queryParams]="{ tab: 'dmca' }"
+              *ngIf="auth.loggedIn && auth.isAdmin"
               [ngClass]="{ active: utils.tabIs(tab, 'dmca') }"
               >DMCA Form</a
             >
@@ -53,9 +54,10 @@
       ></app-review>
       <!-- DMCA -->
       <app-dmca
-        *ngIf="utils.tabIs(tab, 'dmca')"
+        *ngIf="utils.tabIs(tab, 'dmca') && auth.loggedIn && auth.isAdmin"
         [songId]="song._id"
         [songTitle]="song.title"
+        [song]="song"
       ></app-dmca>
     </div>
   </ng-template>

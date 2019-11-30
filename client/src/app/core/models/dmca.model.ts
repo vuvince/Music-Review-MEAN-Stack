@@ -2,24 +2,11 @@ class DmcaModel {
   constructor(
     public email: string,
     public songId: string,
-    public songName: string,
+    public songTitle: string,
     public dReqRec: Date,
     public dNoticeSent: Date,
-    public dDispRec: Date,
-    public _id?: string
+    public dDispRec: Date
   ) {}
 }
 
-class FormDmcaModel {
-  constructor(
-    public email: string,
-    public songId: string,
-    public songName: string,
-    public dReqRec: Date,
-    public dNoticeSent: Date,
-    public dDispRec: Date,
-    public _id?: string
-  ) {}
-}
-
-export { DmcaModel, FormDmcaModel };
+export { DmcaModel };

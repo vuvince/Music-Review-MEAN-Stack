@@ -8,6 +8,7 @@ import { FilterSortService } from "./../../../core/filter-sort.service";
 import { DmcaModel } from "./../../../core/models/dmca.model";
 import { Subscription } from "rxjs";
 import { expandCollapse } from "./../../../core/expand-collapse.animation";
+import { SongModel } from "../../../core/models/song.model";
 
 @Component({
   selector: "app-dmca",
@@ -18,6 +19,7 @@ import { expandCollapse } from "./../../../core/expand-collapse.animation";
 export class DmcaComponent implements OnInit, OnDestroy {
   @Input() songId: string;
   @Input() songTitle: string;
+  @Input() song: SongModel;
   dmcasSub: Subscription;
   dmcas: DmcaModel[]; //Array of all dmcas for this specific song
   loading: boolean;

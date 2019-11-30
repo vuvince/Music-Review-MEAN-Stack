@@ -11,12 +11,6 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { ApiService } from "../../../core/api.service";
 import { SongModel, FormSongModel } from "../../../core/models/song.model";
-import { DatePipe } from "@angular/common";
-import {
-  DATE_REGEX,
-  TIME_REGEX,
-  stringsToDate
-} from "../../../core/forms/formUtils.factory";
 import { SongFormService } from "./song-form.service";
 import { AuthService } from "./../../../auth/auth.service";
 

@@ -11,7 +11,8 @@ import { AuthService } from "./../../../../auth/auth.service";
 import { Subscription } from "rxjs";
 import { ApiService } from "./../../../../core/api.service";
 import { DmcaModel } from "./../../../../core/models/dmca.model";
-import { GUESTS_REGEX } from "./../../../../core/forms/formUtils.factory";
+import { SongModel } from "../../../../core/models/song.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-dmca-form",
@@ -21,15 +22,20 @@ import { GUESTS_REGEX } from "./../../../../core/forms/formUtils.factory";
 export class DmcaFormComponent implements OnInit, OnDestroy {
   @Input() songId: string;
   @Input() songTitle: string;
+  @Input() song: SongModel;
   @Input() dmca: DmcaModel;
   @Output() submitDmca = new EventEmitter();
-  GUESTS_REGEX = GUESTS_REGEX;
   formDmca: DmcaModel;
   submitDmcaSub: Subscription;
   submitting: boolean;
   error: boolean;
+  submitSongSub: Subscription;
 
-  constructor(private auth: AuthService, private api: ApiService) {}
+  constructor(
+    private auth: AuthService,
+    private api: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this._setFormDmca();
@@ -39,7 +45,7 @@ export class DmcaFormComponent implements OnInit, OnDestroy {
     // If creating a new Dmca,
     // create new DmcaModel with default data
     this.formDmca = new DmcaModel(
-      this.auth.userProfile.email,
+      this.auth.userProfile.name,
       this.songId,
       this.songTitle,
       null,
@@ -54,6 +60,14 @@ export class DmcaFormComponent implements OnInit, OnDestroy {
       data => this._handleSubmitSuccess(data),
       err => this._handleSubmitError(err)
     );
+
+    this.song.cViolation = true;
+
+    //Edit the song so that cViolation is true
+    this.submitSongSub = this.api.editSong$(this.songId, this.song).subscribe(
+      data => this._handleSubmitSuccess(data),
+      err => this._handleSubmitError(err)
+    );
   }
 
   private _handleSubmitSuccess(res) {
@@ -63,6 +77,8 @@ export class DmcaFormComponent implements OnInit, OnDestroy {
     this.submitDmca.emit(songObj);
     this.error = false;
     this.submitting = false;
+    console.log("Submitted DMCA");
+    this.router.navigate(["/song/details", res._id]);
   }
 
   private _handleSubmitError(err) {

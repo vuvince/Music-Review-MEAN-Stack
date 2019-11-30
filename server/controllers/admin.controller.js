@@ -160,7 +160,7 @@ exports.song_dmcas = function(req, res) {
 };
 
 //Find all dmcas
-exports.find_all = function(req, res, next) {
+exports.all_dmca = function(req, res, next) {
   Dmca.find({}, (err, dmcas) => {
     let dmcasArr = [];
     if (err) {
@@ -199,8 +199,12 @@ exports.update_dmca = function(req, res, next) {
 //POST: Add dmca by id
 exports.add_dmca = function(req, res, next) {
   const dmca = new Dmca({
-    name: req.body.name,
-    desc: req.body.desc
+    email: req.body.email,
+    songId: req.body.songId,
+    songTitle: req.body.songTitle,
+    dReqRec: req.body.dReqRec,
+    dNoticeSent: req.body.dNoticeSent,
+    dDispRec: req.body.dDispRec
   });
   dmca.save(err => {
     if (err) {
