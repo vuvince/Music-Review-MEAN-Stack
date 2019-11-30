@@ -20,6 +20,7 @@ export class DmcaLogComponent implements OnInit {
   ngOnInit() {
     this._getDmcaList();
   }
+
   //Get the full policy list
   private _getDmcaList() {
     this.loading = true;

@@ -94,8 +94,8 @@ router.delete(
 //Find all dmca
 router.get(
   "/dmca",
-  api_controller.jwtCheck,
-  api_controller.adminCheck,
+  // api_controller.jwtCheck,
+  // api_controller.adminCheck,
   admin_controller.all_dmca
 );
 
