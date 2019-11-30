@@ -13,12 +13,6 @@ const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
 const apiUser = require("./routes/user.route");
 
-//SEE IF WE HAVE PRIVATE KEY
-if (!config.get("myprivatekey")) {
-  console.error("FATAL ERROR: myprivatekey is not defined.");
-  process.exit(1);
-}
-
 // initialize our express app
 const app = express();
 app.use(bodyParser.json());

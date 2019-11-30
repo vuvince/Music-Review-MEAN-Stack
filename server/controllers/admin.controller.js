@@ -3,6 +3,9 @@ const Review = require("../models/review.model");
 const Policy = require("../models/policy.model");
 
 function encodeHTML(s) {
+  if (s.length == 0) {
+    return;
+  }
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -66,10 +69,10 @@ exports.update_song = function(req, res, next) {
     if (!song) {
       return res.status(400).send({ message: "Song not found." });
     }
-    song.title = req.body.title;
-    song.artist = req.body.artist;
-    song.album = req.body.album;
-    song.genre = req.body.genre;
+    song.title = encodeHTML(req.body.title);
+    song.artist = encodeHTML(req.body.artist);
+    song.album = encodeHTML(req.body.album);
+    song.genre = encodeHTML(req.body.genre);
     song.cViolation = req.body.cViolation;
 
     song.save(err => {

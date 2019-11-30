@@ -9,6 +9,9 @@ import { AboutComponent } from "./pages/about/about.component";
 import { TopChartComponent } from "./pages/top-chart/top-chart.component";
 import { SongComponent } from "./pages/song/song.component";
 import { PolicyComponent } from "./pages/policy/policy.component";
+import { DmcaNoticeComponent } from "./pages/dmca-notice/dmca-notice.component";
+import { DmcaLogComponent } from "./pages/dmca-log/dmca-log.component";
+import { DmcaTakedownComponent } from "./pages/dmca-takedown/dmca-takedown.component";
 import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
 
@@ -16,6 +19,22 @@ const routes: Routes = [
   {
     path: "",
     component: AboutComponent
+  },
+  {
+    path: "policy",
+    component: PolicyComponent
+  },
+  {
+    path: "dmca-notice",
+    component: DmcaNoticeComponent
+  },
+  {
+    path: "dmca-log",
+    component: DmcaLogComponent
+  },
+  {
+    path: "dmca-takedown",
+    component: DmcaTakedownComponent
   },
   {
     path: "policy",

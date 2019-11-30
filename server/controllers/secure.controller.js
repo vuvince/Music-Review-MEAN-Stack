@@ -26,8 +26,8 @@ exports.add_review = function(req, res, next) {
     userId: encodeHTML(req.body.userId),
     name: encodeHTML(req.body.name),
     comments: encodeHTML(req.body.comments),
-    reviewDate: encodeHTML(req.body.reviewDate),
-    rating: encodeHTML(req.body.rating)
+    reviewDate: req.body.reviewDate,
+    rating: req.body.rating
   });
   review.save(err => {
     if (err) {
