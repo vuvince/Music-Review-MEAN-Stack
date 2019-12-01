@@ -14,7 +14,7 @@
     <strong>Year Released:</strong>{{ song.year }}<a *ngIf="!song.year">N/A</a>
   </li>
   <li class="list-group-item" *ngIf="song.cViolation">
-    <strong>This sound has copyright violation.</strong>
+    <strong class="text-danger">This song has copyright violation.</strong>
   </li>
 </ul>
 <div *ngIf="auth.isAdmin" class="card-footer text-right small">

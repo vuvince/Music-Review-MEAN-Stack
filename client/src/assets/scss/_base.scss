@@ -8,6 +8,7 @@
 body {
   min-width: 320px;
   font-family: "Open Sans", sans-serif;
+  color: rgba(255, 255, 255, 0.808);
 }
 
 /*-- Cursor --*/
@@ -22,14 +23,14 @@ button {
 /*-- Link Buttons --*/
 
 .btn-link {
-  color: #0f9421;
+  color: #940f0f;
 
   &:hover {
     text-decoration: underline !important;
   }
   &:focus {
     box-shadow: none !important;
-    color: #0f9421;
+    color: #940f0f;
     text-decoration: none;
   }
 }
@@ -78,4 +79,8 @@ input:-ms-input-placeholder {
 
 .list-group-item > strong {
   padding-right: 5px;
+}
+
+.card {
+  color: #45494d;
 }

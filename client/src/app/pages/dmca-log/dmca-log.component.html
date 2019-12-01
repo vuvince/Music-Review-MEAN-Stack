@@ -1,14 +1,20 @@
-<h1 style="text-align:center">DMCA Takedown Procedures</h1>
+<h1 style="text-align:center">DMCA Log</h1>
 
-<div *ngFor="let dmca of dmcaList">
-  <h3>--------------------------------------------</h3>
-  Manager who logged DMCA: {{ dmca.email }}
-  <br />
-  Complaint on Song: {{ dmca.songTitle }}
-  <br />
-  Date Request Received: {{ dmca.dReqRec }}
-  <br />
-  Date Notice Sent: {{ dmca.dNoticeSent }}
-  <br />
-  Date Notice Sent: {{ dmca.dDispRec }}
-</div>
+<section class="list-group">
+  <a
+    *ngFor="let dmca of dmcaList; let i = index"
+    [routerLink]="['/admin/song/update/', dmca.songId]"
+    class="list-group-item list-group-item-action flex-column align-items-start"
+  >
+    Manager who logged DMCA: {{ dmca.email }}
+    <br />
+    Complaint on Song: {{ dmca.songTitle }}
+    <br />
+    Date Request Received: {{ dmca.dReqRec }}
+    <br />
+    Date Notice Sent: {{ dmca.dNoticeSent }}
+    <br />
+    Date Notice Sent: {{ dmca.dDispRec }}
+    <br />
+  </a>
+</section>

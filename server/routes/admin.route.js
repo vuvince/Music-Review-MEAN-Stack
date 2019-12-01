@@ -27,7 +27,7 @@ router.get(
   admin_controller.find_all
 );
 
-// DELETE a song
+// DELETE a song and DMCA notices with it
 router.delete(
   "/song/delete/:id",
   api_controller.jwtCheck,

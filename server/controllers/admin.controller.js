@@ -49,6 +49,13 @@ exports.delete_song = function(req, res, next) {
           review.remove();
         });
       }
+    });
+    Dmca.find({ songId: req.params.id }, (err, dmcas) => {
+      if (dmcas) {
+        dmcas.forEach(dmca => {
+          dmca.remove();
+        });
+      }
       song.remove(err => {
         if (err) {
           return res.status(500).send({ message: err.message });
