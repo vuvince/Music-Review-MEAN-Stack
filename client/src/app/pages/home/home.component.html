@@ -48,18 +48,30 @@
             <h5 class="mb-1" [innerHTML]="song.title"></h5>
             <!-- NEED A WAY TO GET THE SONG RATING -->
             <small
-              ><strong>Rating: </strong> {{ song.avg | number: "1.1-1" }}</small
+              ><strong>Rating: </strong>
+              <a
+                class="badge badge-success badge-pill"
+                style="color:whitesmoke"
+                >{{ song.avg | number: "1.1-1" }}</a
+              ></small
             >
-            <!-- <small>{{ song._id }}</small> -->
           </div>
-          <p class="mb-1">
+          <p class="font-italic" *ngIf="song.artist" style="margin-bottom:0">
             <strong>Artist:</strong>
             {{ song.artist }}
+          </p>
+          <p class="font-italic" *ngIf="song.album" style="margin-bottom:0">
             <strong>Album:</strong>
             {{ song.album }}
           </p>
-          <strong>Genre:</strong>
-          {{ song.genre }}
+          <p class="font-italic" *ngIf="song.genre" style="margin-bottom:0">
+            <strong>Genre:</strong>
+            {{ song.genre }}
+          </p>
+          <p class="font-italic" *ngIf="song.year" style="margin-bottom:0">
+            <strong>Year:</strong>
+            {{ song.year }}
+          </p>
         </a>
       </section>
     </ng-template>

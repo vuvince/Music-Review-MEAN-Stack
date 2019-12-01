@@ -3,7 +3,7 @@ class SongModel {
     public title: string,
     public artist: string,
     public album: string,
-    public year?: Date,
+    public year?: number,
     public genre?: string,
     public cViolation?: boolean, //viewPublic
     public avg?: number,
@@ -16,7 +16,7 @@ class FormSongModel {
     public title: string,
     public artist: string,
     public album: string,
-    public year?: Date,
+    public year?: number,
     public genre?: string,
     public cViolation?: boolean, //viewPublic
     public avg?: number,

@@ -72,8 +72,9 @@ exports.update_song = function(req, res, next) {
     }
     song.title = encodeHTML(req.body.title);
     song.artist = encodeHTML(req.body.artist);
-    song.album = encodeHTML(req.body.album);
-    song.genre = encodeHTML(req.body.genre);
+    song.album = req.body.album;
+    song.genre = req.body.genre;
+    song.year = req.body.year;
     song.cViolation = req.body.cViolation;
 
     song.save(err => {

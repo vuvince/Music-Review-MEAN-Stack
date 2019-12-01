@@ -2,7 +2,7 @@
 
 <div *ngFor="let policy of policyList">
   <div *ngIf="policy.name == policyName">
-    <div align="center">{{ policy.desc }}</div>
+    <div align="center" [innerHTML]="policy.desc"></div>
     <div class="form-group">
       <!-- <a *ngIf="auth.loggedIn && auth.isAdmin">
         <input

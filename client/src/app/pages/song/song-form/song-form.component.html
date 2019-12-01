@@ -18,7 +18,7 @@
   </div>
   <!-- Artist -->
   <div class="form-group">
-    <label for="title">Artist</label>
+    <label for="artist">Artist</label>
     <input
       id="artist"
       type="text"
@@ -27,13 +27,13 @@
       [maxlength]="sf.titleMax"
     />
     <div
-      *ngIf="formErrors.title"
+      *ngIf="formErrors.artist"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.title"
+      [innerHTML]="formErrors.artist"
     ></div>
   </div>
   <!-- FOR DMCA NOTICE -->
-  <section *ngIf="auth.loggedIn && auth.isAdmin">
+  <section *ngIf="auth.loggedIn && auth.isAdmin && isEdit">
     <div class="form-group">
       <label class="label-inline-group">Song has copyright infringement?</label>
       <div class="form-check form-check-inline">
@@ -69,7 +69,7 @@
   </section>
   <!-- Album -->
   <div class="form-group">
-    <label for="title">Album</label>
+    <label for="album">Album</label>
     <input
       id="album"
       type="text"
@@ -78,26 +78,112 @@
       [maxlength]="sf.titleMax"
     />
     <div
-      *ngIf="formErrors.title"
+      *ngIf="formErrors.album"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.title"
+      [innerHTML]="formErrors.album"
     ></div>
   </div>
   <!-- Genre -->
   <!-- MAKE THIS A DROPDOWN WITH SELECTION -->
   <div class="form-group">
     <label for="genre">Genre</label>
+    <select id="genre" class="form-control" formControlName="genre">
+      <option value="Blues">Blues</option>
+      <option value="Classic rock">Classic rock</option>
+      <option value="Country">Country</option>
+      <option value="Dance">Dance</option>
+      <option value="Disco">Disco</option>
+      <option value="Funk">Funk</option>
+      <option value="Grunge">Grunge</option>
+      <option value="Hip-Hop">Hip-Hop</option>
+      <option value="Jazz">Jazz</option>
+      <option value="Metal">Metal</option>
+      <option value="New Age">New Age</option>
+      <option value="Oldies">Oldies</option>
+      <option value="Other">Other</option>
+      <option value="Pop">Pop</option>
+      <option value="Rhythm and Blues">Rhythm and Blues</option>
+      <option value="Rap">Rap</option>
+      <option value="Reggae">Reggae</option>
+      <option value="Rock">Rock</option>
+      <option value="Techno">Techno</option>
+      <option value="Industrial">Industrial</option>
+      <option value="Alternative">Alternative</option>
+      <option value="Ska">Ska</option>
+      <option value="Death metal">Death metal</option>
+      <option value="Pranks">Pranks</option>
+      <option value="Soundtrack">Soundtrack</option>
+      <option value="Euro-Techno">Euro-Techno</option>
+      <option value="Ambient">Ambient</option>
+      <option value="Trip-Hop">Trip-Hop</option>
+      <option value="Vocal">Vocal</option>
+      <option value="Funk">Funk</option>
+      <option value="Fusion">Fusion</option>
+      <option value="Trance">Trance</option>
+      <option value="Classical">Classical</option>
+      <option value="Instrumental">Instrumental</option>
+      <option value="Acid">Acid</option>
+      <option value="House">House</option>
+      <option value="Game">Game</option>
+      <option value="Sound clip">Sound clip</option>
+      <option value="Gospel">Gospel</option>
+      <option value="Noise">Noise</option>
+      <option value="Alternative Rock">Alternative Rock</option>
+      <option value="Bass">Bass</option>
+      <option value="Soul">Soul</option>
+      <option value="Punk">Punk</option>
+      <option value="Space">Space</option>
+      <option value="Meditative">Meditative</option>
+      <option value="Instrumental Pop">Instrumental Pop</option>
+      <option value="Instrumental Rock">Instrumental Rock</option>
+      <option value="Ethnic">Ethnic</option>
+      <option value="Gothic">Gothic</option>
+      <option value="Darkwave">Darkwave</option>
+      <option value="Techno-Industrial">Techno-Industrial</option>
+      <option value="Electronic">Electronic</option>
+      <option value="Pop-Folk">Pop-Folk</option>
+      <option value="Eurodance">Eurodance</option>
+      <option value="Dream">Dream</option>
+      <option value="Southern Rock">Southern Rock</option>
+      <option value="Comedy">Comedy</option>
+      <option value="Cult">Cult</option>
+      <option value="Gangsta">Gangsta</option>
+      <option value="Top 40">Top 40</option>
+      <option value="Christian Rap">Christian Rap</option>
+      <option value="Funk">Funk</option>
+      <option value="Jungle">Jungle</option>
+      <option value="Native US">Native US</option>
+      <option value="Cabaret">Cabaret</option>
+      <option value="New Wave">New Wave</option>
+      <option value="Psychedelic">Psychedelic</option>
+      <option value="Rave">Rave</option>
+      <option value="Show tunes">Show tunes</option>
+      <option value="Trailer">Trailer</option>
+      <option value="Lo-Fi">Lo-Fi</option>
+      <option value="Tribal">Tribal</option>
+      <option value="Acid Punk">Acid Punk</option>
+      <option value="Acid Jazz">Acid Jazz</option>
+      <option value="Polka">Polka</option>
+      <option value="Retro">Retro</option>
+      <option value="Musical">Musical</option>
+      <option value="Rock ’n’ Roll">Rock ’n’ Roll</option>
+      <option value="Hard Rock">Hard Rock </option>
+    </select>
+  </div>
+  <!-- Year -->
+  <div class="form-group">
+    <label for="year">Year</label>
     <input
-      id="genre"
+      id="year"
       type="text"
       class="form-control"
-      formControlName="genre"
-      [maxlength]="sf.genreMax"
+      formControlName="year"
+      [maxlength]="sf.yearMax"
     />
     <div
-      *ngIf="formErrors.genre"
+      *ngIf="formErrors.year"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.genre"
+      [innerHTML]="formErrors.year"
     ></div>
   </div>
   <!-- Submit -->

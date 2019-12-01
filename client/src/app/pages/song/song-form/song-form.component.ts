@@ -143,8 +143,6 @@ export class SongFormComponent implements OnInit, OnDestroy {
   }
 
   private _getSubmitObj() {
-    // Convert form startDate/startTime and endDate/endTime
-    // to JS dates and populate a new SongModel for submission
     return new SongModel(
       this.songForm.get("title").value,
       this.songForm.get("artist").value,

@@ -168,7 +168,7 @@ export class ApiService {
   // GET list of all songs
   getDmcas$(): Observable<DmcaModel[]> {
     return this.http
-      .get<DmcaModel[]>(`${ENV.BASE_API}admin/dmca`)
+      .get<DmcaModel[]>(`${ENV.BASE_API}admin/dmca/all`)
       .pipe(catchError(error => this._handleError(error)));
   }
 

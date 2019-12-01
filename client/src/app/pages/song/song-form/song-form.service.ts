@@ -17,6 +17,7 @@ export class SongFormService {
   textMin = 2;
   titleMax = 36;
   genreMax = 10;
+  yearMax = 4;
   locMax = 200;
   dateMax = 10;
   timeMax = 8;
@@ -38,12 +39,12 @@ export class SongFormService {
         maxlength: `Artist must be ${this.locMax} characters or less.`
       },
       Genre: {
-        required: `Genre is <strong>required</strong>.`,
         minlength: `Genre must be ${this.textMin} characters or more.`,
         maxlength: `Genre must be ${this.locMax} characters or less.`
       },
-      viewPublic: {
-        required: `You must specify whether this song should be publicly listed.`
+      Year: {
+        minlength: `Year must be ${this.textMin} characters or more.`,
+        maxlength: `Year must be ${this.yearMax} characters or less.`
       },
       description: {
         maxlength: `Description must be ${this.descMax} characters or less.`

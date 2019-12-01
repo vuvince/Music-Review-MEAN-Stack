@@ -93,7 +93,7 @@ router.delete(
 
 //Find all dmca
 router.get(
-  "/dmca",
+  "/dmca/all",
   // api_controller.jwtCheck,
   // api_controller.adminCheck,
   admin_controller.all_dmca

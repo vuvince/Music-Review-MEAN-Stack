@@ -6,11 +6,10 @@ let SongSchema = new Schema(
     title: { type: String, required: true },
     artist: { type: String, required: true },
     album: { type: String },
-    year: { type: Number },
+    year: { type: Number, min: 1000, max: 9999 },
     genre: { type: String },
     avg: { type: Number },
-    cViolation: { type: Boolean, default: false },
-    isHidden: { type: Boolean, default: false }
+    cViolation: { type: Boolean, default: false }
   },
   { collection: "songs" }
 );

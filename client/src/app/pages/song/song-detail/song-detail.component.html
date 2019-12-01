@@ -5,15 +5,18 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item"><strong>Artist:</strong>{{ song.artist }}</li>
   <li class="list-group-item">
-    <strong>Album:</strong>{{ song.album }} (<a target="_blank">No Album</a>)
+    <strong>Album:</strong>{{ song.album }}<a *ngIf="!song.album">N/A</a>
   </li>
-  <li class="list-group-item" *ngIf="song.genre">
-    <strong>Genre:</strong>{{ song.genre }}
+  <li class="list-group-item">
+    <strong>Genre:</strong>{{ song.genre }}<a *ngIf="!song.genre">N/A</a>
+  </li>
+  <li class="list-group-item">
+    <strong>Year Released:</strong>{{ song.year }}<a *ngIf="!song.year">N/A</a>
+  </li>
+  <li class="list-group-item" *ngIf="song.cViolation">
+    <strong>This sound has copyright violation.</strong>
   </li>
 </ul>
-<!-- <div class="card-body" *ngIf="song.genre">
-  <p class="card-text lead" [innerHTML]="song.genre"></p>
-</div> -->
 <div *ngIf="auth.isAdmin" class="card-footer text-right small">
   <a [routerLink]="['/admin/song/update', song._id]">Edit</a>
 </div>

@@ -11,7 +11,7 @@ router.get("/apiTest", api_controller.test);
 // POST a new song
 router.post(
   "/song/new",
-  api_controller.jwtCheck,
+  // api_controller.jwtCheck,
   secure_controller.create_song
 );
 

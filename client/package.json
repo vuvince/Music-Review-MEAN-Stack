@@ -24,10 +24,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
+    "fuse": "^0.4.0",
     "fuse.js": "^3.4.6",
     "jwks-rsa": "^1.6.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.7.12",
+    "mongoose": "^5.7.13",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

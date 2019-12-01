@@ -55,8 +55,10 @@ exports.create_song = function(req, res, next) {
       const song = new Song({
         title: encodeHTML(req.body.title),
         artist: encodeHTML(req.body.artist),
-        album: encodeHTML(req.body.album),
-        genre: encodeHTML(req.body.genre)
+        album: req.body.album,
+        year: req.body.year,
+        genre: req.body.genre,
+        cViolation: req.body.cViolation
       });
       song.save(err => {
         if (err) {
