@@ -22,6 +22,8 @@ export class SongFormService {
   dateMax = 10;
   timeMax = 8;
   descMax = 2000;
+  ratingMax = 5;
+  ratingMin = 1;
   // Formats
   dateFormat = "m/d/yyyy";
   timeFormat = "h:mm AM/PM";
@@ -33,21 +35,31 @@ export class SongFormService {
         minlength: `Title must be ${this.textMin} characters or more.`,
         maxlength: `Title must be ${this.titleMax} characters or less.`
       },
-      Artist: {
+      album: {
+        minlength: `Album must be ${this.textMin} characters or more.`,
+        maxlength: `Album must be ${this.locMax} characters or less.`
+      },
+      artist: {
         required: `Artist is <strong>required</strong>.`,
         minlength: `Artist must be ${this.textMin} characters or more.`,
         maxlength: `Artist must be ${this.locMax} characters or less.`
       },
-      Genre: {
+      genre: {
         minlength: `Genre must be ${this.textMin} characters or more.`,
         maxlength: `Genre must be ${this.locMax} characters or less.`
       },
-      Year: {
+      year: {
         minlength: `Year must be ${this.textMin} characters or more.`,
         maxlength: `Year must be ${this.yearMax} characters or less.`
       },
       description: {
         maxlength: `Description must be ${this.descMax} characters or less.`
+      },
+      rating: {
+        maxlength: `Rating must be between 1-5.`
+      },
+      reviewComments: {
+        maxlength: `Rating must be between 1-5.`
       }
     };
   }

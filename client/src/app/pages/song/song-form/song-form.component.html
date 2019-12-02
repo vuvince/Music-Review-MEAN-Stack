@@ -186,12 +186,48 @@
       [innerHTML]="formErrors.year"
     ></div>
   </div>
+  <!-- Add Review Whilst Adding song -->
+
+  <section class="allReviews" *ngIf="showReview">
+    <!-- Rating -->
+    <div class="form-group">
+      <label for="rating" class="col-12">Song Rating (1-5):</label>
+      <input
+        id="rating"
+        type="number"
+        class="form-control col-sm-12 col-md-3"
+        [max]="sf.ratingMax"
+        [min]="sf.ratingMin"
+        step="1"
+        min="1"
+        max="5"
+        formControlName="rating"
+      />
+      <div
+        *ngIf="formErrors.rating"
+        class="small text-danger formErrors"
+        [innerHTML]="formErrors.rating"
+      ></div>
+    </div>
+    <!-- Comments -->
+    <div class="form-group">
+      <label for="reviewComments">Comments:</label>
+      <textarea
+        id="reviewComments"
+        class="form-control"
+        rows="2"
+        maxlength="300"
+        formControlName="reviewComments"
+      ></textarea>
+    </div>
+  </section>
   <!-- Submit -->
   <div class="form-group">
     <button
       type="submit"
       class="btn btn-primary"
       [innerText]="submitBtnText"
+      [attr.disabled]="songForm.invalid || submitting ? true : null"
     ></button>
     <!-- https://github.com/angular/angular/issues/11271#issuecomment-289806196 -->
     <app-submitting *ngIf="submitting"></app-submitting>
@@ -202,9 +238,23 @@
       tabindex="0"
       >Reset Form</a
     >
+    <a
+      *ngIf="!submitting && !isEdit"
+      class="btn btn-link"
+      (click)="toggleShowReviews()"
+      >{{ showReviewText }}</a
+    >
+
     <!-- API submission error -->
     <p *ngIf="error" class="mt-3 alert alert-danger">
       <strong>Error:</strong> There was a problem submitting the song. Please
+      try again.
+    </p>
+    <p *ngIf="sSuccess" class="mt-3 alert alert alert-success">
+      <strong>Success:</strong> Song was succesfully added!
+    </p>
+    <p *ngIf="rError" class="mt-3 alert alert-danger">
+      <strong>Error:</strong> There was a problem submitting the review. Please
       try again.
     </p>
   </div>

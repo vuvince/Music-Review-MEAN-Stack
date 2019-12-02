@@ -45,12 +45,7 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
   }
 
   //EDIT
-  changeAttendanceSetGuests() {
-    // If attendance changed to no, set rating: 0
-    // if (!this.formReview.attending) {
-    //   this.formReview.rating = 0;
-    // }
-  }
+  changeAttendanceSetGuests() {}
 
   onSubmit() {
     this.submitting = true;

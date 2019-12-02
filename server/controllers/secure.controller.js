@@ -1,9 +1,4 @@
-//CONFIGURATION
-const jwt = require("jsonwebtoken");
-const config = require("config");
-
 // const Secure = require("../models/secure.model");
-const User = require("../models/user.model");
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 
@@ -53,12 +48,12 @@ exports.create_song = function(req, res, next) {
         });
       }
       const song = new Song({
-        title: encodeHTML(req.body.title),
-        artist: encodeHTML(req.body.artist),
+        title: req.body.title,
+        artist: req.body.artist,
         album: req.body.album,
         year: req.body.year,
         genre: req.body.genre,
-        cViolation: req.body.cViolation
+        avg: req.body.avg
       });
       song.save(err => {
         if (err) {

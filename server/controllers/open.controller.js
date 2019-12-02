@@ -1,7 +1,6 @@
 const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 const Policy = require("../models/policy.model");
-// const _songListProjection = "title artist album cViolation";
 
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
@@ -56,6 +55,9 @@ exports.top10 = async function(req, res, next) {
   var i = 0;
   for (song of songsArr) {
     const reviews = await Review.find({ songId: song._id });
+    if (!reviews) {
+      res.send(songsArr);
+    }
     var sum = 0;
     var count = 0;
     for (review of reviews) {
@@ -75,8 +77,6 @@ exports.top10 = async function(req, res, next) {
   });
 
   var final = sorted.slice(0, 10);
-  console.log(final[0]["avg"]);
-
   res.send(final);
 };
 
@@ -97,7 +97,6 @@ exports.song_reviews = function(req, res) {
 };
 
 //Search song
-// EXAMPLE URL https://stackabuse.com/?page=2&limit=3
 exports.search_song = function(req, res) {
   let title = req.query.title;
   let artist = req.query.artist;

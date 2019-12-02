@@ -20,6 +20,8 @@ class FormSongModel {
     public genre?: string,
     public cViolation?: boolean, //viewPublic
     public avg?: number,
+    public rating?: number,
+    public reviewComments?: string,
     public _id?: string
   ) {}
 }

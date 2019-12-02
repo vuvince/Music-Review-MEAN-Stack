@@ -11,8 +11,8 @@ const cors = require("cors");
 const apiSecure = require("./routes/secure.route.js");
 const apiAdmin = require("./routes/admin.route");
 const apiOpen = require("./routes/open.route");
-const apiUser = require("./routes/user.route");
-const apiDMCA = require("./routes/dmca.route");
+// const apiUser = require("./routes/user.route");
+// const apiDMCA = require("./routes/dmca.route");
 
 // initialize our express app
 const app = express();
@@ -39,8 +39,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/secure", apiSecure);
 app.use("/api/admin", apiAdmin);
 app.use("/api/open", apiOpen);
-app.use("/api/users", apiUser);
-app.use("/api/dmca", apiDMCA);
+// app.use("/api/users", apiUser);
+// app.use("/api/dmca", apiDMCA);
 // app.use("/products", product);
 // require("./controllers/api.controller")(app, apiConfig);
 
