@@ -31,12 +31,11 @@ export class FilterSortService {
   search(array, query: string) {
     //FUSE OPTIONS
     var options = {
-      caseSensitive: true,
       shouldSort: true,
-      tokenize: true,
-      matchAllTokens: true,
+      // tokenize: true,
+      // matchAllTokens: true,
       findAllMatches: true,
-      threshold: 0.6,
+      threshold: 0.5,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
@@ -58,21 +57,6 @@ export class FilterSortService {
   noSearchResults(arr: any[], query: string): boolean {
     // Check if array searched by query returned any results
     return !!(!arr.length && query);
-  }
-
-  //ALTER THIS TO FIT RATING
-  orderByDate(array: any[], prop: string, reverse?: boolean) {
-    // Order an array of objects by a date property
-    // Default: ascending (1992->2017 | Jan->Dec)
-    if (!prop || !this._objArrayCheck(array)) {
-      return array;
-    }
-    const sortedArray = array.sort((a, b) => {
-      const dateA = new Date(a[prop]).getTime();
-      const dateB = new Date(b[prop]).getTime();
-      return !reverse ? dateA - dateB : dateB - dateA;
-    });
-    return sortedArray;
   }
 
   //Used to filter out array (so, call filter(review[], rating, null) will give with null rating)
