@@ -6,15 +6,15 @@
     [routerLink]="['/admin/song/update/', dmca.songId]"
     class="list-group-item list-group-item-action flex-column align-items-start"
   >
-    Manager who logged DMCA: {{ dmca.email }}
+    <strong>Manager who logged DMCA:</strong> {{ dmca.email }}
     <br />
-    Complaint on Song: {{ dmca.songTitle }}
+    <strong>Complaint on Song:</strong> {{ dmca.songTitle }}
     <br />
-    Date Request Received: {{ dmca.dReqRec }}
+    <strong>Date Request Received:</strong> {{ dmca.dReqRec | date }}
     <br />
-    Date Notice Sent: {{ dmca.dNoticeSent }}
+    <strong>Date Notice Sent:</strong> {{ dmca.dNoticeSent | date }}
     <br />
-    Date Notice Sent: {{ dmca.dDispRec }}
+    <strong>Date Dispute Received Sent:</strong> {{ dmca.dDispRec | date }}
     <br />
   </a>
 </section>

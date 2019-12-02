@@ -11,7 +11,6 @@ import { AuthService } from "./../../../../auth/auth.service";
 import { Subscription } from "rxjs";
 import { ApiService } from "./../../../../core/api.service";
 import { ReviewModel } from "./../../../../core/models/review.model";
-import { GUESTS_REGEX } from "./../../../../core/forms/formUtils.factory";
 
 @Component({
   selector: "app-review-form",
@@ -22,7 +21,6 @@ export class ReviewFormComponent implements OnInit, OnDestroy {
   @Input() songId: string;
   @Input() review: ReviewModel;
   @Output() submitReview = new EventEmitter();
-  GUESTS_REGEX = GUESTS_REGEX;
   formReview: ReviewModel;
   submitReviewSub: Subscription;
   submitting: boolean;

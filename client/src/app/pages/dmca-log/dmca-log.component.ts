@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { DmcaModel } from "./../../core/models/dmca.model";
 import { AuthService } from "./../../auth/auth.service";
 import { ApiService } from "./../../core/api.service";
+import { DatePipe } from "@angular/common"; //for Displaying Dates
 
 @Component({
   selector: "app-dmca-log",

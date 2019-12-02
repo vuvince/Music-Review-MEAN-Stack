@@ -76,17 +76,6 @@ export class AuthService {
     });
   }
 
-  //REDIRECT WITHOUT TAB
-  // private _redirect() {
-  //   const redirect = decodeURI(localStorage.getItem("authRedirect"));
-  //   console.log(redirect);
-  //   // const navArr = [redirect || "/"];
-  //   const navArr = ["/"];
-  //   this.router.navigate(navArr);
-  //   // Redirection completed; clear redirect from storage
-  //   this._clearRedirect();
-  // }
-
   private _redirect() {
     // Redirect with or without 'tab' query parameter
     // Note: does not support additional params besides 'tab'
@@ -140,6 +129,11 @@ export class AuthService {
     // Check if the user has admin role
     const roles = profile[AUTH_CONFIG.NAMESPACE] || [];
     return roles.indexOf("admin") > -1;
+  }
+
+  private _checkBanned(profile) {
+    const roles = profile[AUTH_CONFIG.NAMESPACE] || [];
+    return roles.indexOf("deactivated") > -1;
   }
 
   private _clearExpiration() {
