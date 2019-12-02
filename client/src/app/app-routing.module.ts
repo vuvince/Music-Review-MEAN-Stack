@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./pages/home/home.component";
+import { BlockedComponent } from "./pages/blocked/blocked.component";
 import { CallbackComponent } from "./pages/callback/callback.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { AdminGuard } from "./auth/admin.guard";
@@ -14,11 +15,16 @@ import { DmcaLogComponent } from "./pages/dmca-log/dmca-log.component";
 import { DmcaTakedownComponent } from "./pages/dmca-takedown/dmca-takedown.component";
 import { CreateSongComponent } from "./pages/song/create-song/create-song.component";
 import { UpdateSongComponent } from "./pages/admin/update-song/update-song.component";
+import { BlockedGuard } from "./auth/blocked.guard";
 
 const routes: Routes = [
   {
     path: "",
     component: AboutComponent
+  },
+  {
+    path: "blocked",
+    component: BlockedComponent
   },
   {
     path: "policy",
@@ -30,8 +36,8 @@ const routes: Routes = [
   },
   {
     path: "dmca-log",
-    component: DmcaLogComponent
-    // canActivate: [AuthGuard, AdminGuard] //ACCESS REQUIRED
+    component: DmcaLogComponent,
+    canActivate: [AuthGuard, AdminGuard] //ACCESS REQUIRED
   },
   {
     path: "dmca-takedown",
@@ -43,10 +49,12 @@ const routes: Routes = [
   },
   {
     path: "all_songs",
+    canActivate: [BlockedGuard],
     component: HomeComponent
   },
   {
     path: "top_charts",
+    canActivate: [BlockedGuard],
     component: TopChartComponent
   },
   {
@@ -65,6 +73,7 @@ const routes: Routes = [
   },
   {
     path: "song",
+    canActivate: [BlockedGuard],
     children: [
       {
         path: "details/:id",
@@ -73,7 +82,7 @@ const routes: Routes = [
       {
         path: "new",
         component: CreateSongComponent,
-        canActivate: [AuthGuard] //ACCESS REQUIRED (FOR TESTING)
+        canActivate: [AuthGuard]
       }
     ]
   },
@@ -85,7 +94,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard, AdminGuard],
+  providers: [AuthGuard, AdminGuard, BlockedGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -27,6 +27,7 @@ export class AuthService {
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
   loggingIn: boolean;
   isAdmin: boolean;
+  isBlocked: boolean; //BLOCKED WHEN ROLE SET TO 'blocked'
 
   constructor(private router: Router) {
     // If app auth token is not expired, request new token
@@ -87,11 +88,6 @@ export class AuthService {
       : null;
 
     if (!tabObj) {
-      // if (!this.loggedIn) {
-      //   const navArr = ["/about"];
-      //   this.router.navigate(navArr);
-      // }
-      //EDIT
       const navArr = ["/"];
       this.router.navigate(navArr);
 
@@ -117,6 +113,7 @@ export class AuthService {
     if (profile) {
       this.userProfile = profile;
       this.isAdmin = this._checkAdmin(profile);
+      this.isBlocked = this._checkBanned(profile);
     }
 
     // Update login status in loggedIn$ stream
@@ -133,7 +130,7 @@ export class AuthService {
 
   private _checkBanned(profile) {
     const roles = profile[AUTH_CONFIG.NAMESPACE] || [];
-    return roles.indexOf("deactivated") > -1;
+    return roles.indexOf("blocked") > -1;
   }
 
   private _clearExpiration() {

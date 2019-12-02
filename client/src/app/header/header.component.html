@@ -15,8 +15,13 @@
     <span *ngIf="auth.loggingIn">Logging in...</span>
     <ng-template [ngIf]="!auth.loggingIn">
       <a *ngIf="!auth.loggedIn" (click)="auth.login()">Log In</a>
-      <span *ngIf="auth.loggedIn && auth.userProfile">
+      <span *ngIf="auth.loggedIn && auth.userProfile && !auth.isBlocked">
         {{ auth.userProfile.name }}
+        <span class="divider">|</span>
+        <a (click)="auth.logout()">Log Out</a>
+      </span>
+      <span *ngIf="auth.loggedIn && auth.userProfile && auth.isBlocked">
+        <a class="alert alert-danger">Blocked Account!</a>
         <span class="divider">|</span>
         <a (click)="auth.logout()">Log Out</a>
       </span>

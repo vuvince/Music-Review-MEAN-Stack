@@ -34,6 +34,7 @@ import { DmcaTakedownComponent } from "./pages/dmca-takedown/dmca-takedown.compo
 import { DmcaLogComponent } from "./pages/dmca-log/dmca-log.component";
 import { DmcaComponent } from "./pages/song/dmca/dmca.component";
 import { DmcaFormComponent } from "./pages/song/dmca/dmca-form/dmca-form.component";
+import { BlockedComponent } from './pages/blocked/blocked.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DmcaFormComponent } from "./pages/song/dmca/dmca-form/dmca-form.compone
     DmcaTakedownComponent,
     DmcaLogComponent,
     DmcaComponent,
-    DmcaFormComponent
+    DmcaFormComponent,
+    BlockedComponent
   ],
   imports: [
     BrowserModule,
