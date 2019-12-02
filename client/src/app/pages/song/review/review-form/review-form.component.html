@@ -15,14 +15,6 @@
       [(ngModel)]="formReview.name"
       required
     />
-    <div *ngIf="name.errors && name.dirty" class="small text-danger formErrors">
-      <!-- <div [hidden]="!name.errors.required">
-        Name is <strong>required</strong>.
-      </div>
-      <div [hidden]="!name.errors.minlength">
-        Name must be 3 characters or more.
-      </div> -->
-    </div>
   </div>
   <!-- Rating -->
   <div class="form-group">
@@ -39,14 +31,6 @@
       #rating="ngModel"
       [(ngModel)]="formReview.rating"
     />
-    <div
-      *ngIf="rating.errors && rating.dirty"
-      class="col-12 small text-danger formErrors"
-    >
-      <!-- <div [hidden]="!rating.errors.pattern">
-        Ratings must be an integer from <strong>1-5</strong>.
-      </div> -->
-    </div>
   </div>
   <!-- Comments -->
   <div class="form-group">
