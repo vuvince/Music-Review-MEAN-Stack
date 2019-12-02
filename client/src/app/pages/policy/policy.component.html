@@ -5,12 +5,14 @@
     <div align="center">{{ policy.desc }}</div>
     <div class="form-group">
       <a *ngIf="auth.loggedIn && auth.isAdmin">
-        <input
+        <textarea
           type="text"
           placeholder="Change Policy"
           [(ngModel)]="policyDesc"
           class="form-control"
-        />
+          rows="2"
+          maxlength="300"
+        ></textarea>
         <button
           id="{{ policy._id }}"
           (click)="policyChange($event, policyDesc, policy.name)"

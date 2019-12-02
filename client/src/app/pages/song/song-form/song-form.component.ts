@@ -170,6 +170,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  //Get the songForm that will create the object
   private _getSubmitObj() {
     return new SongModel(
       this.songForm.get("title").value,
@@ -182,7 +183,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  //IF A REVIEW IS ADDED
+  //Get the review that will be posted based on ID
   private _getReviewObj(id) {
     console.log(id);
     console.log(this.songForm.get("reviewComments").value);
@@ -196,11 +197,12 @@ export class SongFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  //WHEN CLCIKING SUBMIT
+  //On clicking submit
   onSubmit() {
     this.submitting = true;
     this.submitSongObj = this._getSubmitObj();
 
+    //Checks if its edit mode
     if (!this.isEdit) {
       //If adding a review conccurently
       if (this.showReview) {

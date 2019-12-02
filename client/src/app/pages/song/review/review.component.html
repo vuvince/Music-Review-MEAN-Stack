@@ -32,6 +32,16 @@
           averageRating | number: "1.1-1"
         }}</span>
       </li>
+      <li class="list-group-item list-group-item-primary" *ngIf="recent">
+        <strong>Most Recent Review</strong><br />
+        {{ recent.name }} {{ utils.showRating(recent.rating) }}
+        <p *ngIf="recent.comments" class="d-flex w-100">
+          <em [innerHTML]="recent.comments"></em>
+        </p>
+      </li>
+      <li class="list-group-item" *ngIf="recent">
+        <strong>All Reviews</strong>
+      </li>
       <li *ngFor="let review of reviews" class="list-group-item small">
         {{ review.name }} {{ utils.showRating(review.rating) }}
         <p *ngIf="review.comments" class="d-flex w-100">

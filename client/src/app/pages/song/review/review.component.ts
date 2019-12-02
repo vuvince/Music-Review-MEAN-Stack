@@ -22,6 +22,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   loading: boolean;
   error: boolean;
   userReview: ReviewModel;
+  recent: ReviewModel;
   totalReviews: number;
   totalRating: number;
   totalReview: number;
@@ -51,22 +52,12 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.userReview = e.review;
       this._updateReviewState(true);
       this.toggleEditForm(false);
+      this.recent = this.userReview;
     }
   }
 
   //CAUSES LOADING IF NOT LOGGED IN
   private _updateReviewState(changed?: boolean) {
-    // If Review matching user ID is already
-    // in Review array, set as initial Review
-    //IF USER IS LOGGED IN
-    if (changed) {
-      const _initialUserReview = this.reviews.filter(review => {
-        return review.userId === this.auth.userProfile.sub;
-      })[0];
-    }
-
-    // If user has not Reviewed before and has made
-    // a change, push new Review to local Reviews store
     // if (!_initialUserReview && this.userReview && changed) {
     if (this.userReview && changed) {
       this.reviews.push(this.userReview);
@@ -74,7 +65,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     //Update average rating
     this._averageRating();
-    this._setUserReviewGetAttending(changed);
+    this._setReviewCount(changed);
   }
 
   //GET THE AVERAGE RATING FOR THE SONG
@@ -95,6 +86,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.reviewsSub = this.api.getReviewsBySongId$(this.songId).subscribe(
       res => {
         this.reviews = res;
+        this.recent = this.reviews[this.reviews.length - 1];
         this._updateReviewState(); //NEED TO COMMENT OUT IF NOT LOGGED IN OR ADD LOGGED IN LOGIC
         this.loading = false;
       },
@@ -118,26 +110,20 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.editBtnText = this.showEditForm ? "Cancel Edit" : "Edit My Review";
   }
 
-  private _setUserReviewGetAttending(changed?: boolean) {
-    // Iterate over RSVPs to get/set user's RSVP
-    // and get total number of attending rating
+  private _setReviewCount(changed?: boolean) {
     if (changed) {
       let ratingCount = 0;
-      let rating = 0;
       const reviewArr = this.reviews.map(review => {
         // If user has an existing RSVP
         if (review.userId === this.auth.userProfile.sub) {
           if (changed) {
-            // If user edited their RSVP, set with updated data
             review = this.userReview;
           } else {
             // If no changes were made, set userReview property
-            // (This applies on ngOnInit)
             this.userReview = review;
           }
         }
         // Count total number of attendees
-        // + additional rating
 
         ratingCount++;
         if (review.rating) {
