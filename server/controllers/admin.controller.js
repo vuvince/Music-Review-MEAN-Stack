@@ -4,13 +4,12 @@ const Policy = require("../models/policy.model");
 const Dmca = require("../models/dmca.model");
 
 function encodeHTML(s) {
-  if (s.length == 0) {
-    return;
+  if (s) {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/"/g, "&quot;");
   }
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/"/g, "&quot;");
 }
 
 //Simple version, without validation or sanitation
@@ -79,8 +78,8 @@ exports.update_song = function(req, res, next) {
     }
     song.title = encodeHTML(req.body.title);
     song.artist = encodeHTML(req.body.artist);
-    song.album = req.body.album;
-    song.genre = req.body.genre;
+    song.album = encodeHTML(req.body.album);
+    song.genre = encodeHTML(req.body.genre);
     song.year = req.body.year;
     song.cViolation = req.body.cViolation;
 
@@ -96,6 +95,7 @@ exports.update_song = function(req, res, next) {
 //POLICY STUFF BELOW
 
 //PUT: Update a policy by ID
+// INTENTIONALLY AVOIDING ENCODEHTML FOR THE SAKE OF DISPLAYING ON WEBPAGE
 exports.update_policy = function(req, res, next) {
   Policy.findById(req.params.id, (err, policy) => {
     if (err) {
@@ -120,7 +120,7 @@ exports.update_policy = function(req, res, next) {
 exports.add_policy = function(req, res, next) {
   const policy = new Policy({
     name: req.body.name,
-    desc: req.body.desc
+    desc: encodeHTML(req.body.desc)
   });
   policy.save(err => {
     if (err) {
@@ -207,7 +207,7 @@ exports.update_dmca = function(req, res, next) {
 //POST: Add dmca by id
 exports.add_dmca = function(req, res, next) {
   const dmca = new Dmca({
-    email: req.body.email,
+    email: encodeHTML(req.body.email),
     songId: req.body.songId,
     songTitle: req.body.songTitle,
     dReqRec: req.body.dReqRec,

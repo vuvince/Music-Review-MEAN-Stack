@@ -2,6 +2,15 @@ const Song = require("../models/song.model");
 const Review = require("../models/review.model");
 const Policy = require("../models/policy.model");
 
+function encodeHTML(s) {
+  if (s) {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/"/g, "&quot;");
+  }
+}
+
 //Simple version, without validation or sanitation
 exports.test = function(req, res) {
   res.send("Greetings from the Test controller!");
@@ -98,11 +107,11 @@ exports.song_reviews = function(req, res) {
 
 //Search song
 exports.search_song = function(req, res) {
-  let title = req.query.title;
-  let artist = req.query.artist;
-  let album = req.query.album;
+  let title = encodeHTML(req.query.title);
+  let artist = encodeHTML(encreq.query.artist);
+  let album = encodeHTML(req.query.album);
   let year = req.query.year;
-  let genre = req.query.genre;
+  let genre = encodeHTML(req.query.genre);
 
   var query = {};
   if (title) {

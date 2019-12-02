@@ -138,6 +138,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
     // this._onValueChanged();
   }
 
+  //When typing, diplays error messages if not valid
   private _onValueChanged() {
     if (!this.songForm) {
       return;
@@ -211,6 +212,7 @@ export class SongFormComponent implements OnInit, OnDestroy {
           err => this._handleSubmitError(err)
         );
       } else {
+        //Adding new song with no reviews attached
         this.submitSongSub = this.api.postSong$(this.submitSongObj).subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)

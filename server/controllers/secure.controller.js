@@ -8,10 +8,12 @@ exports.test = function(req, res) {
 };
 
 function encodeHTML(s) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/"/g, "&quot;");
+  if (s) {
+    return s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/"/g, "&quot;");
+  }
 }
 
 //POST REQUEST. CODE FROM https://auth0.com/blog/real-world-angular-series-part-5/#L-span-id--api-rsvps----span-API--Create-and-Update-RSVPs
@@ -48,11 +50,11 @@ exports.create_song = function(req, res, next) {
         });
       }
       const song = new Song({
-        title: req.body.title,
-        artist: req.body.artist,
-        album: req.body.album,
+        title: encodeHTML(req.body.title),
+        artist: encodeHTML(req.body.artist),
+        album: encodeHTML(req.body.album),
         year: req.body.year,
-        genre: req.body.genre,
+        genre: encodeHTML(req.body.genre),
         avg: req.body.avg
       });
       song.save(err => {

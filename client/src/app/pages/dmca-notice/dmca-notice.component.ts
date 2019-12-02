@@ -1,12 +1,9 @@
 // src/app/pages/policy/policy.component.ts
 // source: https://auth0.com/blog/real-world-angular-series-part-4/
-// [TO CHANGE]
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Title } from "@angular/platform-browser";
 import { AuthService } from "./../../auth/auth.service";
 import { ApiService } from "./../../core/api.service";
 import { UtilsService } from "./../../core/utils.service";
-import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { PolicyModel } from "./../../core/models/policy.model";
 import { Router } from "@angular/router";
@@ -19,13 +16,10 @@ import { Router } from "@angular/router";
 export class DmcaNoticeComponent implements OnInit {
   pageTitle: string;
   id: string;
-  // policySub: Subscription;
-  policy: PolicyModel;
   loading: boolean;
   error: boolean;
   policyListSub: Subscription;
   policyList: PolicyModel[];
-  query: "";
   submitPolicyObj: PolicyModel;
   submitPolicySub: Subscription;
   submitting: boolean;
@@ -66,6 +60,7 @@ export class DmcaNoticeComponent implements OnInit {
     var description = desc;
     this.submitPolicyObj = new PolicyModel(pName, description);
 
+    console.log(policyID);
     this.submitPolicySub = this.api
       .editPolicy$(policyID, this.submitPolicyObj)
       .subscribe(
@@ -78,8 +73,8 @@ export class DmcaNoticeComponent implements OnInit {
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;
-    // Redirect to song detail
-    this.router.navigate(["/policy", res._id]);
+    // To Policy page
+    this.router.navigate(["/"]);
   }
 
   private _handleSubmitError(err) {
@@ -96,6 +91,9 @@ export class DmcaNoticeComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if (this.submitPolicySub) {
+      this.submitPolicySub.unsubscribe();
+    }
     this.policyListSub.unsubscribe();
   }
 }
